@@ -1,0 +1,63 @@
+{
+  "data": [{
+      "nomor": 4477,
+      "rek": "42.345.1",
+      "tempat": "Jakarta",
+      "pelaksana": "Hairul Rachmad",
+      "pengikut": "Nurul Annisa",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Kegiatan Monev"
+    },
+    {
+      "nomor": 5020,
+      "rek": "11.13.2345.23",
+      "tempat": "Samarinda",
+      "pelaksana": "Hairul",
+      "pengikut": "Hasanah",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Workshop dan Studi Tiru Digitalisasi Desa "
+    },
+    {
+      "nomor": 4506,
+      "rek": "12.345.123",
+      "tempat": "New York",
+      "pelaksana": "Budiman",
+      "pengikut": "Rachmad",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Pertemuan"
+    },
+    {
+      "nomor": 4515,
+      "rek": "12.345.123",
+      "tempat": "Dubai",
+      "pelaksana": "Hairul RB",
+      "pengikut": "Achmad Zainal",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Pertemuan"
+    },
+    {
+      "nomor": 4831,
+      "rek": "12.345.4.5.67",
+      "tempat": "Tarakan",
+      "pelaksana": "Kiki Dwi",
+      "pengikut": "Al-Barr",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Pertemuan"
+    },
+    {
+      "nomor": 4881,
+      "rek": "12.345.234",
+      "tempat": "Tanjung Selor",
+      "pelaksana": "Annisa",
+      "pengikut": "Nurul Hasanah",
+      "tanggal": "12/11/2020",
+      "tanggal_kembali": "15/11/2020",
+      "maksud": "Mengikuti Pertemuan"
+    }
+  ]
+}

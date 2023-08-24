@@ -1,0 +1,103 @@
+{
+    "menu": [{
+            "url": "/",
+            "name": "Dashboards",
+            "icon": "menu-icon tf-icons bx bx-home-circle",
+            "slug": "dashboard"
+        },
+        {
+            "url": "surat_masuk/surat_masuk",
+            "name": "Surat Masuk",
+            "icon": "menu-icon tf-icons bx bx-envelope",
+            "slug": "surat_masuk"
+        },
+        {
+            "url": "surat_keluar/surat_keluar",
+            "name": "Surat Keluar",
+            "icon": "menu-icon tf-icons bx bx-send",
+            "slug": "surat_keluar"
+        },
+        {
+            "url": "spt/spt",
+            "name": "SPT/SPPD",
+            "icon": "menu-icon tf-icons bx bx-file",
+            "slug": "spt/spt"
+        },
+        {
+            "menuHeader": "Data & Pengaturan"
+        },
+        {
+            "name": "Kepegawaian",
+            "icon": "menu-icon tf-icons bx bxs-city",
+            "slug": "kepegawaian",
+            "submenu": [{
+                    "url": "/kepegawaian/pegawai",
+                    "name": "Data Pegawai",
+                    "slug": "kepegawaian-pegawai"
+                },
+                {
+                    "url": "/kepegawaian/jabatan",
+                    "name": "Jabatan",
+                    "slug": "jabatan"
+                },
+                {
+                    "url": "/kepegawaian/bidang",
+                    "name": "Bidang",
+                    "slug": "bidang"
+                },
+                {
+                    "url": "/kepegawaian/golongan",
+                    "name": "Golongan",
+                    "slug": "golongan"
+                },
+                {
+                    "url": "/kepegawaian/eselon",
+                    "name": "Eselon",
+                    "slug": "eselon"
+                },
+                {
+                    "url": "/kepegawaian/pptk",
+                    "name": "Pegawai PPTK",
+                    "slug": "pptk"
+                },
+                {
+                    "url": "/kepegawaian/pemberi_perintah",
+                    "name": "Pemberi Perintah",
+                    "slug": "pemberi_perintah"
+                }
+            ]
+        },
+        {
+            "url": "data/surat_kategori",
+            "name": "Kategori Surat",
+            "icon": "menu-icon tf-icons bx bxs-category",
+            "slug": "surat_kategori"
+        }, {
+            "url": "data/surat_pengirim",
+            "name": "Pengirim Surat",
+            "icon": "menu-icon tf-icons bx bxs-user-badge",
+            "slug": "surat_pengirim"
+        }, {
+            "url": "data/surat_tujuan",
+            "name": "Tujuan Surat",
+            "icon": "menu-icon tf-icons bx bxs-user",
+            "slug": "surat_tujuan"
+        },
+        {
+            "name": "Pengaturan",
+            "icon": "menu-icon tf-icons bx bxs-cog",
+            "slug": "setting",
+            "submenu": [{
+                    "url": "setting/user",
+                    "name": "User",
+                    "slug": "setting-user"
+                },
+                {
+                    "url": "setting/setup",
+                    "name": "Setup",
+                    "slug": "setting-setup"
+                }
+            ]
+        }
+    ]
+}

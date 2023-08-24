@@ -1,0 +1,14 @@
+{
+  "pages": [
+    {
+      "name": "Halaman Utama - Dashboard",
+      "icon": "bx-home-circle",
+      "url": "/"
+    },
+    {
+      "name": "User - Pengaturan",
+      "icon": "bxs-cog",
+      "url": "/"
+    }
+  ]
+}
