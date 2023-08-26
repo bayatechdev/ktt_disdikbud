@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('title', 150);
             $table->string('slug', 170)->unique();
-            $table->string('image', 50)->unique()->nullable();
+            $table->string('image', 50)->unique();
             $table->boolean('headline')->default(true);
             $table->dateTime('tanggal');
             $table->longText('content')->nullable();

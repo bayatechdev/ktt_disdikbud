@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gallery_fotos', function (Blueprint $table) {
+        Schema::create('sekilas_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('albums_id')->nullable()->constrained('gallery_albums');
-            $table->string('title', 100);
+            $table->string('content', 255)->nullable();
             $table->string('token', 50)->unique();
-            $table->string('image', 50)->unique();
-            $table->boolean('publish')->default(true);
+            $table->string('image', 50)->unique()->nullable();
             $table->integer('order')->default(1);
+            $table->boolean('publish')->default(true);
+            $table->string('link', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gallery_fotos');
+        Schema::dropIfExists('sekilas_infos');
     }
 };
