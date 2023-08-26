@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Link extends Model
+class Pengaduan extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'token',
-        'link',
-        'image',
-        'publish',
-        'hits',
-        'note',
-        'order',
+        'name',
+        'email',
+        'subject',
+        'message',
+        'read',
+        'nohp',
+        'file',
+        'ktp',
     ];
 }

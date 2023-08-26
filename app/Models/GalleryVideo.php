@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class GalleryVideo extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'token',
+        'slug',
+        'link',
+        'image',
+        'publish',
+        'order',
+    ];
 }

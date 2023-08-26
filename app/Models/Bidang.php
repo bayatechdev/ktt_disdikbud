@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Bidang extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'token',
+        'slug',
+        'nick',
+        'note',
+        'order',
+        'publish',
+    ];
 }

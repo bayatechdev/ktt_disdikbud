@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SlideUtama extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'token',
+        'image',
+        'order',
+        'publish',
+        'note',
+    ];
 }

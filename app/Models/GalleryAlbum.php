@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class GalleryAlbum extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'token',
+        'slug',
+        'image',
+        'publish',
+        'order',
+    ];
 }

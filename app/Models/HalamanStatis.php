@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class HalamanStatis extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'image',
+        'content',
+        'hits',
+        'order',
+        'publish',
+    ];
 }

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SekilasInfo extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'content',
+        'token',
+        'image',
+        'order',
+        'publish',
+        'link',
+    ];
 }
