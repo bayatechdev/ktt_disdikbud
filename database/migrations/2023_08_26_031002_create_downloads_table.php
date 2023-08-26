@@ -13,21 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('downloads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id')->nullable()->constrained('berita_kategoris');
-            $table->foreignId('bidang_id')->nullable()->constrained('bidangs');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('kategori_id')->nullable()->constrained('download_kategoris');
             $table->string('title', 150);
             $table->string('token', 50)->unique();
-            $table->string('slug', 170)->unique();
-            $table->string('image', 50)->unique();
-            $table->boolean('headline')->default(true);
-            $table->dateTime('tanggal');
-            $table->longText('content')->nullable();
+            $table->string('file', 50)->unique();
             $table->boolean('publish')->default(true);
-            $table->string('tags', 150)->nullable();
             $table->integer('hits')->default(0);
+            $table->string('note', 255)->nullable();
+            $table->integer('order')->default(1);
+            $table->tinyInteger('extension')->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('downloads');
     }
 };

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image', 50)->unique();
             $table->integer('order')->default(1);
             $table->boolean('publish')->default(true);
-            $table->string('description', 250)->nullable();
+            $table->string('note', 250)->nullable();
             $table->timestamps();
         });
     }

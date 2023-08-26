@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('halaman_statis', function (Blueprint $table) {
+        Schema::create('download_kategoris', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 150);
-            $table->string('slug', 170)->unique();
-            $table->string('image', 50)->unique()->nullable();
-            $table->longText('content')->nullable();
-            $table->integer('hits')->default(0);
-            $table->integer('order')->default(1);
+            $table->string('title', 100)->unique();
+            $table->string('token', 50)->unique();
             $table->boolean('publish')->default(true);
+            $table->integer('order')->default(1);
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('halaman_statis');
+        Schema::dropIfExists('download_kategoris');
     }
 };
