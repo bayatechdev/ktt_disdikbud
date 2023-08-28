@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="ScreenOrientation" content="autoRotate:disabled" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <!-- Page Title -->
   <title>@yield('title')</title>
-
-  <link rel="icon" type="image/png" href="{{ url('assets/img/ktt-logo.png') }}" />
+  <!-- Favicon Icon -->
+  <link href="{{ url('assets/img/logo.png') }}" rel="icon">
 
   @stack('prepend-style')
   @include('includes.style')
@@ -19,11 +18,10 @@
 
 </head>
 
-<body class="theme-light">
-  {{-- @include('includes.navbar') --}}
+<body>
+  @include('includes.navbar')
   @yield('content')
-  @include('includes.menu')
-  {{-- @include('includes.footer') --}}
+  @include('includes.footer')
 
   @stack('prepend-script')
   @include('includes.script')
