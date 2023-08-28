@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Berita')
+@section('title', 'Cagar Budaya')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
@@ -20,20 +20,20 @@
 @section('content')
   <div class="title-with-button d-flex justify-content-between align-items-center">
     <h4 class="fw-bold py-3">
-      <span class="text-muted fw-light">Berita / </span> Tambah Berita
+      <span class="text-muted fw-light">Berita / </span> Edit Berita
     </h4>
     <div class="text-muted float-end">
       <a href="{{ route('berita_index') }}" class="btn"><span class="d-md-inline-block"><i class="bx bx-arrow-back"></i></span></a></span>
     </div>
   </div>
   <!-- Basic Layout -->
-  <div class="row g-3">
+  <div class="row g-3 px-2">
     <form class="add-new pt-0" id="addForm" action="{{ route('berita_store') }}" method="POST" role="form" enctype="multipart/form-data">
       @csrf
       <div class="card p-4">
         <div class="text-center mb-2">
-          <h4 class="mb-2">Tambah Berita</h4>
-          <p>Silahkan Input Berita Terbaru</p>
+          <h4 class="mb-2">Edit Berita</h4>
+          <p>Silahkan Edit Berita Anda</p>
         </div>
         <div class="row mt-2 px-4">
           <div class="row mb-3 g-1">
@@ -123,7 +123,7 @@
         <div class="pt-4">
           <div class="row justify-content-end">
             <div class="col-sm-8">
-              <button type="submit" class="btn btn-primary me-sm-2 me-1" id="btn_submit">Simpan</button>
+              <button type="submit" class="btn btn-warning me-sm-2 me-1" id="btn_submit">Simpan</button>
               <a href="{{ route('berita_index') }}" class="btn btn-label-secondary">
                 Batal
               </a>

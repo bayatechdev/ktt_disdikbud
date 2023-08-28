@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaController;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,8 +21,19 @@ Route::prefix('dashboard')
                 // USER
                 Route::get('berita_index', [AdminBeritaController::class, 'index'])->name('berita_index');
                 Route::get('berita_create', [AdminBeritaController::class, 'create'])->name('berita_create');
-                Route::get('berita_list', [AdminBeritaController::class, 'list']);
+                Route::get('berita_list', [AdminBeritaController::class, 'list'])->name('berita_list');
                 Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
+                // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
+
+        Route::prefix('cagar_budaya')
+            ->middleware(['auth'])
+            ->group(function () {
+                // USER
+                Route::get('cagarbudaya_index', [AdminCagarBudayaController::class, 'index'])->name('cagarbudaya_index');
+                Route::get('cagarbudaya_create', [AdminCagarBudayaController::class, 'create'])->name('cagarbudaya_create');
+                Route::get('cagarbudaya_list', [AdminCagarBudayaController::class, 'list'])->name('cagarbudaya_list');
+                Route::post('cagarbudaya_store', [AdminCagarBudayaController::class, 'store'])->name('cagarbudaya_store');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
             });
 

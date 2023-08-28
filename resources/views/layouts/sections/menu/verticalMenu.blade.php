@@ -38,6 +38,12 @@
         <div>Berita</div>
       </a>
     </li>
+    <li class="menu-item {{ Request::segment(2) == 'cagar_budaya' ? 'active' : '' }}">
+      <a href="{{ route('cagarbudaya_index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bxs-map"></i>
+        <div>Cagar Budaya</div>
+      </a>
+    </li>
     <li class="menu-item {{ Request::segment(1) == 'setting' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-cog"></i>

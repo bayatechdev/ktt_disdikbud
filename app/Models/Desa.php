@@ -18,4 +18,10 @@ class Desa extends Model
         'shp',
         'urut'
     ];
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id')
+            ->select('id', 'kode', 'title', 'image', 'shp');
+    }
 }
