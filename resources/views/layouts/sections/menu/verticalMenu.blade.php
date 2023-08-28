@@ -32,6 +32,12 @@
         <div>Dashboard</div>
       </a>
     </li>
+    <li class="menu-item {{ Request::segment(2) == 'berita' ? 'active' : '' }}">
+      <a href="{{ route('berita_index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-news"></i>
+        <div>Berita</div>
+      </a>
+    </li>
     <li class="menu-item {{ Request::segment(1) == 'setting' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-cog"></i>

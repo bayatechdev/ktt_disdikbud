@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -12,6 +13,17 @@ Route::prefix('dashboard')
     ->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('berita')
+            ->middleware(['auth'])
+            ->group(function () {
+                // USER
+                Route::get('berita_index', [AdminBeritaController::class, 'index'])->name('berita_index');
+                Route::get('berita_create', [AdminBeritaController::class, 'create'])->name('berita_create');
+                Route::get('berita_list', [AdminBeritaController::class, 'list']);
+                Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
+                // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
 
         Route::prefix('setting')
             ->middleware(['auth'])
