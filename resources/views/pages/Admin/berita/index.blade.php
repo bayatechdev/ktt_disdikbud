@@ -156,14 +156,14 @@
                 var $name = full['title'];
 
                 var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +
-                  $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1"></i></a>' +
+                  $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
                   '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body delete-record" data-token="' +
                   $token + '" data-name="' + $name +
-                  '" data-bs-placement="top" title="Hapus"><i class="bx bx-trash mx-1"></i></a>';
+                  '" data-bs-placement="top" title="Hapus"><i class="bx bx-trash mx-1 text-danger"></i></a>';
 
-                if (role == 2 || role == 3) {
-                  btn_aksi = '';
-                }
+                // if (role == 20) {
+                //   btn_aksi = '';
+                // }
 
                 return (
                   '<div class="d-flex align-items-center">' +
@@ -194,11 +194,12 @@
               // 'data-bs-toggle': 'offcanvas',
               // 'data-bs-target': '#offcanvasAdd',
               'hidden': function() {
-                if (role == 0 || role == 1) {
-                  return false;
-                } else {
-                  return true;
-                }
+                return false;
+                // if (role == 0 || role == 1) {
+                //   return false;
+                // } else {
+                //   return true;
+                // }
               },
             }
           }]
