@@ -26,4 +26,9 @@ class CagarBudaya extends Model
     {
         return $this->belongsTo(Desa::class, 'desa_id')->with(['kecamatan']);
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(CagarBudayaGallery::class, 'cagar_budaya_id', 'id');
+    }
 }
