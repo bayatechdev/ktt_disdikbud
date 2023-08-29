@@ -29,6 +29,6 @@ class CagarBudaya extends Model
 
     public function galleries()
     {
-        return $this->hasMany(CagarBudayaGallery::class, 'cagar_budaya_id', 'id');
+        return $this->hasMany(CagarBudayaGallery::class, 'cagar_budaya_id', 'id')->orderBy('order');
     }
 }

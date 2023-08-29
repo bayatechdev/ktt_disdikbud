@@ -20,24 +20,12 @@ class CagarBudayaController extends Controller
 {
   public function index()
   {
-    $ttl = Berita::count();
-    $ttl_1 = Berita::where('publish', true)->count();
-    $ttl_0 = Berita::where('publish', false)->count();
-
-
+    $ttl = CagarBudaya::count();
     $desas = Desa::with('kecamatan')->get();
-    $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
-    $tags = Tags::where('publish', true)->orderBy('order')->get();
     return view('pages.admin.cagar-budaya.index', [
       'ttl' => $ttl,
-      'ttl_1' => $ttl_1,
-      'ttl_0' => $ttl_0,
       'user_role' => Auth::user()->role,
-
       'desas' => $desas,
-      'bidangs' => $bidangs,
-      'tags' => $tags,
-
     ]);
   }
 

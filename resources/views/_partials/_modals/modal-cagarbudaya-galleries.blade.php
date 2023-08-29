@@ -9,8 +9,8 @@
         <p class="text-center">Pilih Atau Upload Gambar</p>
         <form class="card-body" id="berkasForm" action="{{ route('cagarbudaya_gallery_store') }}" method="POST" role="form" enctype="multipart/form-data">
           @csrf
-          <input type="hidden" id="cagar_budaya_id" name="cagar_budaya_id" class="form-control" value="" placeholder="cagar_budaya_id" required>
-          <input type="hidden" id="cb_id" name="id" class="form-control" value="" placeholder="" required>
+          <input type="text" hidden id="cagar_budaya_id" name="cagar_budaya_id" class="form-control" value="" placeholder="cagar_budaya_id" required>
+          <input type="text" hidden id="cb_id" name="id" class="form-control" value="" placeholder="">
 
           <div id="pageGalleries">
             {{-- Page-Pelayanan-Berkas --}}

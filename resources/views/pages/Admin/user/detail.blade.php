@@ -111,7 +111,7 @@
                   <span>Password dirahasiakan, Admin tidak dapat mengetahui password anda</span>
                 </div>
                 <div class="row">
-                  <input type="hidden" hidden class="form-control" id="token" name="token" value="{{ Auth::user()->token }}" />
+                  <input type="text" hidden class="form-control" id="token" name="token" value="{{ Auth::user()->token }}" />
                   <div class="mb-3 col-12 col-sm-6 form-password-toggle">
                     <label class="form-label" for="password">New Password</label>
                     <div class="input-group input-group-merge">
