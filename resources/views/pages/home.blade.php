@@ -2323,7 +2323,7 @@
         <div class="col-12 my-2">
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              {{-- <div class="carousel-item active">
                 <img class="d-block w-100" src="https://picsum.photos/id/239/200/100" alt="First slide">
               </div>
               <div class="carousel-item">
@@ -2331,7 +2331,7 @@
               </div>
               <div class="carousel-item">
                 <img class="d-block w-100" src="https://picsum.photos/id/37/200/100" alt="Third slide">
-              </div>
+              </div> --}}
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -2363,9 +2363,11 @@
             </li>
           </ul>
           <div class="tab-content py-2" id="myTabContent">
-            <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">...
+            <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">
+              ...
             </div>
-            <div class="tab-pane fade" id="kepemilikan" role="tabpanel" aria-labelledby="kepemilikan-tab">...</div>
+            <div class="tab-pane fade" id="kepemilikan" role="tabpanel" aria-labelledby="kepemilikan-tab">...
+            </div>
             <div class="tab-pane fade" id="sejarah" role="tabpanel" aria-labelledby="sejarah-tab">...</div>
             <div class="tab-pane fade" id="lokasi" role="tabpanel" aria-labelledby="lokasi-tab">...</div>
           </div>
@@ -2399,6 +2401,11 @@
     #popup-table {
       max-height: 100px;
       overflow-y: scroll;
+    }
+
+    .carousel .carousel-item img {
+      height: 220px;
+      object-fit: cover;
     }
   </style>
 @endpush
@@ -2532,6 +2539,19 @@
       $("#myTabContent #lokasi").html(data.nama_tempat);
     }
 
+    function generate_carousel(data) {
+      let active = ' active';
+      $(".carousel .carousel-inner").html('');
+
+      data.forEach((value, index) => {
+        image = '<div class="carousel-item' + active + '"><img class="d-block w-100" src="/storage/cagar-budaya/images/' +
+          value.file +
+          '" alt="gambar"></div>';
+        $(".carousel .carousel-inner").append(image);
+        active = '';
+      });
+    }
+
     function generate_row(data) {
       return [
         ['Tempat', data.nama_tempat ? data.nama_tempat : '-'],
@@ -2544,6 +2564,7 @@
     function generate_table(data) {
       var row = generate_row(data);
       generate_tabs_content(data);
+      generate_carousel(data.galleries);
 
       $("#popup-table").html('');
       var myTableDiv = document.getElementById("popup-table");

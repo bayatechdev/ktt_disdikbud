@@ -85,7 +85,7 @@ class CagarBudayaController extends Controller
 
     public function list()
     {
-        $items = CagarBudaya::with(['desa'])->get();
+        $items = CagarBudaya::with(['desa', 'galleries'])->get();
 
         return $items;
     }
