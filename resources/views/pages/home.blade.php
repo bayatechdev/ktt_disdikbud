@@ -2288,25 +2288,52 @@
         allowfullscreen></iframe>
     </div>
   </div>
+
+  <div id="popup_format" class="d-none">
+    <div class="my-2">
+      <h6 class="mb-0 title"></h6>
+      <span class="text-secondary location"></span>
+      <div class="d-flex flex-row mt-1">
+        <div class="py-2 pe-2">
+          <div id="popup-pics">
+          </div>
+        </div>
+        <div class="p-2">
+          <div id="popup-table">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @push('addon-style')
   <style>
     #map {
-      height: 480px;
+      height: 580px;
+    }
+
+    #map :focus,
+    #map :hover {
+      outline: none;
+    }
+
+    #map td {
+      vertical-align: top;
+      border-bottom: 1px solid #ddd;
+      padding: 4px 2px;
     }
   </style>
 @endpush
 
 @push('addon-script')
-    
 @endpush
 
 @push('addon-script')
   <script>
     var map = L.map('map', {
       zoomControl: true,
-    //   scrollWheelZoom: false, // disable original zoom function
+      //   scrollWheelZoom: false, // disable original zoom function
       smoothWheelZoom: true, // enable smooth zoom 
       smoothSensitivity: 2, // zoom speed. default is 1
     }).setView([3.5636219380731027, 117.32076644897461], 10);
@@ -2348,5 +2375,136 @@
     L.control.layers(baseLayers, null, {
       position: 'bottomright'
     }).addTo(map);
+
+    // Desa Layer
+    fetch("{{ Storage::url('assets/geojson/desa.geojson') }}").then(res => res.json()).then(data => {
+      L.geoJson(data, {
+          style: style,
+          onEachFeature: onEachFeatureBaseLayer
+        })
+        .addTo(map);
+    });
+
+    function style(feature) {
+      return {
+        fillColor: '#fff',
+        fillOpacity: 0,
+        color: '#999',
+        opacity: 0.7,
+        weight: 1,
+        dashArray: '3',
+      };
+    }
+
+    function onEachFeatureBaseLayer(feature, layer) {
+      layer.bindTooltip(feature.properties.popupContent, {
+        // direction: "center",
+        // opacity: 0.5
+      })
+      layer.on({
+        mouseover: highlightFeatureBaseLayer,
+        mouseout: resetHighlightBaseLayer,
+      });
+    }
+
+    function highlightFeatureBaseLayer(e) {
+      var layer = e.target;
+      layer.setStyle({
+        fillColor: '#AAA',
+        fillOpacity: 0.2,
+        weight: 2,
+        // dashArray: '',
+      });
+    }
+
+    function resetHighlightBaseLayer(e) {
+      var layer = e.target;
+      layer.setStyle(style());
+    }
+
+    // Maps
+    cagar_budaya_list();
+
+    function cagar_budaya_list() {
+      $.ajax({
+        url: "{{ url('cagar-budaya/list') }}",
+        success: function(result) {
+          generate_maps(result);
+        },
+        error: function(xhr) {
+          alert('Error: ' + xhr.responseText);
+        }
+      });
+    }
+
+    function generate_maps(result) {
+      result.forEach(element => {
+        $popup = popup_content(element);
+        L.marker([element.koordinat_lat, element.koordinat_long])
+          .bindPopup($popup, {
+            maxWidth: 560,
+          })
+          .addTo(map);
+      });
+    }
+
+    function generate_row(data) {
+      return [
+        ['Tempat', data.nama_tempat ? data.nama_tempat : '-'],
+        ['Deskripsi', data.deskripsi ? data.deskripsi : '-'],
+        ['Riwayat Kepemilikan', data.riwayat_kepemilikan ? data.riwayat_kepemilikan : '-'],
+        ['Latar Sejarah', data.latar_sejarah ? data.latar_sejarah : '-'],
+      ];
+    }
+
+    function generate_table(data) {
+      var row = generate_row(data);
+
+      $("#popup-table").html('');
+      var myTableDiv = document.getElementById("popup-table");
+
+      var table = document.createElement('TABLE');
+
+      var tableBody = document.createElement('TBODY');
+      table.appendChild(tableBody);
+
+      row.forEach(value => {
+        var tr = document.createElement('TR');
+        tableBody.appendChild(tr);
+
+        var td = document.createElement('TD');
+        td.appendChild(document.createTextNode(value[0]));
+        tr.appendChild(td);
+
+        var td = document.createElement('TD');
+        td.appendChild(document.createTextNode(':'));
+        tr.appendChild(td);
+
+        var td = document.createElement('TD');
+        td.appendChild(document.createTextNode(value[1]));
+        tr.appendChild(td);
+      })
+      myTableDiv.appendChild(table);
+    }
+
+    function popup_content(data) {
+      $("#popup-pics").html('');
+      var pics = document.getElementById("popup-pics");
+
+      generate_table(data);
+
+      $("#popup_format .title").text(data.nama_objek);
+      $("#popup_format .location").text(data.desa.title + " - Kec. " + data.desa.kecamatan.title);
+
+      //   var img;
+      //   data.pics.reverse().slice(0, 1).forEach(value => {
+      //     img = document.createElement('IMG');
+      //     img.setAttribute("src", {{ Storage::url('') }} + "assets/images/thumbnail_" + value.gambar.split("/")
+      //       .pop());
+      //     pics.appendChild(img);
+      //   })
+
+      return $("#popup_format").html();
+    }
   </script>
 @endpush

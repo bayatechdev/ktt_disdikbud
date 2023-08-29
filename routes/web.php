@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaControll
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('cagar-budaya-list');
 
 Route::prefix('dashboard')
     ->middleware(['auth'])

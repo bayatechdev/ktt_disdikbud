@@ -20,7 +20,7 @@ class CagarBudayaSeeder extends Seeder
     public function run()
     {
         CagarBudaya::create([
-            'desa_id'               => 1,
+            'desa_id'               => 19,
             'nama_objek'            => "Makam Keramat Datu Mulia",
             'slug'                  => Str::slug("Makam Keramat Datu Mulia"),
             'nama_tempat'           => "Pulau Mandul",
@@ -33,7 +33,7 @@ class CagarBudayaSeeder extends Seeder
         ]);
         
         CagarBudaya::create([
-            'desa_id'               => 1,
+            'desa_id'               => 27,
             'nama_objek'            => "Selapa ( Tempat Sirih )",
             'slug'                  => Str::slug("Selapa ( Tempat Sirih )"),
             'nama_tempat'           => "Desa seputuk",
@@ -59,7 +59,7 @@ class CagarBudayaSeeder extends Seeder
         ]);
         
         CagarBudaya::create([
-            'desa_id'               => 1,
+            'desa_id'               => 30,
             'nama_objek'            => "Lungun Aki Korong",
             'slug'                  => Str::slug("Lungun Aki Korong"),
             'nama_tempat'           => "Rian Rayo",
@@ -72,13 +72,13 @@ class CagarBudayaSeeder extends Seeder
         ]);
         
         CagarBudaya::create([
-            'desa_id'               => 1,
+            'desa_id'               => 27,
             'nama_objek'            => "Makam Kuno ( Lebangan Baloy Patoy )",
             'slug'                  => Str::slug("Makam Kuno ( Lebangan Baloy Patoy )"),
             'nama_tempat'           => "",
             'alamat'                => "",
-            'koordinat_lat'         => "3.5258333333333334",
-            'koordinat_long'        => "116.73478333333334",
+            'koordinat_lat'         => "3.5358333333333334",
+            'koordinat_long'        => "116.74478333333334",
             'deskripsi'             => "Lebangan Baloy Patoy adalah makam zaman dahulu yang cara pemakamannya tidak ditanam di dalam tanah melainkan diletakkan ditempat yang tinggi, peti dan atapnya terbuat dari kayu ulin",
             'riwayat_kepemilikan'   => "",
             'latar_sejarah'         => "Lebangan Baloy Patoy adalah tempat pemakaman suku Belusu  pada zaman dahulu kurang lebih berumur 100 tahun yang lalu, dimana orang yang meninggal tidak ditanam di dalam tanah melainkan diletakkan di tempat yang tinggi, peti  (lungun) dan atapnya terbuat dari kayu ulin yang diukir dan dalam satu tempat terdapat 10 peti mati (lungun)",

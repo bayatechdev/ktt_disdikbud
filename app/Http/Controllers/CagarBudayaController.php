@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CagarBudaya;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class CagarBudayaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home', [
-        ]);
+        //
     }
 
     /**
@@ -82,5 +81,12 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function list()
+    {
+        $items = CagarBudaya::with(['desa'])->get();
+
+        return $items;
     }
 }
