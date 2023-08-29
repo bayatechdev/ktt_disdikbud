@@ -35,6 +35,6 @@
   </script> --}}
 @else
   <div class="row text-center pb-3">
-    <small class="text-muted">Belum ada berkas, Silahkan Upload..</small>
+    <small class="text-muted">Belum ada gambar, Silahkan Upload..</small>
   </div>
 @endif

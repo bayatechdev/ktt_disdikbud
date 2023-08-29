@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use App\Models\Berita;
 use App\Models\BeritaKategori;
 use App\Models\Bidang;
@@ -105,6 +106,14 @@ class CagarBudayaController extends Controller
       });
       $img->save(public_path('storage/cagar-budaya/images/') . $thumbnail);
       $data['file'] = $filename;
+
+      if ($data['id']) {
+        $cb_gal = CagarBudayaGallery::find($data['id']);
+        if ($cb_gal) {
+          File::delete(public_path('storage/cagar-budaya/images/' . $cb_gal->file));
+          File::delete(public_path('storage/cagar-budaya/images/thumb_' . $cb_gal->file));
+        }
+      }
     }
 
     CagarBudayaGallery::updateOrCreate(['id' => $data['id']], $data);
@@ -136,18 +145,17 @@ class CagarBudayaController extends Controller
     ]);
   }
 
-  // public function delete(Request $request)
-  // {
-  //   $item = Bidang::where('token', $request['token'])->first();
-  //   $cek = Pegawai::where('bidang_id', $item->id)->count();
-  //   if ($cek) {
-  //     $status = 201;
-  //   } else {
-  //     $status = 200;
-  //     Bidang::destroy($item->id);
-  //   }
-  //   return response()->json([
-  //     'status' => $status,
-  //   ]);
-  // }
+  public function delete(Request $request)
+  {
+    CagarBudaya::destroy($request->token);
+    $items = CagarBudayaGallery::where('cagar_budaya_id', $request->token)->get();
+    foreach ($items as $item) {
+      File::delete(public_path('storage/cagar-budaya/images/' . $item->file));
+      File::delete(public_path('storage/cagar-budaya/images/thumb_' . $item->file));
+      CagarBudayaGallery::destroy($item->id);
+    }
+    return response()->json([
+      'status' => 200,
+    ]);
+  }
 }

@@ -91,7 +91,7 @@
     function gal_simpan() {
       $('#btn_pilih').addClass('btn-primary');
       $('#btn_pilih').removeClass('btn-warning');
-      $('#btn_pilih').text('Simpan');
+      $('#btn_pilih').text('Upload');
       $('#cb_file').attr('required', true);
     }
 
@@ -252,6 +252,54 @@
         }
       });
     });
+
+    // DELETE
+    $(document).on('click', '.delete-record', function(e) {
+      e.preventDefault();
+      let token = $(this).attr('data-token');
+      let name = $(this).attr('data-name');
+      let csrf = '{{ csrf_token() }}';
+      Swal.fire({
+        title: 'Yakin ingin menghapus \n(' + name + ')?',
+        text: "Data ini tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus!',
+        cancelButtonText: 'Batal',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "{{ route('cagarbudaya_delete') }}",
+            method: 'delete',
+            data: {
+              token: token,
+              _token: csrf
+            },
+            success: function(response) {
+              if (response.status == 200) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Data berhasil dihapus',
+                  showConfirmButton: false,
+                  timer: 1000
+                });
+                $('.data-table').DataTable().ajax.reload();
+              }
+            },
+            error: function(xhr) {
+              console.log(xhr);
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                showConfirmButton: true,
+              });
+            }
+          });
+        }
+      })
+    });
   </script>
 
   {{-- DATATABLE --}}
@@ -387,7 +435,7 @@
               responsivePriority: 3,
               render: function(data, type, full, meta) {
                 var $token = full['id'];
-                var $name = full['title'];
+                var $name = full['nama_objek'];
 
                 var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_edit" data-token="' +
                   $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
