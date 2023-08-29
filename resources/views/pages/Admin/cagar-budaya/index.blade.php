@@ -12,7 +12,7 @@
 @endsection
 
 @section('vendor-script')
-  <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
+  {{-- <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script> --}}
   <script src="{{ asset('assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
@@ -20,9 +20,11 @@
   <script src="{{ asset('assets/vendor/libs/datatables-buttons/datatables-buttons.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+  {{-- <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> --}}
   <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/cleavejs/cleave.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
 @endsection
 
 @section('content')
@@ -77,9 +79,97 @@
 @push('addon-script')
   <script>
     // RESET
+    function resetForm() {
+      $("#addForm")[0].reset();
+      $("#desa_id").select2("val", "0");
+      // $('#latar_sejarah').attr('rows', 3);
+    }
+
+    // Link page
+    // $(document).on('click', '.btn_tambah', function(e) {
+    //   e.preventDefault();
+    //   window.location.href = "{{ route('cagarbudaya_create') }}";
+    // });
+
     $(document).on('click', '.btn_tambah', function(e) {
       e.preventDefault();
-      window.location.href = "{{ route('cagarbudaya_create') }}";
+      resetForm();
+      $('#modalAddData').modal('show');
+
+    });
+
+    // EDIT
+    $(document).on('click', '.btn_edit', function(e) {
+      let token = $(this).attr('data-token');
+      console.log(token);
+      if (token) {
+        $.ajax({
+          type: 'GET',
+          url: "/dashboard/cagar_budaya/cagarbudaya_edit/" + token,
+          dataType: 'json',
+          beforeSend: function() {
+            $('#loading_spinner').show();
+          },
+          complete: function() {
+            $('#loading_spinner').hide();
+          },
+          success: function(response, textStatus, xhr) {
+            resetForm();
+            $.each(response.data, function(key, value) {
+              $("#" + key).val(value).change();
+
+              // console.log('key : ' + key + '\nVal : ' + value);
+            });
+            $('#modalAddData').modal('show');
+          },
+          error: function(event, jqXHR, ajaxSettings, thrownError) {
+            console.log(event + ' - ' + jqXHR + ' - ' + ajaxSettings + ' - ' + thrownError);
+          }
+        });
+      }
+    });
+
+    $("#addForm").submit(function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+      $.ajax({
+        url: "{{ route('cagarbudaya_store') }}",
+        method: 'POST',
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+          $('#loading_spinner').show();
+          $('#modalAddData').modal('hide');
+        },
+        complete: function() {
+          $('#loading_spinner').hide();
+        },
+        success: function(response) {
+          console.log(response);
+          if (response.status == 200) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Data berhasil disimpan',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $('.data-table').DataTable().ajax.reload();
+            resetForm();
+          }
+        },
+        error: function() {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            showConfirmButton: true,
+          });
+        }
+      });
     });
   </script>
 
@@ -93,14 +183,14 @@
       // Invoice datatable
       if (data_table.length) {
         var dt_invoice = data_table.DataTable({
-          ajax: "{!! route('berita_list') !!}", // JSON file to add data
+          ajax: "{!! route('cagarbudaya_list') !!}", // JSON file to add data
           columns: [
             // columns according to JSON
             {
               data: ''
             },
             {
-              data: 'title'
+              data: 'nama_objek'
             },
             {
               data: ''
@@ -131,10 +221,10 @@
               orderable: false,
               responsivePriority: 3,
               render: function(data, type, full, meta) {
-                var $token = full['token'];
+                var $token = full['id'];
                 var $name = full['title'];
 
-                var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +
+                var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_edit" data-token="' +
                   $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
                   '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body delete-record" data-token="' +
                   $token + '" data-name="' + $name +
@@ -165,29 +255,30 @@
             search: '',
             searchPlaceholder: 'Cari Data'
           },
-          // Buttons with Dropdown
-          buttons: [{
-              text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Tambah Data</span>',
-              className: 'add-new btn btn-primary add-record btn_tambah',
-              attr: {
-                // 'data-bs-toggle': 'offcanvas',
-                // 'data-bs-target': '#offcanvasAdd',
-                'hidden': function() {
-                  return false;
-                  // if (role == 0 || role == 1) {
-                  //   return false;
-                  // } else {
-                  //   return true;
-                  // }
-                },
-              }
-            },
+          buttons: [
+            //Button  
+            // {
+            //   text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Tambah Data</span>',
+            //   className: 'add-new btn btn-primary add-record btn_tambah',
+            //   attr: {
+            //     // 'data-bs-toggle': 'offcanvas',
+            //     // 'data-bs-target': '#offcanvasAdd',
+            //     'hidden': function() {
+            //       return false;
+            //       // if (role == 0 || role == 1) {
+            //       //   return false;
+            //       // } else {
+            //       //   return true;
+            //       // }
+            //     },
+            //   }
+            // },
             {
-              text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Modal</span>',
-              className: 'add-new btn btn-primary',
+              text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Tambah</span>',
+              className: 'add-new btn btn-primary btn_tambah',
               attr: {
-                'data-bs-toggle': 'modal',
-                'data-bs-target': '#modalAddData',
+                // 'data-bs-toggle': 'modal',
+                // 'data-bs-target': '#modalAddData',
               }
             },
           ]
@@ -223,9 +314,21 @@
         });
       }
       // ------------------------------Autosize--------------------------------------
-      const textarea = document.querySelector('#content');
-      if (textarea) {
-        autosize(textarea);
+      const textarea_alamat = document.querySelector('#alamat');
+      if (textarea_alamat) {
+        autosize(textarea_alamat);
+      }
+      const textarea_riwayat_kepemilikan = document.querySelector('#riwayat_kepemilikan');
+      if (textarea_riwayat_kepemilikan) {
+        autosize(textarea_riwayat_kepemilikan);
+      }
+      const textarea_deskripsi = document.querySelector('#deskripsi');
+      if (textarea_deskripsi) {
+        autosize(textarea_deskripsi);
+      }
+      const textarea_latar_sejarah = document.querySelector('#latar_sejarah');
+      if (textarea_latar_sejarah) {
+        autosize(textarea_latar_sejarah);
       }
 
       // ---------------------------Select2-----------------------------------------
@@ -261,6 +364,17 @@
           });
         });
       }
+      // --------------------------Cleave Phone Number------------------------------------------
+      // Phone Number
+      // const phoneMaskList = document.querySelectorAll('.phone-mask')
+      // if (phoneMaskList) {
+      //   phoneMaskList.forEach(function(phoneMask) {
+      //     new Cleave(phoneMask, {
+      //       phone: true,
+      //       phoneRegionCode: 'ID'
+      //     });
+      //   });
+      // }
       // --------------------------------------------------------------------
     });
   </script>

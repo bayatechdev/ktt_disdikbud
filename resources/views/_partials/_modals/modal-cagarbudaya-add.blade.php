@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalAddData" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
+  <div class="modal-dialog modal-dialog-scrollable  mx-auto" role="document">
     <div class="modal-content">
       {{-- <div class="modal-header">
         <h5 class="modal-title" id="modalAddDataTitle">Modal title</h5>
@@ -9,28 +9,29 @@
       <div class="modal-body">
         <form class="add-new pt-0" id="addForm" action="{{ route('cagarbudaya_store') }}" method="POST" role="form" enctype="multipart/form-data">
           @csrf
-
           <div class="text-center mb-2">
             <h4 class="mb-2">Tambah Data</h4>
             <p>Silahkan Input Cagar Budaya</p>
           </div>
-          <div class="row mt-2 px-4">
+          <input type="hidden" hidden id="id" name="id" class="form-control" autocomplete="off" placeholder="id" />
+          <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Nama Objek<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="nama_objek">Nama Objek<sup class="text-danger">*</sup></label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Nama Cagar Budaya" required />
+                <input type="text" id="nama_objek" name="nama_objek" class="form-control" autocomplete="off" placeholder="Nama Cagar Budaya" required />
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Nama Tempat<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="nama_tempat">Nama Tempat</label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Nama Tempat" required />
+                <input type="text" id="nama_tempat" name="nama_tempat" class="form-control" autocomplete="off" placeholder="Lokasi Cagar Budaya" />
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Alamat<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="alamat">Alamat</label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Alamat" required />
+                {{-- <input type="text" id="alamat" name="alamat" class="form-control" autocomplete="off" placeholder="Alamat" /> --}}
+                <textarea id="alamat" name="alamat" class="form-control" rows="2" placeholder="Alamat" autocomplete="off"></textarea>
               </div>
             </div>
             <div class="row mb-2 g-1">
@@ -45,46 +46,33 @@
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Latitude<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="koordinat_lat">Latitude</label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Latitude" required />
+                <input type="text" id="koordinat_lat" name="koordinat_lat" class="form-control" autocomplete="off" placeholder="Contoh: 3.34563213453" />
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Longitude<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="koordinat_long">Longitude</label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Longitude" required />
+                <input type="text" id="koordinat_long" name="koordinat_long" class="form-control" autocomplete="off" placeholder="Contoh: 117.1231224432" />
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10">Publish</label>
-              <div class="col-sm-8 pt-1">
-                <div class="form-check form-check-inline">
-                  <input type="radio" id="publish1" name="publish" class="form-check-input" value="1" />
-                  <label class="form-check-label" for="publish1"> Ya </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input type="radio" id="publish0" name="publish" class="form-check-input" value="0" checked required />
-                  <label class="form-check-label" for="publish0"> Tidak </label>
-                </div>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="riwayat_kepemilikan">Riwayat Kepemilikan</label>
+              <div class="col-sm-8">
+                <textarea id="riwayat_kepemilikan" name="riwayat_kepemilikan" class="form-control" rows="3" placeholder="Riwayat Kepemilikan" autocomplete="off"></textarea>
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="content">Riwayat Kepemilikan<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="deskripsi">Deskripsi</label>
               <div class="col-sm-8">
-                <textarea id="content" name="content" class="form-control" rows="3" placeholder="Riwayat Kepemilikan" autocomplete="off" required></textarea>
+                <textarea id="deskripsi" name="deskripsi" class="form-control" rows="3" placeholder="Deskripsi" autocomplete="off"></textarea>
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="content">Deskripsi<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="latar_sejarah">Latar Sejarah</label>
               <div class="col-sm-8">
-                <textarea id="content" name="content" class="form-control" rows="3" placeholder="Deskripsi" autocomplete="off" required></textarea>
-              </div>
-            </div>
-            <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="content">Latar Sejarah<sup class="text-danger">*</sup></label>
-              <div class="col-sm-8">
-                <textarea id="content" name="content" class="form-control" rows="3" placeholder="Latar Sejarah" autocomplete="off" required></textarea>
+                <textarea id="latar_sejarah" name="latar_sejarah" class="form-control" rows="3" placeholder="Latar Sejarah" autocomplete="off"></textarea>
               </div>
             </div>
           </div>

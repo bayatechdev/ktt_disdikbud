@@ -34,6 +34,7 @@ Route::prefix('dashboard')
                 Route::get('cagarbudaya_create', [AdminCagarBudayaController::class, 'create'])->name('cagarbudaya_create');
                 Route::get('cagarbudaya_list', [AdminCagarBudayaController::class, 'list'])->name('cagarbudaya_list');
                 Route::post('cagarbudaya_store', [AdminCagarBudayaController::class, 'store'])->name('cagarbudaya_store');
+                Route::get('cagarbudaya_edit/{token}', [AdminCagarBudayaController::class, 'edit']);
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
             });
 

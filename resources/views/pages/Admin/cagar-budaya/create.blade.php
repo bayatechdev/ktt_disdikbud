@@ -20,7 +20,7 @@
 @section('content')
   <div class="title-with-button d-flex justify-content-between align-items-center">
     <h4 class="fw-bold py-3">
-      <span class="text-muted fw-light">Cagar Buaya / </span> Tambah Data
+      <span class="text-muted fw-light">Cagar Budaya / </span> Tambah Data
     </h4>
     <div class="text-muted float-end">
       <a href="{{ route('cagarbudaya_index') }}" class="btn"><span class="d-md-inline-block"><i class="bx bx-arrow-back"></i></span></a></span>

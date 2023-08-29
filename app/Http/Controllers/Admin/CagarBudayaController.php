@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use App\Models\Berita;
 use App\Models\BeritaKategori;
 use App\Models\Bidang;
+use App\Models\CagarBudaya;
 use App\Models\Desa;
 use App\Models\Tags;
 
@@ -53,70 +54,62 @@ class CagarBudayaController extends Controller
 
   public function list()
   {
-    $items = Berita::orderby('tanggal')->get();
+    $items = CagarBudaya::orderByDesc('id')->get();
     return response()->json(['data' => $items]);
   }
 
   public function store(Request $request)
   {
     $data = $request->all();
-    $data['token'] = md5(microtime() . Str::random(10));
-    $data['user_id'] = Auth::user()->id;
-    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
-    $data['tags'] = json_encode($request->tags);
-    $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+    $data['slug'] = Str::slug($request->nama_objek) . '-' . Str::random(2);
     // dd($data);
 
-    if ($request->hasFile('image')) {
-      $file = $request->file('image');
-      $name = md5(microtime() . Str::random(10));
-      $filename = $name . '.' . $file->getClientOriginalExtension();
-      $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
-      $img = Image::make($file);
+    // if ($request->hasFile('image')) {
+    //   $file = $request->file('image');
+    //   $name = md5(microtime() . Str::random(10));
+    //   $filename = $name . '.' . $file->getClientOriginalExtension();
+    //   $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+    //   $img = Image::make($file);
 
-      if (Image::make($file)->width() < 1024) {
-        $img->resize(800, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 3024) {
-        $img->resize(1000, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 6024) {
-        $img->resize(1300, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else {
-        $img->resize(1600, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      }
+    //   if (Image::make($file)->width() < 1024) {
+    //     $img->resize(800, null, function ($constraint) {
+    //       $constraint->aspectRatio();
+    //     });
+    //   } else if (Image::make($file)->width() < 3024) {
+    //     $img->resize(1000, null, function ($constraint) {
+    //       $constraint->aspectRatio();
+    //     });
+    //   } else if (Image::make($file)->width() < 6024) {
+    //     $img->resize(1300, null, function ($constraint) {
+    //       $constraint->aspectRatio();
+    //     });
+    //   } else {
+    //     $img->resize(1600, null, function ($constraint) {
+    //       $constraint->aspectRatio();
+    //     });
+    //   }
 
-      $img->save(public_path('storage/berita/images/') . $filename);
-      $img->resize(150, null, function ($constraint) {
-        $constraint->aspectRatio();
-      });
-      $img->save(public_path('storage/berita/images/') . $thumbnail);
-      $data['image'] = $filename;
-    }
+    //   $img->save(public_path('storage/berita/images/') . $filename);
+    //   $img->resize(150, null, function ($constraint) {
+    //     $constraint->aspectRatio();
+    //   });
+    //   $img->save(public_path('storage/berita/images/') . $thumbnail);
+    //   $data['image'] = $filename;
+    // }
 
-    Berita::create($data);
-    return redirect()->route('berita_index');
+    CagarBudaya::updateOrCreate(['id' => $data['id']], $data);
+    // return redirect()->route('cagarbudaya_index');
+    return response()->json(['status'  => 200]);
   }
 
-  // public function edit(Request $request)
-  // {
-  //   $request = $request->all();
-  //   $data = Bidang::where('token', $request['token'])->first();
+  public function edit($token)
+  {
 
-  //   if ($data) $response = 200;
-  //   else $response = 201;
-
-  //   return response()
-  //     ->json([
-  //       'data'  => $data,
-  //     ], $response);
-  // }
+    $data = CagarBudaya::where('id', $token)->firstOrFail();
+    return response()->json([
+      'data'  => $data
+    ]);
+  }
 
   // public function delete(Request $request)
   // {
