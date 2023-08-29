@@ -158,4 +158,15 @@ class CagarBudayaController extends Controller
       'status' => 200,
     ]);
   }
+
+  public function gallery_delete(Request $request)
+  {
+    $item = CagarBudayaGallery::find($request->token);
+    CagarBudayaGallery::destroy($request->token);
+    File::delete(public_path('storage/cagar-budaya/images/' . $item->file));
+    File::delete(public_path('storage/cagar-budaya/images/thumb_' . $item->file));
+    return response()->json([
+      'status' => 200,
+    ]);
+  }
 }

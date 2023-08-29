@@ -12,7 +12,7 @@
         </div>
         <small class="py-0 my-0">
           <a href="{{ Storage::url('cagar-budaya/images/') . $data->file }}" class="text-primary btn_preview_upload glightbox" data-id="{{ $data->id }}"><i class='bx bx-show berkas-klik fs-6 p-0 m-0'></i></a>
-          <a href="javascript:;" class="text-danger btn_hapus_upload" data-id="{{ $data->id }}"><i class='bx bx-trash berkas-klik fs-6 p-0 m-0'></i></a>
+          <a href="javascript:;" class="text-danger btn_hapus_upload" data-token="{{ $data->id }}" data-name="{{ $data->id }}"><i class='bx bx-trash berkas-klik fs-6 p-0 m-0'></i></a>
           {{ $data->title }}
         </small>
         {{-- @if ($data->title)

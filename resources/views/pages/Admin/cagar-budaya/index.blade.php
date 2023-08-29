@@ -260,7 +260,7 @@
       let name = $(this).attr('data-name');
       let csrf = '{{ csrf_token() }}';
       Swal.fire({
-        title: 'Yakin ingin menghapus \n(' + name + ')?',
+        title: 'Yakin ingin menghapus \n' + name + '?',
         text: "Data ini tidak dapat dikembalikan!",
         icon: 'warning',
         showCancelButton: true,
@@ -295,6 +295,56 @@
                 title: 'Terjadi Kesalahan',
                 showConfirmButton: true,
               });
+            }
+          });
+        }
+      })
+    });
+
+    // DELETE GALLERY
+    $(document).on('click', '.btn_hapus_upload', function(e) {
+      e.preventDefault();
+      let token = $(this).attr('data-token');
+      let name = $(this).attr('data-name');
+      let csrf = '{{ csrf_token() }}';
+      Swal.fire({
+        title: 'Yakin ingin menghapus \n' + name + '?',
+        text: "Data ini tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus!',
+        cancelButtonText: 'Batal',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "{{ route('cagarbudaya_gallery_delete') }}",
+            method: 'delete',
+            data: {
+              token: token,
+              _token: csrf
+            },
+            success: function(response) {
+              if (response.status == 200) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Data berhasil dihapus',
+                  showConfirmButton: false,
+                  timer: 1000
+                });
+                $('#modalAddGallery').modal('hide');
+                $('.data-table').DataTable().ajax.reload();
+              }
+            },
+            error: function(xhr) {
+              console.log(xhr);
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                showConfirmButton: true,
+              });
+              $('#modalAddGallery').modal('hide');
             }
           });
         }
@@ -391,7 +441,7 @@
                 var number = 0;
 
                 if (!galleries.length) {
-                  return '<a href="#" class="btn_gallery" data-cb_id="' + full['id'] + '"><small><i>Tambah Gambar</i></small></a>';
+                  return '<a href="#" class="btn_gallery text-nowrap" data-cb_id="' + full['id'] + '"><small><i>Tambah Gambar</i></small></a>';
                 }
 
                 galleries.forEach(element => {

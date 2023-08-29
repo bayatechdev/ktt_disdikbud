@@ -13,7 +13,7 @@
         </div> --}}
         <form class="add-new pt-0" id="addForm" action="{{ route('cagarbudaya_store') }}" method="POST" role="form" enctype="multipart/form-data">
           @csrf
-          <input type="hidden" hidden id="id" name="id" class="form-control" autocomplete="off" placeholder="id" />
+          <input type="text" hidden id="id" name="id" class="form-control" autocomplete="off" placeholder="id" />
           <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="nama_objek">Nama Objek<sup class="text-danger">*</sup></label>
