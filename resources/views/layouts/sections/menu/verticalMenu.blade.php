@@ -44,6 +44,129 @@
         <div>Cagar Budaya</div>
       </a>
     </li>
+    <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
+      <a href="#" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-message"></i>
+        <div>Pengaduan</div>
+      </a>
+    </li>
+    <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
+      <a href="#" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-message"></i>
+        <div>Survey</div>
+      </a>
+    </li>
+    <li class="menu-item {{ Request::segment(1) == 'kepegawaian' ? 'active open' : '' }}">
+      <a href="" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bxs-city"></i>
+        <div>Kepegawaian</div>
+      </a>
+      {{-- submenu --}}
+      <ul class="menu-sub">
+        <li class="menu-item {{ Request::segment(2) == 'pegawai' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Data Pegawai</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'jabatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Jabatan</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'bidang' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Bidang</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'golongan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Golongan</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'eselon' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Eselon</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+      <a href="#" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-data"></i>
+        <div>Data Master</div>
+      </a>
+      {{-- submenu --}}
+      <ul class="menu-sub">
+        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Desa</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Kecamatan</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+      <a href="#" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-camera"></i>
+        <div>Galleries</div>
+      </a>
+      {{-- submenu --}}
+      <ul class="menu-sub">
+        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Album</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Foto</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Video</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+      <a href="#" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-file"></i>
+        <div>Pages</div>
+      </a>
+      {{-- submenu --}}
+      <ul class="menu-sub">
+        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Agenda</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Halaman Statis</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Slide Utama</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Tags</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+            <div>Links</div>
+          </a>
+        </li>
+      </ul>
+    </li>
     <li class="menu-item {{ Request::segment(1) == 'setting' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-cog"></i>
