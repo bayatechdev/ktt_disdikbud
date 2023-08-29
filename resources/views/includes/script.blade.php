@@ -10,6 +10,7 @@
 <script src="{{ url('frontend/assets/js/jQueryUi.js') }}"></script>
 <script src="{{ url('frontend/assets/js/textRotate.min.js') }}"></script>
 <script src="{{ url('frontend/assets/js/select2.min.js') }}"></script>
+<script src="{{ url('frontend/assets/js/bootstrap.min.js') }}"></script>
 
 {{-- Leaflet --}}
 <script src="{{ url('assets/library/leaflet/leaflet.js') }}"></script>

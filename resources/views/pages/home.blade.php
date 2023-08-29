@@ -231,6 +231,32 @@
     </section>
     <!-- End Feature Seciton -->
 
+    {{-- <section>
+      <div class="container">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="https://picsum.photos/id/239/200/100" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://picsum.photos/id/23/200/100" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://picsum.photos/id/37/200/100" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </section> --}}
+
     <section class="st-maps">
       <div class="st-height-b120 st-height-lg-b50"></div>
       <div class="container">
@@ -2293,12 +2319,58 @@
     <div class="my-2">
       <h6 class="mb-0 title"></h6>
       <span class="text-secondary location"></span>
-      <div class="d-flex flex-row mt-1">
-        <div class="py-2 pe-2">
-          <div id="popup-pics">
+      <div class="row">
+        <div class="col-12 my-2">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://picsum.photos/id/239/200/100" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://picsum.photos/id/23/200/100" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://picsum.photos/id/37/200/100" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
         </div>
-        <div class="p-2">
+        <div class="col-12" style="width: 420px">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab"
+                aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="kepemilikan-tab" data-toggle="tab" href="#kepemilikan" role="tab"
+                aria-controls="kepemilikan" aria-selected="false">Kepemilikan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="sejarah-tab" data-toggle="tab" href="#sejarah" role="tab"
+                aria-controls="sejarah" aria-selected="false">Sejarah</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="lokasi-tab" data-toggle="tab" href="#lokasi" role="tab"
+                aria-controls="lokasi" aria-selected="false">Detail Lokasi</a>
+            </li>
+          </ul>
+          <div class="tab-content py-2" id="myTabContent">
+            <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">...
+            </div>
+            <div class="tab-pane fade" id="kepemilikan" role="tabpanel" aria-labelledby="kepemilikan-tab">...</div>
+            <div class="tab-pane fade" id="sejarah" role="tabpanel" aria-labelledby="sejarah-tab">...</div>
+            <div class="tab-pane fade" id="lokasi" role="tabpanel" aria-labelledby="lokasi-tab">...</div>
+          </div>
+        </div>
+        <div class="col-12 d-none">
           <div id="popup-table">
           </div>
         </div>
@@ -2322,6 +2394,11 @@
       vertical-align: top;
       border-bottom: 1px solid #ddd;
       padding: 4px 2px;
+    }
+
+    #popup-table {
+      max-height: 100px;
+      overflow-y: scroll;
     }
   </style>
 @endpush
@@ -2442,10 +2519,17 @@
         $popup = popup_content(element);
         L.marker([element.koordinat_lat, element.koordinat_long])
           .bindPopup($popup, {
-            maxWidth: 560,
+            maxWidth: 420,
           })
           .addTo(map);
       });
+    }
+
+    function generate_tabs_content(data) {
+      $("#myTabContent #deskripsi").html(data.deskripsi);
+      $("#myTabContent #kepemilikan").html(data.riwayat_kepemilikan);
+      $("#myTabContent #sejarah").html(data.latar_sejarah);
+      $("#myTabContent #lokasi").html(data.nama_tempat);
     }
 
     function generate_row(data) {
@@ -2459,6 +2543,7 @@
 
     function generate_table(data) {
       var row = generate_row(data);
+      generate_tabs_content(data);
 
       $("#popup-table").html('');
       var myTableDiv = document.getElementById("popup-table");
