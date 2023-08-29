@@ -58,6 +58,7 @@
             <th width="10px" nowrap>#</th>
             <th>Cagar Budaya</th>
             <th>Lokasi</th>
+            <th>Koordinat</th>
             <th>Gambar</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
@@ -244,6 +245,9 @@
               data: 'nama_tempat'
             },
             {
+              data: 'koordinat_lat'
+            },
+            {
               data: ''
             },
             {
@@ -272,17 +276,34 @@
               targets: 2,
               render: function(data, type, full, meta) {
                 var desa = '-';
-                if (full['desa_id']) {
-                  desa = full['desa_id']['title'];
+                var alamat = '';
+                if (full['desa']) {
+                  desa = ' Desa: ' + full['desa']['title'];
+                }
+
+                if (full['alamat']) {
+                  alamat = full['alamat'];
                 }
                 return '<span class="d-flex flex-column">' + data + '</span>' +
-                  '<small class="text-muted">' +
-                  +
-                  '</small>';;
+                  '<small class="text-muted">' + alamat + desa + '</small>';
               }
             },
             {
               targets: 3,
+              render: function(data, type, full, meta) {
+                var lat = '-';
+                var long = '-';
+                if (data) {
+                  lat = data;
+                }
+                if (full['koordinat_long']) {
+                  long = full['koordinat_long'];
+                }
+                return '<div> ' + lat + '</div><div> ' + long + '</div>';
+              }
+            },
+            {
+              targets: 4,
               render: function(data, type, full, meta) {
                 // var id = JSON.parse(data);
                 var name = '';

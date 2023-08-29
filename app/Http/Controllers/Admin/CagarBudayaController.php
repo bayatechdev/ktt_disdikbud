@@ -55,7 +55,7 @@ class CagarBudayaController extends Controller
 
   public function list()
   {
-    $items = CagarBudaya::with('galleries')->orderByDesc('id')->get();
+    $items = CagarBudaya::with(['galleries', 'desa'])->orderByDesc('id')->get();
     return response()->json(['data' => $items]);
   }
 

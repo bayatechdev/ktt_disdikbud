@@ -25,7 +25,7 @@
               <input type="text" id="cb_title" name="title" class="form-control" placeholder="Judul Gambar" required>
             </div>
             <div class="col-sm-3">
-              <input type="number" id="cb_order" name="order" max="10" class="form-control" placeholder="Urutan Tampil">
+              <input type="number" id="cb_order" name="order" max="10" class="form-control" placeholder="Urutan Tampil" required>
             </div>
             <div class="col-sm-3">
               <input type="file" id="cb_file" name="file" class="form-control" accept=".png,.jpg,.jpeg" required>
