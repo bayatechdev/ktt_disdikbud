@@ -22,7 +22,8 @@ class CagarBudaya extends Model
         'koordinat_long',
     ];
 
-    public function desa() {
+    public function desa()
+    {
         return $this->belongsTo(Desa::class, 'desa_id')->with(['kecamatan']);
     }
 }

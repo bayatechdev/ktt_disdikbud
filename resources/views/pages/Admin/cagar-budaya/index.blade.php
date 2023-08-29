@@ -57,6 +57,7 @@
           <tr>
             <th width="10px" nowrap>#</th>
             <th>Cagar Budaya</th>
+            <th>Lokasi</th>
             <th>Gambar</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
@@ -66,6 +67,7 @@
   </div>
 
   @include('_partials._modals.modal-cagarbudaya-add')
+  @include('_partials._modals.modal-cagarbudaya-galleries')
 @endsection
 
 @push('addon-style')
@@ -85,6 +87,25 @@
       // $('#latar_sejarah').attr('rows', 3);
     }
 
+    function onlyOne(checkbox) {
+      var checkboxes = document.getElementsByName('berkas_pilih');
+      checkboxes.forEach((item) => {
+        if (item !== checkbox) {
+          item.checked = false;
+        }
+      })
+      var checkedValue = $('.berkas_pilih:checked').val();
+      $('#berkas_id').val(checkedValue);
+      if (checkedValue) {
+        // $('#btn_pilih').removeClass('disabled');
+      } else {
+        // $('#btn_pilih').addClass('disabled');
+      }
+
+
+
+    }
+
     // Link page
     // $(document).on('click', '.btn_tambah', function(e) {
     //   e.preventDefault();
@@ -95,6 +116,33 @@
       e.preventDefault();
       resetForm();
       $('#modalAddData').modal('show');
+
+    });
+
+    $(document).on('click', '.btn_gallery', function(e) {
+      e.preventDefault();
+      $('#modalAddGallery').modal('show');
+      var cb_id = $(this).attr('data-cb_id');
+      $('#cagar_budaya_id').val(cb_id);
+      console.log(cb_id);
+
+      $.ajax({
+        type: "GET",
+        url: "/dashboard/cagar_budaya/cagarbudaya_galleries/" + cb_id,
+        datatype: "json",
+        success: function(data, response, textStatus, xhr) {
+          $("#pageGalleries").html(data);
+          $(".cLoading").addClass('d-none');
+        },
+        error: function() {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            showConfirmButton: true,
+          });
+        }
+      });
 
     });
 
@@ -193,6 +241,9 @@
               data: 'nama_objek'
             },
             {
+              data: 'nama_tempat'
+            },
+            {
               data: ''
             },
             {
@@ -204,13 +255,74 @@
             {
               targets: 0,
               render: function(data, type, full, meta) {
-                return meta.row + 1;
+                row_number = meta.row + 1;
+                return '<div>' + row_number + '</div>';
+              }
+            },
+            {
+              targets: 1,
+              render: function(data, type, full, meta) {
+                return '<span class="d-flex flex-column">' + data + '</span>' +
+                  '<small class="text-muted">' +
+                  full['deskripsi'] +
+                  '</small>';;
               }
             },
             {
               targets: 2,
               render: function(data, type, full, meta) {
-                return meta.row + 1;
+                var desa = '-';
+                if (full['desa_id']) {
+                  desa = full['desa_id']['title'];
+                }
+                return '<span class="d-flex flex-column">' + data + '</span>' +
+                  '<small class="text-muted">' +
+                  +
+                  '</small>';;
+              }
+            },
+            {
+              targets: 3,
+              render: function(data, type, full, meta) {
+                // var id = JSON.parse(data);
+                var name = '';
+                var galleries = full['galleries'];
+                var number = 0;
+
+                if (!galleries.length) {
+                  return '<a href="#" class="btn_gallery" data-cb_id="' + full['id'] + '"><small><i>Tambah Gambar</i></small></a>';
+                }
+
+                galleries.forEach(element => {
+                  number++;
+                  if (number > 3) {
+                    return
+                  }
+                  if (element.file) {
+                    name +=
+                      '<div class="avatar avatar-xs"><img src="/storage/cagar-budaya/images/thumb_' +
+                      element.file +
+                      '" alt="Avatar" class="rounded-circle pull-up" data-bs-toggle="tooltip" data-bs-placement="top" title="' +
+                      element.title + '"></div>';
+                  } else {
+                    name +=
+                      '<div class="avatar avatar-xs"><img src="https://ui-avatars.com/api/?name=' +
+                      element.title +
+                      '" alt="Avatar" class="rounded-circle pull-up" data-bs-toggle="tooltip" data-bs-placement="top" title="' +
+                      element.title + '"></div>';
+                  }
+                });
+
+                if (galleries.length > 3) {
+                  // console.log(number);
+                  name +=
+                    '<div class="avatar avatar-xs"><span class="avatar-initial rounded-circle pull-up bg-secondary" data-bs-toggle="tooltip"data-bs-placement="bottom" title="' +
+                    (galleries.length - 3) + ' Lainnya">+' +
+                    (galleries.length - 3) + '</span></div>';
+                }
+                return '<div class="d-flex align-items-center avatar-group btn_gallery" data-cb_id="' + full['id'] + '">' + name + '</div>';
+
+
               }
             },
             {
@@ -257,29 +369,9 @@
           },
           buttons: [
             //Button  
-            // {
-            //   text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Tambah Data</span>',
-            //   className: 'add-new btn btn-primary add-record btn_tambah',
-            //   attr: {
-            //     // 'data-bs-toggle': 'offcanvas',
-            //     // 'data-bs-target': '#offcanvasAdd',
-            //     'hidden': function() {
-            //       return false;
-            //       // if (role == 0 || role == 1) {
-            //       //   return false;
-            //       // } else {
-            //       //   return true;
-            //       // }
-            //     },
-            //   }
-            // },
             {
               text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Tambah</span>',
               className: 'add-new btn btn-primary btn_tambah',
-              attr: {
-                // 'data-bs-toggle': 'modal',
-                // 'data-bs-target': '#modalAddData',
-              }
             },
           ]
         });
@@ -329,6 +421,10 @@
       const textarea_latar_sejarah = document.querySelector('#latar_sejarah');
       if (textarea_latar_sejarah) {
         autosize(textarea_latar_sejarah);
+      }
+      const textarea_cb_deskripsi = document.querySelector('#cb_deskripsi');
+      if (textarea_cb_deskripsi) {
+        autosize(textarea_cb_deskripsi);
       }
 
       // ---------------------------Select2-----------------------------------------

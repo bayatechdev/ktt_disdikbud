@@ -2,17 +2,17 @@
 <div class="modal fade" id="modalAddData" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable  mx-auto" role="document">
     <div class="modal-content">
-      {{-- <div class="modal-header">
-        <h5 class="modal-title" id="modalAddDataTitle">Modal title</h5>
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAddDataTitle">Tambah Data</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> --}}
+      </div>
       <div class="modal-body">
+        {{-- <div class="text-center mb-2">
+          <h4 class="mb-2">Tambah Data</h4>
+          <p>Silahkan Input Cagar Budaya</p>
+        </div> --}}
         <form class="add-new pt-0" id="addForm" action="{{ route('cagarbudaya_store') }}" method="POST" role="form" enctype="multipart/form-data">
           @csrf
-          <div class="text-center mb-2">
-            <h4 class="mb-2">Tambah Data</h4>
-            <p>Silahkan Input Cagar Budaya</p>
-          </div>
           <input type="hidden" hidden id="id" name="id" class="form-control" autocomplete="off" placeholder="id" />
           <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
@@ -79,8 +79,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
       </form>
     </div>

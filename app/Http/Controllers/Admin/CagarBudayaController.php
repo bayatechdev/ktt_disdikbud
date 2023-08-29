@@ -11,6 +11,7 @@ use App\Models\Berita;
 use App\Models\BeritaKategori;
 use App\Models\Bidang;
 use App\Models\CagarBudaya;
+use App\Models\CagarBudayaGallery;
 use App\Models\Desa;
 use App\Models\Tags;
 
@@ -54,7 +55,7 @@ class CagarBudayaController extends Controller
 
   public function list()
   {
-    $items = CagarBudaya::orderByDesc('id')->get();
+    $items = CagarBudaya::with('galleries')->orderByDesc('id')->get();
     return response()->json(['data' => $items]);
   }
 
@@ -62,52 +63,68 @@ class CagarBudayaController extends Controller
   {
     $data = $request->all();
     $data['slug'] = Str::slug($request->nama_objek) . '-' . Str::random(2);
-    // dd($data);
-
-    // if ($request->hasFile('image')) {
-    //   $file = $request->file('image');
-    //   $name = md5(microtime() . Str::random(10));
-    //   $filename = $name . '.' . $file->getClientOriginalExtension();
-    //   $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
-    //   $img = Image::make($file);
-
-    //   if (Image::make($file)->width() < 1024) {
-    //     $img->resize(800, null, function ($constraint) {
-    //       $constraint->aspectRatio();
-    //     });
-    //   } else if (Image::make($file)->width() < 3024) {
-    //     $img->resize(1000, null, function ($constraint) {
-    //       $constraint->aspectRatio();
-    //     });
-    //   } else if (Image::make($file)->width() < 6024) {
-    //     $img->resize(1300, null, function ($constraint) {
-    //       $constraint->aspectRatio();
-    //     });
-    //   } else {
-    //     $img->resize(1600, null, function ($constraint) {
-    //       $constraint->aspectRatio();
-    //     });
-    //   }
-
-    //   $img->save(public_path('storage/berita/images/') . $filename);
-    //   $img->resize(150, null, function ($constraint) {
-    //     $constraint->aspectRatio();
-    //   });
-    //   $img->save(public_path('storage/berita/images/') . $thumbnail);
-    //   $data['image'] = $filename;
-    // }
 
     CagarBudaya::updateOrCreate(['id' => $data['id']], $data);
     // return redirect()->route('cagarbudaya_index');
     return response()->json(['status'  => 200]);
   }
 
+  public function gallery_store(Request $request)
+  {
+    $data = $request->all();
+    // dd($data);
+
+    if ($request->hasFile('file')) {
+      $file = $request->file('file');
+      $name = md5(microtime() . Str::random(10));
+      $filename = $name . '.' . $file->getClientOriginalExtension();
+      $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+      $img = Image::make($file);
+
+      if (Image::make($file)->width() < 1024) {
+        $img->resize(800, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else if (Image::make($file)->width() < 3024) {
+        $img->resize(1000, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else if (Image::make($file)->width() < 6024) {
+        $img->resize(1300, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else {
+        $img->resize(1600, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      }
+
+      $img->save(public_path('storage/cagar-budaya/images/') . $filename);
+      $img->resize(150, null, function ($constraint) {
+        $constraint->aspectRatio();
+      });
+      $img->save(public_path('storage/cagar-budaya/images/') . $thumbnail);
+      $data['file'] = $filename;
+    }
+
+    CagarBudayaGallery::updateOrCreate(['id' => $data['id']], $data);
+    return redirect()->route('cagarbudaya_index');
+    // return response()->json(['status'  => 200]);
+  }
+
   public function edit($token)
   {
-
     $data = CagarBudaya::where('id', $token)->firstOrFail();
     return response()->json([
       'data'  => $data
+    ]);
+  }
+
+  public function galleries($id)
+  {
+    $datas = CagarBudayaGallery::where('cagar_budaya_id', $id)->get();
+    return view('_partials._pages.page-cagarbudaya-galleries-upload', [
+      'datas' => $datas,
     ]);
   }
 
