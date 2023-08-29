@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+  <link rel="stylesheet" href="{{ url('frontend/glightbox/dist/css/glightbox.css') }}" />
 @endsection
 
 @section('vendor-script')
@@ -25,6 +26,8 @@
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/cleavejs/cleave.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
+  <script src="{{ url('frontend/glightbox/dist/js/glightbox.js') }}"></script>
+
 @endsection
 
 @section('content')

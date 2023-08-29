@@ -27,12 +27,12 @@
     @endforeach
 
   </div>
-  {{-- <script>
+  <script>
     var lightbox = GLightbox();
     lightbox.on('open', (target) => {
       console.log('lightbox opened');
     });
-  </script> --}}
+  </script>
 @else
   <div class="row text-center pb-3">
     <small class="text-muted">Belum ada gambar, Silahkan Upload..</small>
