@@ -11,7 +11,7 @@
           <h4 class="mb-2">Tambah Data</h4>
           <p>Silahkan Input Cagar Budaya</p>
         </div> --}}
-        <form class="add-new pt-0" id="addForm" action="{{ route('cagarbudaya_store') }}" method="POST" role="form" enctype="multipart/form-data">
+        <form class="add-new pt-0" id="addForm" action="" method="POST" role="form" enctype="multipart/form-data">
           @csrf
           <input type="text" hidden id="id" name="id" class="form-control" autocomplete="off" placeholder="id" />
           <div class="row mt-2 px-1">

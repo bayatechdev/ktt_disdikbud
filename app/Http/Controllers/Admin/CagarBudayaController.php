@@ -105,8 +105,8 @@ class CagarBudayaController extends Controller
     }
 
     CagarBudayaGallery::updateOrCreate(['id' => $data['id']], $data);
-    return redirect()->route('cagarbudaya_index');
-    // return response()->json(['status'  => 200]);
+    // return redirect()->route('cagarbudaya_index');
+    return response()->json(['status'  => 200]);
   }
 
   public function edit($token)

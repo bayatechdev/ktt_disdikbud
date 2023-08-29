@@ -117,6 +117,14 @@
           type: 'GET',
           url: "/dashboard/cagar_budaya/cagarbudaya_gallery_edit/" + checkedValue,
           dataType: 'json',
+          // beforeSend: function() {
+          //   $('#loading_spinner').show();
+          //   $('#btn_pilih').attr('disabled', true);
+          // },
+          // complete: function() {
+          //   $('#loading_spinner').hide();
+          //   $('#btn_pilih').attr('disabled', false);
+          // },
           success: function(response, textStatus, xhr) {
             // resetForm();
             $.each(response.data, function(key, value) {
@@ -240,6 +248,50 @@
             });
             $('.data-table').DataTable().ajax.reload();
             resetForm();
+          }
+        },
+        error: function() {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            showConfirmButton: true,
+          });
+        }
+      });
+    });
+
+    $("#berkasForm").submit(function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+      $.ajax({
+        url: "{{ route('cagarbudaya_gallery_store') }}",
+        method: 'POST',
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+          $('#loading_spinner').show();
+          $('#modalAddGallery').modal('hide');
+        },
+        complete: function() {
+          $('#loading_spinner').hide();
+          gal_simpan();
+          $("#berkasForm")[0].reset();
+        },
+        success: function(response) {
+          console.log(response);
+          if (response.status == 200) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Gambar berhasil diupload',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $('.data-table').DataTable().ajax.reload();
           }
         },
         error: function() {
