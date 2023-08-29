@@ -88,6 +88,20 @@
       // $('#latar_sejarah').attr('rows', 3);
     }
 
+    function gal_simpan() {
+      $('#btn_pilih').addClass('btn-primary');
+      $('#btn_pilih').removeClass('btn-warning');
+      $('#btn_pilih').text('Simpan');
+      $('#cb_file').attr('required', true);
+    }
+
+    function gal_edit() {
+      $('#btn_pilih').removeClass('btn-primary');
+      $('#btn_pilih').addClass('btn-warning');
+      $('#btn_pilih').text('Ubah');
+      $('#cb_file').attr('required', false);
+    }
+
     function onlyOne(checkbox) {
       var checkboxes = document.getElementsByName('berkas_pilih');
       checkboxes.forEach((item) => {
@@ -96,11 +110,28 @@
         }
       })
       var checkedValue = $('.berkas_pilih:checked').val();
-      $('#berkas_id').val(checkedValue);
+      // $('#berkas_id').val(checkedValue);
       if (checkedValue) {
-        // $('#btn_pilih').removeClass('disabled');
+        gal_edit();
+        $.ajax({
+          type: 'GET',
+          url: "/dashboard/cagar_budaya/cagarbudaya_gallery_edit/" + checkedValue,
+          dataType: 'json',
+          success: function(response, textStatus, xhr) {
+            // resetForm();
+            $.each(response.data, function(key, value) {
+              $("#cb_" + key).val(value).change();
+            });
+          },
+          error: function(event, jqXHR, ajaxSettings, thrownError) {
+            console.log(event + ' - ' + jqXHR + ' - ' + ajaxSettings + ' - ' + thrownError);
+          }
+        });
       } else {
-        // $('#btn_pilih').addClass('disabled');
+        gal_simpan();
+        var cgbdy_id = $('#cagar_budaya_id').val();
+        $("#berkasForm")[0].reset();
+        $('#cagar_budaya_id').val(cgbdy_id);
       }
 
 
@@ -122,11 +153,12 @@
 
     $(document).on('click', '.btn_gallery', function(e) {
       e.preventDefault();
+      gal_simpan();
+      $("#berkasForm")[0].reset(); // Reset dulu sebelum di tampilkan
       $('#modalAddGallery').modal('show');
       var cb_id = $(this).attr('data-cb_id');
       $('#cagar_budaya_id').val(cb_id);
-      console.log(cb_id);
-
+      // console.log(cb_id);
       $.ajax({
         type: "GET",
         url: "/dashboard/cagar_budaya/cagarbudaya_galleries/" + cb_id,
@@ -150,7 +182,7 @@
     // EDIT
     $(document).on('click', '.btn_edit', function(e) {
       let token = $(this).attr('data-token');
-      console.log(token);
+      // console.log(token);
       if (token) {
         $.ajax({
           type: 'GET',

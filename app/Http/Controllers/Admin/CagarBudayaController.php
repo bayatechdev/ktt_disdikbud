@@ -120,9 +120,17 @@ class CagarBudayaController extends Controller
     ]);
   }
 
+  public function gallery_edit($token)
+  {
+    $data = CagarBudayaGallery::where('id', $token)->select(['id', 'cagar_budaya_id', 'title', 'deskripsi', 'order'])->firstOrFail();
+    return response()->json([
+      'data'  => $data
+    ]);
+  }
+
   public function galleries($id)
   {
-    $datas = CagarBudayaGallery::where('cagar_budaya_id', $id)->get();
+    $datas = CagarBudayaGallery::where('cagar_budaya_id', $id)->orderBy('order')->get();
     return view('_partials._pages.page-cagarbudaya-galleries-upload', [
       'datas' => $datas,
     ]);
