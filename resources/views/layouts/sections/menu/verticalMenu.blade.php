@@ -52,7 +52,7 @@
     </li>
     <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
       <a href="#" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-message"></i>
+        <i class="menu-icon tf-icons bx bx-message-detail"></i>
         <div>Survey</div>
       </a>
     </li>
