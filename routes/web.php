@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CagarBudayaController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('cagar-budaya-list');
