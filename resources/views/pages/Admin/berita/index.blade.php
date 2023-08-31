@@ -111,6 +111,58 @@
       e.preventDefault();
       window.location.href = "{{ route('berita_create') }}";
     });
+
+    // DELETE
+    $(document).on('click', '.delete-record', function(e) {
+      e.preventDefault();
+      let token = $(this).attr('data-token');
+      let name = $(this).attr('data-name');
+      let csrf = '{{ csrf_token() }}';
+      Swal.fire({
+        title: 'Yakin ingin menghapus Berita?',
+        text: name,
+        icon: 'warning',
+        showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-secondary',
+        },
+        confirmButtonText: 'Hapus!',
+        cancelButtonText: 'Batal',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "{{ route('berita_delete') }}",
+            method: 'delete',
+            data: {
+              token: token,
+              _token: csrf
+            },
+            success: function(response) {
+              if (response.status == 200) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Data berhasil dihapus',
+                  showConfirmButton: false,
+                  timer: 1000
+                });
+                $('.data-table').DataTable().ajax.reload();
+              }
+            },
+            error: function(xhr) {
+              console.log(xhr);
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                showConfirmButton: true,
+              });
+            }
+          });
+        }
+      })
+    });
   </script>
 
   {{-- DATATABLE --}}

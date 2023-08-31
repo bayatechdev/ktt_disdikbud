@@ -319,6 +319,10 @@
         text: "Data ini tidak dapat dikembalikan!",
         icon: 'warning',
         showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-secondary',
+        },
         confirmButtonText: 'Hapus!',
         cancelButtonText: 'Batal',
       }).then((result) => {
@@ -367,6 +371,10 @@
         text: "Data ini tidak dapat dikembalikan!",
         icon: 'warning',
         showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-secondary',
+        },
         confirmButtonText: 'Hapus!',
         cancelButtonText: 'Batal',
       }).then((result) => {

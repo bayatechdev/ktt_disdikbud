@@ -165,32 +165,15 @@ class BeritaController extends Controller
     return redirect()->route('berita_index');
   }
 
-  // public function edit(Request $request)
-  // {
-  //   $request = $request->all();
-  //   $data = Bidang::where('token', $request['token'])->first();
-
-  //   if ($data) $response = 200;
-  //   else $response = 201;
-
-  //   return response()
-  //     ->json([
-  //       'data'  => $data,
-  //     ], $response);
-  // }
-
-  // public function delete(Request $request)
-  // {
-  //   $item = Bidang::where('token', $request['token'])->first();
-  //   $cek = Pegawai::where('bidang_id', $item->id)->count();
-  //   if ($cek) {
-  //     $status = 201;
-  //   } else {
-  //     $status = 200;
-  //     Bidang::destroy($item->id);
-  //   }
-  //   return response()->json([
-  //     'status' => $status,
-  //   ]);
-  // }
+  public function delete(Request $request)
+  {
+    $item = Berita::where('token', $request['token'])->first();
+    // dd($item);
+    Berita::destroy($item->id);
+    File::delete(public_path('storage/berita/images/' . $item->image));
+    File::delete(public_path('storage/berita/images/thumb_' . $item->image));
+    return response()->json([
+      'status' => 200,
+    ]);
+  }
 }

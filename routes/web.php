@@ -27,7 +27,7 @@ Route::prefix('dashboard')
                 Route::get('berita_list', [AdminBeritaController::class, 'list'])->name('berita_list');
                 Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
                 Route::put('berita_update/{token}', [AdminBeritaController::class, 'update'])->name('berita_update');
-                // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+                Route::delete('berita_delete', [AdminBeritaController::class, 'delete'])->name('berita_delete');
             });
 
         Route::prefix('cagar_budaya')
