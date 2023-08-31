@@ -12,16 +12,15 @@
           <div class="st-hero-text">
             <div class="st-height-b40 st-height-lg-b40"></div>
             <h1 class="st-hero-title cd-headline slide">
-              Cintai Budaya, <br>
-              Lestarikan Identitas
+              Lestarikan Upun Taka
               <div class="mt-4 text-info">
                 <small>
                   <span class="cd-words-wrapper">
                     <b class="is-visible">Air Terjun Gunung Rian</b>
-                    <b>Batu Temangi</b>
-                    <b>Batu Mapan</b>
-                    <b>Tanduk Galung</b>
-                    <b>Guci Keramat</b>
+                    <b>Makam Keramat Datu Mulia</b>
+                    <b>Lungun Aki Korong</b>
+                    <b>Makam Kuno</b>
+                    <b>Tempayan</b>
                   </span>
                 </small>
               </div>
@@ -30,7 +29,7 @@
               nilai-nilai luhur bagi generasi mendatang
             </div>
             <div class="st-hero-btn">
-              <a href="#appointment" class="st-btn st-style1 st-color1 st-smooth-move">Lihat Cagar Budaya</a>
+              <a href="#cagarbudayamaps" class="st-btn st-style1 st-color1 st-smooth-move">Lihat Cagar Budaya</a>
             </div>
           </div>
         </div>
@@ -231,33 +230,7 @@
     </section>
     <!-- End Feature Seciton -->
 
-    {{-- <section>
-      <div class="container">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="https://picsum.photos/id/239/200/100" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://picsum.photos/id/23/200/100" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://picsum.photos/id/37/200/100" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </section> --}}
-
-    <section class="st-maps">
+    <section id="cagarbudayamaps" class="st-maps">
       <div class="st-height-b120 st-height-lg-b50"></div>
       <div class="container">
         <div class="st-section-heading st-style1">
@@ -268,8 +241,7 @@
             </div>
             <div class="st-seperator-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s"></div>
           </div>
-          <div class="st-section-heading-subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. <br>Lorem Ipsum the industry's standard dummy text.</div>
+          <div class="st-section-heading-subtitle">Peta Cagar Budaya Peringkat Kabupaten</div>
         </div>
         <div class="st-height-b40 st-height-lg-b40"></div>
         <div id="map"></div>
@@ -2527,6 +2499,9 @@
         L.marker([element.koordinat_lat, element.koordinat_long])
           .bindPopup($popup, {
             maxWidth: 420,
+          })
+          .bindTooltip(element.nama_objek, {
+            // direction: 'right'
           })
           .addTo(map);
       });
