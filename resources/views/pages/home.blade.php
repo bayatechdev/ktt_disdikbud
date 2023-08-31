@@ -2354,6 +2354,8 @@
 @endsection
 
 @push('addon-style')
+  <link rel="stylesheet" href="{{ url('assets/library/leaflet.fullscreen-master/Control.FullScreen.css') }}" />
+
   <style>
     #map {
       height: 580px;
@@ -2379,19 +2381,30 @@
       height: 220px;
       object-fit: cover;
     }
+
+    /* #map {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        left: 0;
+        right: 0;
+      } */
   </style>
 @endpush
 
 @push('addon-script')
-@endpush
+  <script src="{{ url('assets/library/leaflet.fullscreen-master/Control.FullScreen.js') }}"></script>
 
-@push('addon-script')
   <script>
     var map = L.map('map', {
       zoomControl: true,
-      //   scrollWheelZoom: false, // disable original zoom function
+      // scrollWheelZoom: false, // disable original zoom function
       smoothWheelZoom: true, // enable smooth zoom 
       smoothSensitivity: 2, // zoom speed. default is 1
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: 'topright'
+      }
     }).setView([3.5636219380731027, 117.32076644897461], 10);
 
     map.attributionControl.setPrefix("Leaflet");
@@ -2519,7 +2532,8 @@
       $(".carousel .carousel-inner").html('');
 
       data.forEach((value, index) => {
-        image = '<div class="carousel-item' + active + '"><img class="d-block w-100" src="/storage/cagar-budaya/images/' +
+        image = '<div class="carousel-item' + active +
+          '"><img class="d-block w-100" src="/storage/cagar-budaya/images/' +
           value.file +
           '" alt="gambar"></div>';
         $(".carousel .carousel-inner").append(image);
