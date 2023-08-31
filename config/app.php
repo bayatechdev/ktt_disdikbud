@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -181,7 +182,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -211,6 +212,8 @@ return [
         'Helper' => App\Helpers\Helpers::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
+        'Carbon' => Illuminate\Support\Carbon::class,
+
     ])->toArray(),
 
 ];

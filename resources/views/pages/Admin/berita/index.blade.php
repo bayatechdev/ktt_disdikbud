@@ -155,7 +155,7 @@
                 var $token = full['token'];
                 var $name = full['title'];
 
-                var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +
+                var btn_aksi = '<a href="/dashboard/berita/berita_edit/' + $token + '" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +
                   $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
                   '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body delete-record" data-token="' +
                   $token + '" data-name="' + $name +

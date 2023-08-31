@@ -23,8 +23,10 @@ Route::prefix('dashboard')
                 // USER
                 Route::get('berita_index', [AdminBeritaController::class, 'index'])->name('berita_index');
                 Route::get('berita_create', [AdminBeritaController::class, 'create'])->name('berita_create');
+                Route::get('berita_edit/{id}', [AdminBeritaController::class, 'edit'])->name('berita_edit');
                 Route::get('berita_list', [AdminBeritaController::class, 'list'])->name('berita_list');
                 Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
+                Route::put('berita_update/{token}', [AdminBeritaController::class, 'update'])->name('berita_update');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
             });
 

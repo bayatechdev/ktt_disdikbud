@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use App\Models\Berita;
 use App\Models\BeritaKategori;
 use App\Models\Bidang;
@@ -34,6 +35,23 @@ class BeritaController extends Controller
     $tags = Tags::where('publish', true)->orderBy('order')->get();
 
     return view('pages.admin.berita.create', [
+      'kategoris' => $kategoris,
+      'bidangs' => $bidangs,
+      'tags' => $tags,
+    ]);
+  }
+
+  public function edit($id)
+  {
+    $item = Berita::where('token', $id)->firstOrFail();
+    $item['tags'] = json_decode($item->tags);
+    // dd($item);
+    $kategoris = BeritaKategori::where('publish', true)->orderBy('order')->get();
+    $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
+    $tags = Tags::where('publish', true)->orderBy('order')->get();
+
+    return view('pages.admin.berita.edit', [
+      'item' => $item,
       'kategoris' => $kategoris,
       'bidangs' => $bidangs,
       'tags' => $tags,
@@ -90,6 +108,60 @@ class BeritaController extends Controller
     }
 
     Berita::create($data);
+    return redirect()->route('berita_index');
+  }
+
+  public function update(Request $request, $token)
+  {
+    $item = Berita::where('token', $token)->firstOrFail();
+    if ($item) {
+      $data = $request->all();
+      $data['user_id'] = Auth::user()->id;
+      if ($request->title <> $item->title) {
+        $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+      }
+      $data['tags'] = json_encode($request->tags);
+      $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+      // dd($data);
+
+      if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $name = md5(microtime() . Str::random(10));
+        $filename = $name . '.' . $file->getClientOriginalExtension();
+        $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+        $img = Image::make($file);
+
+        if (Image::make($file)->width() < 1024) {
+          $img->resize(800, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } else if (Image::make($file)->width() < 3024) {
+          $img->resize(1000, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } else if (Image::make($file)->width() < 6024) {
+          $img->resize(1300, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } else {
+          $img->resize(1600, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        }
+
+        $img->save(public_path('storage/berita/images/') . $filename);
+        $img->resize(150, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $img->save(public_path('storage/berita/images/') . $thumbnail);
+        $data['image'] = $filename;
+
+        File::delete(public_path('storage/berita/images/' . $item->image));
+        File::delete(public_path('storage/berita/images/thumb_' . $item->image));
+      }
+
+      $item->update($data);
+    }
     return redirect()->route('berita_index');
   }
 
