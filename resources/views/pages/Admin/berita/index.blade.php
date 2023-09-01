@@ -88,6 +88,8 @@
           <tr>
             <th width="10px" nowrap>#</th>
             <th>Judul</th>
+            <th>Detail</th>
+            <th>Status</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -100,6 +102,26 @@
   <style>
     .data-table tr th {
       font-size: 10px;
+    }
+
+    .tbl-detail tr {
+      line-height: 1.1;
+    }
+
+    .td-1 {
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .td-2 {
+      font-size: 11px;
+      font-weight: bold;
+      padding-left: 3px;
+    }
+
+    .td-3 {
+      font-size: 10px;
+      padding-left: 5px;
     }
   </style>
 @endpush
@@ -185,6 +207,12 @@
               data: 'title'
             },
             {
+              data: 'ketegori_id'
+            },
+            {
+              data: 'headline'
+            },
+            {
               data: ''
             }
           ],
@@ -194,6 +222,67 @@
               targets: 0,
               render: function(data, type, full, meta) {
                 return meta.row + 1;
+              }
+            },
+            {
+              targets: 1,
+              render: function(data, type, full, meta) {
+                var sub_str = full['content'];
+                if (sub_str.length > 200) sub_str = sub_str.substring(0, 200) + '...';
+                return '<span class="d-flex flex-column">' + data + '</span>' +
+                  '<small>' +
+                  '(' + moment(full['tanggal']).format('DD/MM/YYYY') + ')&nbsp' +
+                  '</small>' +
+                  '<small class="text-muted">' +
+                  sub_str +
+                  '</small>';
+              }
+            },
+            {
+              targets: 2,
+              render: function(data, type, full, meta) {
+                var kategori = '-';
+                var bidang = '-';
+                var user = '-';
+                if (full['kategori']) {
+                  kategori = full['kategori']['title'];
+                }
+
+                if (full['bidang']) {
+                  bidang = full['bidang']['title'];
+                }
+
+                if (full['user']) {
+                  user = full['user']['name'];
+                }
+
+                if (full['tags'] == 'null') {
+                  tags = '-';
+                } else {
+                  tags = JSON.parse(full['tags']);
+                }
+                return '<table class="tbl-detail">' +
+                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Kategori </td><td class="td-2">:</td><td class="td-3">' + kategori + '</td></tr>' +
+                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Bidang </td><td class="td-2">:</td><td class="td-3">' + bidang + '</td></tr>' +
+                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Tags </td><td class="td-2">:</td><td class="td-3">' + tags + '</td></tr>' +
+                  '<tr><td class="td-1 text-nowrap px-0 mx-0">By </td><td class="td-2">:</td><td class="td-3">' + user + '</td></tr>' +
+                  '</table> ';
+              }
+            },
+            {
+              targets: 3,
+              orderable: false,
+              render: function(data, type, full, meta) {
+                headline = '';
+                if (data == 1) {
+                  headline = '<small><span class="badge bg-label-success me-1">Headline</span></small>'
+                }
+                if (full['publish'] == 1) {
+                  publish = '<small><span class="badge bg-label-primary me-1">Publish</span></small>'
+                } else {
+                  publish = '<small><span class="badge bg-label-secondary me-1">Draf</span></small>';
+                }
+                return '<span class="text-nowrap">' + headline + publish + '</span>';
               }
             },
             {

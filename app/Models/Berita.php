@@ -24,4 +24,19 @@ class Berita extends Model
         'tags',
         'hits',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(BeritaKategori::class, 'kategori_id')->select(['id', 'title']);
+    }
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class, 'bidang_id')->select(['id', 'title']);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select(['id', 'name']);
+    }
 }

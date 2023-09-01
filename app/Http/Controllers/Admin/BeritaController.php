@@ -60,7 +60,25 @@ class BeritaController extends Controller
 
   public function list()
   {
-    $items = Berita::orderby('tanggal')->get();
+    $items = Berita::with(['kategori', 'bidang', 'user'])->orderby('tanggal')->get();
+    $tags = Tags::select(['id', 'title'])->get();
+    // dd($tags);
+    foreach ($items as $item) {
+      // dd(json_decode($item->tags));
+      $tags_array = json_decode($item->tags);
+      if (is_array($tags_array)) {
+        // dd($tags_array);
+        $tag = [];
+        $i = 0;
+        foreach ($tags_array as $key => $value) {
+          // dd($tags->where('id', $value)->first()->title);
+          $tag[$i] = $tags->where('id', $value)->first()->title;
+          $i++;
+        }
+
+        $item['tags'] = json_encode($tag);
+      }
+    }
     return response()->json(['data' => $items]);
   }
 
