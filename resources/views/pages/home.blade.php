@@ -16,8 +16,7 @@
               <div class="mt-4 text-info">
                 <small>
                   <span class="cd-words-wrapper">
-                    <b class="is-visible">Air Terjun Gunung Rian</b>
-                    <b>Makam Keramat Datu Mulia</b>
+                    <b class="is-visible">Makam Keramat Datu Mulia</b>
                     <b>Lungun Aki Korong</b>
                     <b>Makam Kuno</b>
                     <b>Tempayan</b>
@@ -50,17 +49,22 @@
           <div class="slick-wrapper">
             <div class="slick-slide-in">
               <div class="st-hero-img">
-                <img src="{{ url('frontend/assets/img/hero-img.png') }}" alt="Hero img">
+                <img src="{{ url('assets/img/heros/hero-img-1.png') }}" alt="Hero img">
               </div>
             </div>
             <div class="slick-slide-in">
               <div class="st-hero-img">
-                <img src="{{ url('frontend/assets/img/hero-img1.png') }}" alt="Hero img">
+                <img src="{{ url('assets/img/heros/hero-img-2.png') }}" alt="Hero img">
               </div>
             </div>
             <div class="slick-slide-in">
               <div class="st-hero-img">
-                <img src="{{ url('frontend/assets/img/hero-img2.png') }}" alt="Hero img">
+                <img src="{{ url('assets/img/heros/hero-img-3.png') }}" alt="Hero img">
+              </div>
+            </div>
+            <div class="slick-slide-in">
+              <div class="st-hero-img">
+                <img src="{{ url('assets/img/heros/hero-img-4.png') }}" alt="Hero img">
               </div>
             </div>
           </div>
@@ -2294,6 +2298,8 @@
       <div class="row">
         <div class="col-12 my-2">
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            </ol>
             <div class="carousel-inner">
               {{-- <div class="carousel-item active">
                 <img class="d-block w-100" src="https://picsum.photos/id/239/200/100" alt="First slide">
@@ -2379,28 +2385,29 @@
 
     .carousel .carousel-item img {
       height: 220px;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     /* #map {
-        position: absolute;
-        height: 100vh;
-        width: 100vw;
-        left: 0;
-        right: 0;
-      } */
+                position: absolute;
+                height: 100vh;
+                width: 100vw;
+                left: 0;
+                right: 0;
+              } */
   </style>
 @endpush
 
 @push('addon-script')
   <script src="{{ url('assets/library/leaflet.fullscreen-master/Control.FullScreen.js') }}"></script>
+  <script src="{{ url('assets/library/smooth-wheel-zoom/SmoothWheelZoom.js') }}"></script>
 
   <script>
     var map = L.map('map', {
       zoomControl: true,
-      // scrollWheelZoom: false, // disable original zoom function
+      scrollWheelZoom: false, // disable original zoom function
       smoothWheelZoom: true, // enable smooth zoom 
-      smoothSensitivity: 2, // zoom speed. default is 1
+      smoothSensitivity: 3, // zoom speed. default is 1
       fullscreenControl: true,
       fullscreenControlOptions: {
         position: 'topright'
@@ -2528,15 +2535,21 @@
     }
 
     function generate_carousel(data) {
-      let active = ' active';
+      let active = 'active';
       $(".carousel .carousel-inner").html('');
+      $(".carousel .carousel-indicators").html('');
 
       data.forEach((value, index) => {
-        image = '<div class="carousel-item' + active +
+        image = '<div class="carousel-item ' + active +
           '"><img class="d-block w-100" src="/storage/cagar-budaya/images/' +
           value.file +
           '" alt="gambar"></div>';
+        indicator = '<li data-target="#carouselExampleControls" data-slide-to="' + index + '" class="' + active +
+          '"></li>';
+
         $(".carousel .carousel-inner").append(image);
+        if(data.length > 1) $(".carousel .carousel-indicators").append(indicator);
+
         active = '';
       });
     }
