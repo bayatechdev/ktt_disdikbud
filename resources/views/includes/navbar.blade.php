@@ -44,17 +44,9 @@
           <div class="st-nav">
             <ul class="st-nav-list st-onepage-nav">
               <li><a href="#home" class="st-smooth-move">Beranda</a></li>
-              <li><a href="#about" class="st-smooth-move">Profile</a></li>
-              <li><a href="#department" class="st-smooth-move">Informasi</a></li>
-              <li><a href="#doctors" class="st-smooth-move">Pelayanan</a></li>
-              <li class="menu-item-has-children"><a href="#" class="st-smooth-move">Galeri</a>
-                <ul>
-                  <li><a href="#blog" class="st-smooth-move">Foto</a></li>
-                  <li><a href="#video">Video</a></li>
-                </ul>
-              </li>
-              <li><a href="#price" class="st-smooth-move">PPDB</a></li>
-              <li><a href="#contact" class="st-smooth-move">Pengaduan</a></li>
+              <li><a href="#cagarbudayamaps" class="st-smooth-move">Peta Cagar Budaya</a></li>
+              <li><a href="#gallery" class="st-smooth-move">Galeri</a></li>
+              <li><a href="#blog" class="st-smooth-move">Berita</a></li>
             </ul>
           </div>
         </div>
