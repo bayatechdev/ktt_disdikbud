@@ -6,7 +6,7 @@
   <div class="st-content">
     <!-- Start Hero Seciton -->
     <div class="st-hero-wrap st-gray-bg st-dynamic-bg overflow-hidden st-fixed-bg"
-      data-src="{{ url('frontend/assets/img/hero-bg.jpg') }}">
+      data-src="{{ url('assets/img/heros/hero-bg.jpg') }}">
       <div class="st-hero st-style1">
         <div class="container">
           <div class="st-hero-text">

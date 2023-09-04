@@ -37,7 +37,7 @@
     <div class="container">
       <div class="st-main-header-in">
         <div class="st-main-header-left">
-          <a class="st-site-branding" href="index.html"><img src="{{ url('assets/img/disdikbud-logo.svg') }}"
+          <a class="st-site-branding" href="{{ route('home') }}"><img src="{{ url('assets/img/disdikbud-logo.svg') }}"
               alt="Nischinto" style="height: 44px;"></a>
         </div>
         <div class="st-main-header-right">
