@@ -241,7 +241,7 @@
           <h2 class="st-section-heading-title">Peta Cagar Budaya</h2>
           <div class="st-seperator">
             <div class="st-seperator-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.2s"></div>
-            <div class="st-seperator-center"><img src="{{ url('frontend/assets/img/icons/4.png') }}" alt="icon">
+            <div class="st-seperator-center"><img src="{{ url('assets/img/logo.png') }}" alt="icon">
             </div>
             <div class="st-seperator-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s"></div>
           </div>
@@ -254,7 +254,7 @@
     </section>
 
     <!-- Start gallery Section -->
-    <section id="gallery">
+    <section id="gallery" class="d-none">
       <div class="st-height-b120 st-height-lg-b80"></div>
       <div class="container">
         <div class="st-section-heading st-style1">
@@ -562,12 +562,11 @@
           <h2 class="st-section-heading-title">Berita Terbaru</h2>
           <div class="st-seperator">
             <div class="st-seperator-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.2s"></div>
-            <div class="st-seperator-center"><img src="{{ url('frontend/assets/img/icons/4.png') }}"
+            <div class="st-seperator-center"><img src="{{ url('assets/img/logo.png') }}"
                 alt="icon"></div>
             <div class="st-seperator-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s"></div>
           </div>
-          <div class="st-section-heading-subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. <br>Lorem Ipsum the industry's standard dummy text.</div>
+          <div class="st-section-heading-subtitle">Liputan Berita Terbaru Kegiatan Bidang Kebudayaan</div>
         </div>
         <div class="st-height-b40 st-height-lg-b40"></div>
       </div>
@@ -576,14 +575,14 @@
           <div class="col-lg-4">
             <div class="st-post st-style3">
               <a href="blog-details-right-sidebar.html" class="st-post-thumb st-link-hover-wrap st-zoom">
-                <img class="st-zoom-in" src="{{ url('frontend/assets/img/blog1.jpg') }}" alt="blog1">
+                <img class="st-zoom-in" src="https://disdik.tanatidungkab.go.id/asset/foto_berita/369740383_835977444850053_1937905027424027246_n.jpg" alt="blog1">
                 <span class="st-link-hover"><i class="fas fa-link"></i></span>
               </a>
               <div class="st-post-info">
-                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Working in emergency medicine</a>
+                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Pekan Kebudayaan Daerah Tana Tidung Tahun 2023</a>
                 </h2>
                 <div class="st-post-meta">
-                  <span class="st-post-date">Aug 21, 2020</span>
+                  <span class="st-post-date">Aug 26, 2023</span>
                   <span>
                     Posted by:<a href="#" class="st-post-avatar">
                       <span class="st-post-avatar-text"> James Lewis</span>
@@ -603,12 +602,11 @@
           <div class="col-lg-4">
             <div class="st-post st-style3">
               <a href="blog-details-right-sidebar.html" class="st-post-thumb st-link-hover-wrap st-zoom">
-                <img class="st-zoom-in" src="{{ url('frontend/assets/img/blog2.jpg') }}" alt="blog1">
+                <img class="st-zoom-in" src="https://disdik.tanatidungkab.go.id/asset/foto_berita/359831437_814791103635354_5817487231693934024_n.jpg" alt="blog1">
                 <span class="st-link-hover"><i class="fas fa-link"></i></span>
               </a>
               <div class="st-post-info">
-                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Individual treatment &
-                    assistance</a></h2>
+                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Peraih juara FLS2N tingkat Provinsi Kaltara 2023</a></h2>
                 <div class="st-post-meta">
                   <span class="st-post-date">Aug 22, 2020</span>
                   <span>
@@ -630,14 +628,14 @@
           <div class="col-lg-4">
             <div class="st-post st-style3">
               <a href="blog-details-right-sidebar.html" class="st-post-thumb st-link-hover-wrap st-zoom">
-                <img class="st-zoom-in" src="{{ url('frontend/assets/img/blog3.jpg') }}" alt="blog1">
+                <img class="st-zoom-in" src="https://disdik.tanatidungkab.go.id/asset/foto_berita/WhatsApp_Image_2023-07-11_at_13_28_33.jpeg" alt="blog1">
                 <span class="st-link-hover"><i class="fas fa-link"></i></span>
               </a>
               <div class="st-post-info">
-                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Child’s first hospital visit</a>
+                <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Pelepasan peserta FLS2N tingkat Provinsi Kaltara</a>
                 </h2>
                 <div class="st-post-meta">
-                  <span class="st-post-date">Aug 23, 2020</span>
+                  <span class="st-post-date">Jul 11, 2023</span>
                   <span>
                     Posted by:<a href="#" class="st-post-avatar">
                       <span class="st-post-avatar-text"> Albert Brian</span>
@@ -835,6 +833,11 @@
     .carousel .carousel-item img {
       height: 220px;
       object-fit: contain;
+    }
+
+    .st-post-thumb img {
+      height: 240px;
+      object-fit: cover;
     }
   </style>
 @endpush
