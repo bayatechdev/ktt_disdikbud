@@ -60,7 +60,7 @@ class BeritaController extends Controller
 
   public function list()
   {
-    $items = Berita::with(['kategori', 'bidang', 'user'])->orderby('tanggal')->get();
+    $items = Berita::with(['kategori', 'bidang', 'user'])->orderbyDesc('tanggal')->get();
     $tags = Tags::select(['id', 'title'])->get();
     // dd($tags);
     foreach ($items as $item) {
@@ -140,6 +140,9 @@ class BeritaController extends Controller
       }
       $data['tags'] = json_encode($request->tags);
       $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+      if (!$request->content) {
+        unset($data['content']);
+      }
       // dd($data);
 
       if ($request->hasFile('image')) {

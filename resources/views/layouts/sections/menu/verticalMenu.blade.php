@@ -44,18 +44,18 @@
         <div>Cagar Budaya</div>
       </a>
     </li>
-    <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
+    {{-- <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
       <a href="#" class="menu-link">
         <i class="menu-icon tf-icons bx bx-message"></i>
         <div>Pengaduan</div>
       </a>
-    </li>
-    <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
+    </li> --}}
+    {{-- <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
       <a href="#" class="menu-link">
         <i class="menu-icon tf-icons bx bx-message-detail"></i>
         <div>Survey</div>
       </a>
-    </li>
+    </li> --}}
     <li class="menu-item {{ Request::segment(1) == 'kepegawaian' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-city"></i>

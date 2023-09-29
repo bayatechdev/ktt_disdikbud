@@ -5,6 +5,8 @@
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
 @endsection
 
 @section('page-style')
@@ -15,6 +17,12 @@
   <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
+@endsection
+
+@section('page-script')
+  <script src="{{ asset('assets/js/forms-editors.js') }}"></script>
 @endsection
 
 @section('content')
@@ -39,13 +47,13 @@
           <div class="row mb-3 g-1">
             <label class="col-sm-4 col-form-label" for="title">Judul Berita<sup class="text-danger">*</sup></label>
             <div class="col-sm-8">
-              <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Berita" required />
+              <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Berita" value="{{ old('title') }}" required />
             </div>
           </div>
           <div class="row mb-3 g-1">
             <label class="col-sm-4 col-form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
             <div class="col-sm-8">
-              <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" required />
+              <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ old('tanggal') }}" required />
             </div>
           </div>
           <div class="row mb-3 g-1">
@@ -115,9 +123,14 @@
           <div class="row mb-3 g-1">
             <label class="col-sm-4 col-form-label" for="content">Isi Berita<sup class="text-danger">*</sup></label>
             <div class="col-sm-8">
-              <textarea id="content" name="content" class="form-control" rows="8" placeholder="Isi Berita" autocomplete="off" required></textarea>
+              {{-- <textarea id="content" name="content" class="form-control" rows="8" placeholder="Isi Berita" autocomplete="off" required></textarea> --}}
+              <input type="hidden" name="content" value="{{ old('tanggal') }}">
+              <div id="full-editor" style="min-height: 160px;">{{ old('tanggal') }}</div>
             </div>
           </div>
+
+
+
         </div>
 
         <div class="pt-4">

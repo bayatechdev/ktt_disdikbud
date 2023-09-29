@@ -5,6 +5,8 @@
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
 @endsection
 
 @section('page-style')
@@ -15,6 +17,12 @@
   <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
+@endsection
+
+@section('page-script')
+  <script src="{{ asset('assets/js/forms-editors.js') }}"></script>
 @endsection
 
 @section('content')
@@ -113,12 +121,21 @@
               </div>
             </div>
           </div>
-          <div class="row mb-3 g-1">
+          {{-- <div class="row mb-3 g-1">
             <label class="col-sm-4 col-form-label" for="content">Isi Berita<sup class="text-danger">*</sup></label>
             <div class="col-sm-8">
               <textarea id="content" name="content" class="form-control" rows="8" placeholder="Isi Berita" autocomplete="off" required>
                 {{ $item->content }}
               </textarea>
+            </div>
+          </div> --}}
+
+          <div class="row mb-3 g-1">
+            <label class="col-sm-4 col-form-label" for="content">Isi Berita<sup class="text-danger">*</sup></label>
+            <div class="col-sm-8">
+              {{-- <textarea id="content" name="content" class="form-control" rows="8" placeholder="Isi Berita" autocomplete="off" required></textarea> --}}
+              <input type="text" hidden name="content">
+              <div id="full-editor" class="form-control">{!! $item->content !!}</div>
             </div>
           </div>
         </div>
