@@ -117,7 +117,7 @@
       {{-- submenu --}}
       <ul class="menu-sub">
         <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+          <a href="{{ route('album_index') }}" class="menu-link">
             <div>Album</div>
           </a>
         </li>

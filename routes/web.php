@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaController;
+use App\Http\Controllers\Admin\GalleryAlbumController as AdminGalleryAlbumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -46,6 +47,17 @@ Route::prefix('dashboard')
                 Route::get('cagarbudaya_gallery_edit/{token}', [AdminCagarBudayaController::class, 'gallery_edit']);
                 Route::delete('cagarbudaya_gallery_delete', [AdminCagarBudayaController::class, 'gallery_delete'])->name('cagarbudaya_gallery_delete');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
+
+        Route::prefix('galleries')
+            ->middleware(['auth'])
+            ->group(function () {
+                // ALBUM
+                Route::get('album_index', [AdminGalleryAlbumController::class, 'index'])->name('album_index');
+                Route::get('album_list', [AdminGalleryAlbumController::class, 'list'])->name('album_list');
+                Route::post('album_store', [AdminGalleryAlbumController::class, 'store'])->name('album_store');
+                Route::get('album_edit/{token}', [AdminGalleryAlbumController::class, 'edit']);
+                Route::delete('album_delete', [AdminGalleryAlbumController::class, 'delete'])->name('album_delete');
             });
 
         Route::prefix('setting')
