@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+  {{-- <link rel="stylesheet" href="{{ url('frontend/glightbox/dist/css/glightbox.css') }}" /> --}}
+@endsection
+
+@section('page-style')
   <link rel="stylesheet" href="{{ url('frontend/glightbox/dist/css/glightbox.css') }}" />
 @endsection
 
@@ -60,6 +64,8 @@
           <tr>
             <th width="10px" nowrap>#</th>
             <th>Album</th>
+            <th>Publish</th>
+            <th>Gambar</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -255,6 +261,12 @@
               data: 'title'
             },
             {
+              data: 'publish'
+            },
+            {
+              data: 'image'
+            },
+            {
               data: ''
             },
           ],
@@ -275,8 +287,26 @@
                   publish = '<span class="badge bg-label-primary me-1">Ya</span>';
                 }
                 return '<span class="d-flex flex-column">' + data + '</span>' +
-                  '<small class="text-muted">Publish: ' + publish + ' Urutan: ' + full['order'] +
+                  '<small class="text-muted">Urutan: ' + full['order'] +
                   '</small>';
+              }
+            },
+            {
+              targets: 2,
+              render: function(data, type, full, meta) {
+                var publish = '<span class="badge bg-label-danger me-1">Tidak</span>';
+                if (full['publish'] == 1) {
+                  publish = '<span class="badge bg-label-primary me-1">Ya</span>';
+                }
+                return publish;
+              }
+            },
+            {
+              targets: 3,
+              render: function(data, type, full, meta) {
+                var img = '<a href="/storage/albums/images/' + data + '" class="glightbox"><img src="/storage/albums/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+
+                return img;
               }
             },
             {
@@ -344,6 +374,12 @@
       setTimeout(() => {
         $('.dataTables_filter .form-control').removeClass('form-control-sm');
         $('.dataTables_length .form-select').removeClass('form-select-sm');
+
+        // GlightBox
+        var lightbox = GLightbox();
+        lightbox.on('open', (target) => {
+          console.log('lightbox opened');
+        });
       }, 300);
     });
   </script>

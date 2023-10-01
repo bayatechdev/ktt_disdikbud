@@ -26,7 +26,7 @@
             <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="order">Urutan</label>
               <div class="col-sm-8">
-                <input type="text" id="order" name="order" class="form-control" autocomplete="off" placeholder="Urutan" />
+                <input type="number" id="order" name="order" class="form-control" autocomplete="off" placeholder="Urutan" />
               </div>
             </div>
             <div class="row mb-2 g-1">
