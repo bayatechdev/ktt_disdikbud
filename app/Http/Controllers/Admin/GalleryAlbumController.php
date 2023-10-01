@@ -8,25 +8,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
-use App\Models\Berita;
-use App\Models\BeritaKategori;
-use App\Models\Bidang;
-use App\Models\CagarBudaya;
-use App\Models\CagarBudayaGallery;
-use App\Models\Desa;
 use App\Models\GalleryAlbum;
-use App\Models\Tags;
 
 class GalleryAlbumController extends Controller
 {
   public function index()
   {
-    $ttl = CagarBudaya::count();
-    $desas = Desa::with('kecamatan')->get();
+    $ttl = GalleryAlbum::count();
     return view('pages.admin.gallery-album.index', [
       'ttl' => $ttl,
       'user_role' => Auth::user()->role,
-      'desas' => $desas,
     ]);
   }
 
@@ -111,17 +102,6 @@ class GalleryAlbumController extends Controller
     File::delete(public_path('storage/albums/images/' . $item->image));
     File::delete(public_path('storage/albums/images/thumb_' . $item->image));
 
-    return response()->json([
-      'status' => 200,
-    ]);
-  }
-
-  public function gallery_delete(Request $request)
-  {
-    $item = CagarBudayaGallery::find($request->token);
-    CagarBudayaGallery::destroy($request->token);
-    File::delete(public_path('storage/cagar-budaya/images/' . $item->file));
-    File::delete(public_path('storage/cagar-budaya/images/thumb_' . $item->file));
     return response()->json([
       'status' => 200,
     ]);
