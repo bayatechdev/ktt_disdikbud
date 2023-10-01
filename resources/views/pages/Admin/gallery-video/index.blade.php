@@ -41,7 +41,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span>Album</span>
+              <span>Video</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $ttl }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
@@ -63,9 +63,10 @@
         <thead>
           <tr>
             <th width="10px" nowrap>#</th>
-            <th>Album</th>
+            <th>Judul</th>
             <th>Publish</th>
-            <th>Gambar</th>
+            <th>Thumbnail</th>
+            <th>Link</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -73,7 +74,7 @@
     </div>
   </div>
 
-  @include('_partials._modals.modal-gallery-album-add')
+  @include('_partials._modals.modal-gallery-video-add')
 @endsection
 
 @push('addon-style')
@@ -91,14 +92,14 @@
       $("#addForm")[0].reset();
     }
 
-    function album_simpan() {
+    function video_simpan() {
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
       $('#image').attr('required', true);
     }
 
-    function album_edit() {
+    function video_edit() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
@@ -108,7 +109,7 @@
     $(document).on('click', '.btn_tambah', function(e) {
       e.preventDefault();
       resetForm();
-      album_simpan();
+      video_simpan();
       $('#modalAddData').modal('show');
     });
 
@@ -119,7 +120,7 @@
       if (token) {
         $.ajax({
           type: 'GET',
-          url: "/dashboard/galleries/album_edit/" + token,
+          url: "/dashboard/galleries/video_edit/" + token,
           dataType: 'json',
           beforeSend: function() {
             $('#loading_spinner').show();
@@ -128,7 +129,7 @@
             $('#loading_spinner').hide();
           },
           success: function(response, textStatus, xhr) {
-            album_edit();
+            video_edit();
             resetForm();
             $.each(response.data, function(key, value) {
               $("#" + key).val(value).change();
@@ -144,48 +145,48 @@
       }
     });
 
-    $("#addForm").submit(function(e) {
-      e.preventDefault();
-      const fd = new FormData(this);
-      $.ajax({
-        url: "{{ route('album_store') }}",
-        method: 'POST',
-        data: fd,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        beforeSend: function() {
-          $('#loading_spinner').show();
-          $('#modalAddData').modal('hide');
-        },
-        complete: function() {
-          $('#loading_spinner').hide();
-        },
-        success: function(response) {
-          console.log(response);
-          if (response.status == 200) {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Data berhasil disimpan',
-              showConfirmButton: false,
-              timer: 1000
-            });
-            $('.data-table').DataTable().ajax.reload();
-            resetForm();
-          }
-        },
-        error: function() {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Terjadi Kesalahan',
-            showConfirmButton: true,
-          });
-        }
-      });
-    });
+    // $("#addForm").submit(function(e) {
+    //   e.preventDefault();
+    //   const fd = new FormData(this);
+    //   $.ajax({
+    //     url: "{{ route('video_store') }}",
+    //     method: 'POST',
+    //     data: fd,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     dataType: 'json',
+    //     beforeSend: function() {
+    //       $('#loading_spinner').show();
+    //       $('#modalAddData').modal('hide');
+    //     },
+    //     complete: function() {
+    //       $('#loading_spinner').hide();
+    //     },
+    //     success: function(response) {
+    //       console.log(response);
+    //       if (response.status == 200) {
+    //         Swal.fire({
+    //           position: 'center',
+    //           icon: 'success',
+    //           title: 'Data berhasil disimpan',
+    //           showConfirmButton: false,
+    //           timer: 1000
+    //         });
+    //         $('.data-table').DataTable().ajax.reload();
+    //         resetForm();
+    //       }
+    //     },
+    //     error: function() {
+    //       Swal.fire({
+    //         position: 'center',
+    //         icon: 'error',
+    //         title: 'Terjadi Kesalahan',
+    //         showConfirmButton: true,
+    //       });
+    //     }
+    //   });
+    // });
 
     // DELETE
     $(document).on('click', '.delete-record', function(e) {
@@ -207,7 +208,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('album_delete') }}",
+            url: "{{ route('video_delete') }}",
             method: 'delete',
             data: {
               token: token,
@@ -250,7 +251,7 @@
       // Invoice datatable
       if (data_table.length) {
         var dt_invoice = data_table.DataTable({
-          ajax: "{!! route('album_list') !!}", // JSON file to add data
+          ajax: "{!! route('video_list') !!}", // JSON file to add data
           columns: [
             // columns according to JSON
             {
@@ -264,6 +265,9 @@
             },
             {
               data: 'image'
+            },
+            {
+              data: 'link'
             },
             {
               data: ''
@@ -299,7 +303,7 @@
             {
               targets: 3,
               render: function(data, type, full, meta) {
-                var img = '<a href="/storage/albums/images/' + data + '" class="glightbox"><img src="/storage/albums/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+                var img = '<a href="/storage/videos/images/' + data + '" class="glightbox"><img src="/storage/videos/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
 
                 return img;
               }

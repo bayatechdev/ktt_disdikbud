@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaController;
 use App\Http\Controllers\Admin\GalleryAlbumController as AdminGalleryAlbumController;
+use App\Http\Controllers\Admin\GalleryVideoController as AdminGalleryVideoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -58,6 +59,12 @@ Route::prefix('dashboard')
                 Route::post('album_store', [AdminGalleryAlbumController::class, 'store'])->name('album_store');
                 Route::get('album_edit/{token}', [AdminGalleryAlbumController::class, 'edit']);
                 Route::delete('album_delete', [AdminGalleryAlbumController::class, 'delete'])->name('album_delete');
+                // Video
+                Route::get('video_index', [AdminGalleryVideoController::class, 'index'])->name('video_index');
+                Route::get('video_list', [AdminGalleryVideoController::class, 'list'])->name('video_list');
+                Route::post('video_store', [AdminGalleryVideoController::class, 'store'])->name('video_store');
+                Route::get('video_edit/{token}', [AdminGalleryVideoController::class, 'edit']);
+                Route::delete('video_delete', [AdminGalleryVideoController::class, 'delete'])->name('video_delete');
             });
 
         Route::prefix('setting')

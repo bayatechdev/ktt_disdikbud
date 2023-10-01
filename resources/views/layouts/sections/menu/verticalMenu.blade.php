@@ -56,12 +56,11 @@
         <div>Survey</div>
       </a>
     </li> --}}
-    <li class="menu-item {{ Request::segment(1) == 'kepegawaian' ? 'active open' : '' }}">
+    {{-- <li class="menu-item {{ Request::segment(1) == 'kepegawaian' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-city"></i>
         <div>Kepegawaian</div>
       </a>
-      {{-- submenu --}}
       <ul class="menu-sub">
         <li class="menu-item {{ Request::segment(2) == 'pegawai' ? 'active' : '' }}">
           <a href="#" class="menu-link">
@@ -89,7 +88,7 @@
           </a>
         </li>
       </ul>
-    </li>
+    </li> --}}
     <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-data"></i>
@@ -109,25 +108,25 @@
         </li>
       </ul>
     </li>
-    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+    <li class="menu-item {{ Request::segment(2) == 'galleries' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-camera"></i>
         <div>Galleries</div>
       </a>
       {{-- submenu --}}
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'album_index' ? 'active' : '' }}">
           <a href="{{ route('album_index') }}" class="menu-link">
             <div>Album</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'foto_index' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Foto</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'video_index' ? 'active' : '' }}">
+          <a href="{{ route('video_index') }}" class="menu-link">
             <div>Video</div>
           </a>
         </li>
