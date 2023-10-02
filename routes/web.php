@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\GalleryAlbumController as AdminGalleryAlbumContro
 use App\Http\Controllers\Admin\GalleryVideoController as AdminGalleryVideoController;
 use App\Http\Controllers\Admin\GalleryFotoController as AdminGalleryFotoController;
 use App\Http\Controllers\Admin\SlideUtamaController as AdminSlideUtamaController;
+use App\Http\Controllers\Admin\DesaController as AdminDesaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -50,6 +51,14 @@ Route::prefix('dashboard')
                 Route::get('cagarbudaya_gallery_edit/{token}', [AdminCagarBudayaController::class, 'gallery_edit']);
                 Route::delete('cagarbudaya_gallery_delete', [AdminCagarBudayaController::class, 'gallery_delete'])->name('cagarbudaya_gallery_delete');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
+
+        Route::prefix('data_master')
+            ->middleware(['auth'])
+            ->group(function () {
+                // Desa
+                Route::get('desa_index', [AdminDesaController::class, 'index'])->name('desa_index');
+                Route::get('desa_list', [AdminDesaController::class, 'list'])->name('desa_list');
             });
 
         Route::prefix('galleries')

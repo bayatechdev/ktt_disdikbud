@@ -16,10 +16,12 @@ class Desa extends Model
         'slug',
         'image',
         'shp',
+        'maps_id',
         'urut'
     ];
 
-    public function kecamatan() {
+    public function kecamatan()
+    {
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
 }

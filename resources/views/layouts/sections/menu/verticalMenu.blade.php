@@ -89,19 +89,19 @@
         </li>
       </ul>
     </li> --}}
-    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+    <li class="menu-item {{ Request::segment(2) == 'data_master' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-data"></i>
         <div>Data Master</div>
       </a>
       {{-- submenu --}}
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'desa' ? 'active' : '' }}">
+          <a href="{{ route('desa_index') }}" class="menu-link">
             <div>Desa</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Kecamatan</div>
           </a>
