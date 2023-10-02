@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaControll
 use App\Http\Controllers\Admin\GalleryAlbumController as AdminGalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryVideoController as AdminGalleryVideoController;
 use App\Http\Controllers\Admin\GalleryFotoController as AdminGalleryFotoController;
+use App\Http\Controllers\Admin\SlideUtamaController as AdminSlideUtamaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -72,6 +73,17 @@ Route::prefix('dashboard')
                 Route::post('video_store', [AdminGalleryVideoController::class, 'store'])->name('video_store');
                 Route::get('video_edit/{token}', [AdminGalleryVideoController::class, 'edit']);
                 Route::delete('video_delete', [AdminGalleryVideoController::class, 'delete'])->name('video_delete');
+            });
+
+        Route::prefix('pages')
+            ->middleware(['auth'])
+            ->group(function () {
+                // slide
+                Route::get('slide_index', [AdminSlideUtamaController::class, 'index'])->name('slide_index');
+                Route::get('slide_list', [AdminSlideUtamaController::class, 'list'])->name('slide_list');
+                Route::post('slide_store', [AdminSlideUtamaController::class, 'store'])->name('slide_store');
+                Route::get('slide_edit/{token}', [AdminSlideUtamaController::class, 'edit']);
+                Route::delete('slide_delete', [AdminSlideUtamaController::class, 'delete'])->name('slide_delete');
             });
 
         Route::prefix('setting')

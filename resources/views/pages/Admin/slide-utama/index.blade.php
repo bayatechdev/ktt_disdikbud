@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Galleries')
+@section('title', 'Pages')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -41,7 +41,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span>Gambar</span>
+              <span>Slide</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $ttl }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
@@ -49,7 +49,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-images bx-sm"></i>
+              <i class="bx bx-image bx-sm"></i>
             </span>
           </div>
         </div>
@@ -63,10 +63,10 @@
         <thead>
           <tr>
             <th width="10px" nowrap>#</th>
-            <th>Judul</th>
+            <th>Slide</th>
             <th>Publish</th>
+            <th>Isi</th>
             <th>Gambar</th>
-            <th>Album</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  @include('_partials._modals.modal-gallery-foto-add')
+  @include('_partials._modals.modal-slide-utama-add')
 @endsection
 
 @push('addon-style')
@@ -92,14 +92,14 @@
       $("#addForm")[0].reset();
     }
 
-    function foto_simpan() {
+    function slide_simpan() {
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
       $('#image').attr('required', true);
     }
 
-    function foto_edit() {
+    function slide_edit() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
@@ -109,7 +109,7 @@
     $(document).on('click', '.btn_tambah', function(e) {
       e.preventDefault();
       resetForm();
-      foto_simpan();
+      slide_simpan();
       $('#modalAddData').modal('show');
     });
 
@@ -120,7 +120,7 @@
       if (token) {
         $.ajax({
           type: 'GET',
-          url: "/dashboard/galleries/foto_edit/" + token,
+          url: "/dashboard/pages/slide_edit/" + token,
           dataType: 'json',
           beforeSend: function() {
             $('#loading_spinner').show();
@@ -129,7 +129,7 @@
             $('#loading_spinner').hide();
           },
           success: function(response, textStatus, xhr) {
-            foto_edit();
+            slide_edit();
             resetForm();
             $.each(response.data, function(key, value) {
               $("#" + key).val(value).change();
@@ -149,7 +149,7 @@
       e.preventDefault();
       const fd = new FormData(this);
       $.ajax({
-        url: "{{ route('foto_store') }}",
+        url: "{{ route('slide_store') }}",
         method: 'POST',
         data: fd,
         cache: false,
@@ -208,7 +208,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('foto_delete') }}",
+            url: "{{ route('slide_delete') }}",
             method: 'delete',
             data: {
               token: token,
@@ -251,7 +251,7 @@
       // Invoice datatable
       if (data_table.length) {
         var dt_invoice = data_table.DataTable({
-          ajax: "{!! route('foto_list') !!}", // JSON file to add data
+          ajax: "{!! route('slide_list') !!}", // JSON file to add data
           columns: [
             // columns according to JSON
             {
@@ -264,10 +264,10 @@
               data: 'publish'
             },
             {
-              data: 'image'
+              data: 'note'
             },
             {
-              data: 'albums_id'
+              data: 'image'
             },
             {
               data: ''
@@ -303,21 +303,19 @@
             {
               targets: 3,
               render: function(data, type, full, meta) {
-                var img = '<a href="/storage/fotos/images/' + data + '" class="glightbox"><img src="/storage/fotos/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
-
-                return img;
+                var isi = '';
+                if (data) {
+                  isi = data;
+                }
+                return '<span>' + isi + '</span>';
               }
             },
             {
               targets: 4,
               render: function(data, type, full, meta) {
-                // var album = '<a href="' + data + '" target="_blank" rel="noopener noreferrer">' + data + '</a>';
-                var album = '-'
-                if (full['albums']) {
-                  album = '<span>' + full['albums']['title'] + '</span>';
-                }
+                var img = '<a href="/storage/slides/images/' + data + '" class="glightbox"><img src="/storage/slides/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
 
-                return album;
+                return img;
               }
             },
             {
@@ -395,21 +393,13 @@
     });
   </script>
 
-  {{-- <script>
+  <script>
     $(function() {
-
-      // ---------------------------Select2-----------------------------------------
-      const select2_desa = $('.select2_desa');
-
-      if (select2_desa.length) {
-        select2_desa.each(function() {
-          var $this = $(this);
-          $this.wrap('<div class="position-relative"></div>').select2({
-            placeholder: '--Pilih Desa--',
-            dropdownParent: $this.parent()
-          });
-        });
+      // ------------------------------Autosize--------------------------------------
+      const textarea_note = document.querySelector('#note');
+      if (textarea_note) {
+        autosize(textarea_note);
       }
     });
-  </script> --}}
+  </script>
 @endpush

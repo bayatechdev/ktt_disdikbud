@@ -132,34 +132,34 @@
         </li>
       </ul>
     </li>
-    <li class="menu-item {{ Request::segment(1) == 'data' ? 'active open' : '' }}">
+    <li class="menu-item {{ Request::segment(2) == 'pages' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-file"></i>
         <div>Pages</div>
       </a>
       {{-- submenu --}}
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ Request::segment(3) == 'desa' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Agenda</div>
           </a>
-        </li>
-        <li class="menu-item {{ Request::segment(2) == 'desa' ? 'active' : '' }}">
+        </li> --}}
+        <li class="menu-item {{ Request::segment(3) == 'desa' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Halaman Statis</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'slide_index' ? 'active' : '' }}">
+          <a href="{{ route('slide_index') }}" class="menu-link">
             <div>Slide Utama</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Tags</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'kecamatan' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Links</div>
           </a>
