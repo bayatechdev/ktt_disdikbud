@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="add-new pt-0" id="addForm" action="{{ route('video_store') }}" method="POST" role="form" enctype="multipart/form-data">
+        <form class="add-new pt-0" id="addForm" action="" method="POST" role="form" enctype="multipart/form-data">
           @csrf
           <input type="text" hidden id="token" name="token" class="form-control" autocomplete="off" placeholder="token" />
           <div class="row mt-2 px-1">

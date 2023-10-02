@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Cagar Budaya')
+@section('title', 'Galleries')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -49,7 +49,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-map bx-sm"></i>
+              <i class="bx bx-video bx-sm"></i>
             </span>
           </div>
         </div>
@@ -145,48 +145,48 @@
       }
     });
 
-    // $("#addForm").submit(function(e) {
-    //   e.preventDefault();
-    //   const fd = new FormData(this);
-    //   $.ajax({
-    //     url: "{{ route('video_store') }}",
-    //     method: 'POST',
-    //     data: fd,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     dataType: 'json',
-    //     beforeSend: function() {
-    //       $('#loading_spinner').show();
-    //       $('#modalAddData').modal('hide');
-    //     },
-    //     complete: function() {
-    //       $('#loading_spinner').hide();
-    //     },
-    //     success: function(response) {
-    //       console.log(response);
-    //       if (response.status == 200) {
-    //         Swal.fire({
-    //           position: 'center',
-    //           icon: 'success',
-    //           title: 'Data berhasil disimpan',
-    //           showConfirmButton: false,
-    //           timer: 1000
-    //         });
-    //         $('.data-table').DataTable().ajax.reload();
-    //         resetForm();
-    //       }
-    //     },
-    //     error: function() {
-    //       Swal.fire({
-    //         position: 'center',
-    //         icon: 'error',
-    //         title: 'Terjadi Kesalahan',
-    //         showConfirmButton: true,
-    //       });
-    //     }
-    //   });
-    // });
+    $("#addForm").submit(function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+      $.ajax({
+        url: "{{ route('video_store') }}",
+        method: 'POST',
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+          $('#loading_spinner').show();
+          $('#modalAddData').modal('hide');
+        },
+        complete: function() {
+          $('#loading_spinner').hide();
+        },
+        success: function(response) {
+          console.log(response);
+          if (response.status == 200) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Data berhasil disimpan',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $('.data-table').DataTable().ajax.reload();
+            resetForm();
+          }
+        },
+        error: function() {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            showConfirmButton: true,
+          });
+        }
+      });
+    });
 
     // DELETE
     $(document).on('click', '.delete-record', function(e) {
@@ -306,6 +306,14 @@
                 var img = '<a href="/storage/videos/images/' + data + '" class="glightbox"><img src="/storage/videos/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
 
                 return img;
+              }
+            },
+            {
+              targets: 4,
+              render: function(data, type, full, meta) {
+                var link = '<a href="' + data + '" target="_blank" rel="noopener noreferrer">' + data + '</a>';
+
+                return link;
               }
             },
             {

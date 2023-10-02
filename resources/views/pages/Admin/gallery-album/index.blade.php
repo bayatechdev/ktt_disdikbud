@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Cagar Budaya')
+@section('title', 'Galleries')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -49,7 +49,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-map bx-sm"></i>
+              <i class="bx bx-image bx-sm"></i>
             </span>
           </div>
         </div>
