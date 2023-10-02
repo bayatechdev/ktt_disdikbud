@@ -121,7 +121,7 @@
           </a>
         </li>
         <li class="menu-item {{ Request::segment(3) == 'foto_index' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+          <a href="{{ route('foto_index') }}" class="menu-link">
             <div>Foto</div>
           </a>
         </li>

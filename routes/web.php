@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\CagarBudayaController as AdminCagarBudayaController;
 use App\Http\Controllers\Admin\GalleryAlbumController as AdminGalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryVideoController as AdminGalleryVideoController;
+use App\Http\Controllers\Admin\GalleryFotoController as AdminGalleryFotoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -59,6 +60,12 @@ Route::prefix('dashboard')
                 Route::post('album_store', [AdminGalleryAlbumController::class, 'store'])->name('album_store');
                 Route::get('album_edit/{token}', [AdminGalleryAlbumController::class, 'edit']);
                 Route::delete('album_delete', [AdminGalleryAlbumController::class, 'delete'])->name('album_delete');
+                // Foto
+                Route::get('foto_index', [AdminGalleryFotoController::class, 'index'])->name('foto_index');
+                Route::get('foto_list', [AdminGalleryFotoController::class, 'list'])->name('foto_list');
+                Route::post('foto_store', [AdminGalleryFotoController::class, 'store'])->name('foto_store');
+                Route::get('foto_edit/{token}', [AdminGalleryFotoController::class, 'edit']);
+                Route::delete('foto_delete', [AdminGalleryFotoController::class, 'delete'])->name('foto_delete');
                 // Video
                 Route::get('video_index', [AdminGalleryVideoController::class, 'index'])->name('video_index');
                 Route::get('video_list', [AdminGalleryVideoController::class, 'list'])->name('video_list');

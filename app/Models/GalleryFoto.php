@@ -17,4 +17,9 @@ class GalleryFoto extends Model
         'publish',
         'order',
     ];
+
+    public function albums()
+    {
+        return $this->belongsTo(GalleryAlbum::class, 'albums_id');
+    }
 }
