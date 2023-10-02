@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\GalleryFotoController as AdminGalleryFotoControll
 use App\Http\Controllers\Admin\SlideUtamaController as AdminSlideUtamaController;
 use App\Http\Controllers\Admin\DesaController as AdminDesaController;
 use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
+use App\Http\Controllers\Admin\LinkController as AdminLinkController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -97,6 +98,13 @@ Route::prefix('dashboard')
                 Route::post('slide_store', [AdminSlideUtamaController::class, 'store'])->name('slide_store');
                 Route::get('slide_edit/{token}', [AdminSlideUtamaController::class, 'edit']);
                 Route::delete('slide_delete', [AdminSlideUtamaController::class, 'delete'])->name('slide_delete');
+
+                // Link
+                Route::get('link_index', [AdminLinkController::class, 'index'])->name('link_index');
+                Route::get('link_list', [AdminLinkController::class, 'list'])->name('link_list');
+                Route::post('link_store', [AdminLinkController::class, 'store'])->name('link_store');
+                Route::get('link_edit/{token}', [AdminLinkController::class, 'edit']);
+                Route::delete('link_delete', [AdminLinkController::class, 'delete'])->name('link_delete');
             });
 
         Route::prefix('setting')

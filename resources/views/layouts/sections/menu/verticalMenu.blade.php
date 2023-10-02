@@ -154,13 +154,13 @@
             <div>Slide Utama</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'tag_index' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Tags</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'link_index' ? 'active' : '' }}">
+          <a href="{{ route('link_index') }}" class="menu-link">
             <div>Links</div>
           </a>
         </li>
