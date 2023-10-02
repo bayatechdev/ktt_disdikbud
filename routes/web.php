@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GalleryVideoController as AdminGalleryVideoContro
 use App\Http\Controllers\Admin\GalleryFotoController as AdminGalleryFotoController;
 use App\Http\Controllers\Admin\SlideUtamaController as AdminSlideUtamaController;
 use App\Http\Controllers\Admin\DesaController as AdminDesaController;
+use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -59,6 +60,9 @@ Route::prefix('dashboard')
                 // Desa
                 Route::get('desa_index', [AdminDesaController::class, 'index'])->name('desa_index');
                 Route::get('desa_list', [AdminDesaController::class, 'list'])->name('desa_list');
+                // Kecamatan
+                Route::get('kecamatan_index', [AdminKecamatanController::class, 'index'])->name('kecamatan_index');
+                Route::get('kecamatan_list', [AdminKecamatanController::class, 'list'])->name('kecamatan_list');
             });
 
         Route::prefix('galleries')

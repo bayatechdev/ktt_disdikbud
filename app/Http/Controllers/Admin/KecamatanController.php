@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Desa;
+use App\Models\Kecamatan;
 
-class DesaController extends Controller
+class KecamatanController extends Controller
 {
   public function index()
   {
-    $ttl = Desa::count();
-    return view('pages.admin.desa.index', [
+    $ttl = Kecamatan::count();
+    return view('pages.admin.kecamatan.index', [
       'ttl' => $ttl,
     ]);
   }
 
   public function list()
   {
-    $items = Desa::with(['kecamatan'])->orderBy('kecamatan_id')->get();
+    $items = Kecamatan::orderBy('urut')->get();
     return response()->json(['data' => $items]);
   }
 }

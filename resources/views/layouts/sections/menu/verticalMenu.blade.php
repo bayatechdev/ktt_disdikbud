@@ -96,13 +96,13 @@
       </a>
       {{-- submenu --}}
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(3) == 'desa' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'desa_index' ? 'active' : '' }}">
           <a href="{{ route('desa_index') }}" class="menu-link">
             <div>Desa</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(3) == 'kecamatan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'kecamatan_index' ? 'active' : '' }}">
+          <a href="{{ route('kecamatan_index') }}" class="menu-link">
             <div>Kecamatan</div>
           </a>
         </li>
