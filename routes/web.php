@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SlideUtamaController as AdminSlideUtamaController
 use App\Http\Controllers\Admin\DesaController as AdminDesaController;
 use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
 use App\Http\Controllers\Admin\LinkController as AdminLinkController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -98,6 +99,13 @@ Route::prefix('dashboard')
                 Route::post('slide_store', [AdminSlideUtamaController::class, 'store'])->name('slide_store');
                 Route::get('slide_edit/{token}', [AdminSlideUtamaController::class, 'edit']);
                 Route::delete('slide_delete', [AdminSlideUtamaController::class, 'delete'])->name('slide_delete');
+
+                // Tag
+                Route::get('tag_index', [AdminTagController::class, 'index'])->name('tag_index');
+                Route::get('tag_list', [AdminTagController::class, 'list'])->name('tag_list');
+                Route::post('tag_store', [AdminTagController::class, 'store'])->name('tag_store');
+                Route::get('tag_edit/{token}', [AdminTagController::class, 'edit']);
+                Route::delete('tag_delete', [AdminTagController::class, 'delete'])->name('tag_delete');
 
                 // Link
                 Route::get('link_index', [AdminLinkController::class, 'index'])->name('link_index');

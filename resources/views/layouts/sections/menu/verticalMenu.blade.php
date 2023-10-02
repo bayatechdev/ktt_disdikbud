@@ -155,7 +155,7 @@
           </a>
         </li>
         <li class="menu-item {{ Request::segment(3) == 'tag_index' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+          <a href="{{ route('tag_index') }}" class="menu-link">
             <div>Tags</div>
           </a>
         </li>
