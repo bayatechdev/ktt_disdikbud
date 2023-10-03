@@ -26,7 +26,6 @@
               <span>Eselon</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $ttl }}</h4>
-                {{-- <small class="text-success">(+)</small> --}}
               </div>
               <small>Total</small>
             </div>
@@ -41,11 +40,10 @@
   <!-- Invoice List Table -->
   <div class="card">
     <div class="card-datatable table-responsive">
-      <table class="data-table table border-top">
+      <table class="data-table table border-top" style="font-size: 12px;">
         <thead>
           <tr>
-            <th></th>
-            <th>#</th>
+            <td width="10px" class="text-center">#</td>
             <th>Eselon</th>
           </tr>
         </thead>
@@ -54,20 +52,19 @@
   </div>
 @endsection
 
+@push('addon-style')
+  <style>
+    .font-tnm {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .data-table tr th {
+      font-size: 10px;
+    }
+  </style>
+@endpush
+
 @push('addon-script')
-  <script>
-    // DELETE
-    $(document).on('click', '.delete-record', function(e) {
-      e.preventDefault();
-
-    });
-
-    // Edit
-    $(document).on('click', '.btn_edit', function(e) {
-      $("#offcanvasAdd").offcanvas('show');
-    });
-  </script>
-
   {{-- DATATABLE --}}
   <script>
     $(function() {
@@ -85,35 +82,30 @@
               data: ''
             },
             {
-              data: ''
-            },
-            {
               data: 'title'
             }
           ],
-          columnDefs: [{
-              // For Responsive
-              className: 'control',
-              responsivePriority: 1,
-              searchable: false,
+          columnDefs: [
+            // Columns  
+            {
               targets: 0,
               render: function(data, type, full, meta) {
-                return '';
+                row_number = meta.row + 1;
+                return '<div>' + row_number + '</div>';
               }
             },
             {
               targets: 1,
-              responsivePriority: 3,
-              render: function(data, type, full, meta) {
-                return meta.row + 1;
-              }
-            },
-            {
-              targets: 2,
               responsivePriority: 2,
               render: function(data, type, full, meta) {
                 var $title = full['title'];
-                return '<span class="fw-semibold" style="font-family: Times New Roman, Times, serif;">' + $title + '</span>';
+                var order = '-';
+                if (full['urutan']) {
+                  order = full['urutan'];
+                }
+                return '<span class="fw-semibold" style="font-family: Times New Roman, Times, serif;">' + $title + '</span>' +
+                  '<br><small class="text-muted">Urutan: ' + order +
+                  '</small>';
               }
             }
           ],
@@ -129,50 +121,6 @@
             sLengthMenu: '_MENU_',
             search: '',
             searchPlaceholder: 'Cari Data'
-          },
-          // Buttons with Dropdown
-          // buttons: [{
-          //   text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Surat Keluar</span>',
-          //   className: 'add-new btn btn-primary add-record',
-          //   attr: {
-          //     'data-bs-toggle': 'offcanvas',
-          //     'data-bs-target': '#offcanvasAdd'
-          //   }
-          // }],
-          // For responsive popup
-          responsive: {
-            details: {
-              display: $.fn.dataTable.Responsive.display.modal({
-                header: function(row) {
-                  var data = row.data();
-                  return 'Detail dari ' + data['title'];
-                }
-              }),
-              type: 'column',
-              renderer: function(api, rowIdx, columns) {
-                var data = $.map(columns, function(col, i) {
-                  return col.title !==
-                    '' // ? Do not show row in modal popup if title is blank (for check box)
-                    ?
-                    '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>' :
-                    '';
-                }).join('');
-
-                return data ? $('<table class="table"/><tbody />').append(data) : false;
-              }
-            }
           },
         });
       }
