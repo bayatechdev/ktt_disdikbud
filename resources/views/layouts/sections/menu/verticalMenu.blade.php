@@ -56,39 +56,39 @@
         <div>Survey</div>
       </a>
     </li> --}}
-    {{-- <li class="menu-item {{ Request::segment(1) == 'kepegawaian' ? 'active open' : '' }}">
+    <li class="menu-item {{ Request::segment(2) == 'kepegawaian' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-city"></i>
         <div>Kepegawaian</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(2) == 'pegawai' ? 'active' : '' }}">
+        <li class="menu-item {{ Request::segment(3) == 'pegawai' ? 'active' : '' }}">
           <a href="#" class="menu-link">
             <div>Data Pegawai</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'jabatan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'jabatan' ? 'active' : '' }}">
+          <a href="{{ route('jabatan.index') }}" class="menu-link">
             <div>Jabatan</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'bidang' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'bidang' ? 'active' : '' }}">
+          <a href="{{ route('bidang.index') }}" class="menu-link">
             <div>Bidang</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'golongan' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'golongan' ? 'active' : '' }}">
+          <a href="{{ route('golongan.index') }}" class="menu-link">
             <div>Golongan</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(2) == 'eselon' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'eselon' ? 'active' : '' }}">
+          <a href="{{ route('eselon.index') }}" class="menu-link">
             <div>Eselon</div>
           </a>
         </li>
       </ul>
-    </li> --}}
+    </li>
     <li class="menu-item {{ Request::segment(2) == 'data_master' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-data"></i>

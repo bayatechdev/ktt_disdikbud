@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
 use App\Http\Controllers\Admin\LinkController as AdminLinkController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\HalamanStatisController as AdminHalamanStatisController;
+use App\Http\Controllers\Admin\JabatanController as AdminJabatanController;
+use App\Http\Controllers\Admin\BidangController as AdminBidangController;
+use App\Http\Controllers\Admin\GolonganController as AdminGolonganController;
+use App\Http\Controllers\Admin\EselonController as AdminEselonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -55,6 +59,27 @@ Route::prefix('dashboard')
                 Route::get('cagarbudaya_gallery_edit/{token}', [AdminCagarBudayaController::class, 'gallery_edit']);
                 Route::delete('cagarbudaya_gallery_delete', [AdminCagarBudayaController::class, 'gallery_delete'])->name('cagarbudaya_gallery_delete');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
+
+        Route::prefix('kepegawaian')
+            ->middleware(['auth'])
+            ->group(function () {
+                // Jabatan
+                Route::resource('jabatan', AdminJabatanController::class);
+                Route::get('jabatan_list', [AdminJabatanController::class, 'list']);
+                Route::post('jabatan_edit', [AdminJabatanController::class, 'edit'])->name('jabatan_edit');
+                Route::delete('jabatan_delete', [AdminJabatanController::class, 'delete'])->name('jabatan_delete');
+                // BIDANG
+                Route::resource('bidang', AdminBidangController::class);
+                Route::get('bidang_list', [AdminBidangController::class, 'list']);
+                Route::post('bidang_edit', [AdminBidangController::class, 'edit'])->name('bidang_edit');
+                Route::delete('bidang_delete', [AdminBidangController::class, 'delete'])->name('bidang_delete');
+                // GOLONGAN
+                Route::resource('golongan', AdminGolonganController::class);
+                Route::get('golongan_list', [AdminGolonganController::class, 'list']);
+                // ESELON
+                Route::resource('eselon', AdminEselonController::class);
+                Route::get('eselon_list', [AdminEselonController::class, 'list']);
             });
 
         Route::prefix('data_master')

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Bidang;
+use Illuminate\Support\Str;
+use App\Models\Jabatan;
 
-class BidangController extends Controller
+class JabatanController extends Controller
 {
   public function index()
   {
-    $ttl = Bidang::where('publish', 1)->count();
-    return view('pages.admin.pegawai-bidang.index', [
+    $ttl = Jabatan::where('publish', 1)->count();
+    return view('pages.admin.pegawai-jabatan.index', [
       'ttl' => $ttl,
       'user_role' => Auth::user()->role,
     ]);
@@ -21,7 +21,7 @@ class BidangController extends Controller
 
   public function list()
   {
-    $items = Bidang::orderby('order')->get();
+    $items = Jabatan::orderby('urutan')->get();
     return response()->json(['data' => $items]);
   }
 
@@ -29,27 +29,19 @@ class BidangController extends Controller
   {
     $data = $request->all();
     if ($data['token'] == null) {
-      $data['token'] = md5(microtime() . Str::random(3));
+      $data['token'] = md5(microtime() . Str::random(10));
     }
-    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
-    if (!$request->order) {
-      $cek = Bidang::orderByDesc('order')->first();
-      if ($cek) {
-        $data['order'] = $cek->order + 1;
-      } else {
-        $data['order'] = 1;
-      }
-    }
+    $data['slug'] = Str::slug($data['title']);
 
     // dd($data);
-    Bidang::updateOrCreate(['token' => $data['token']], $data);
+    Jabatan::updateOrCreate(['token' => $data['token']], $data);
     return response()->json(['status'  => 200]);
   }
 
   public function edit(Request $request)
   {
     $request = $request->all();
-    $data = Bidang::where('token', $request['token'])->first();
+    $data = Jabatan::where('token', $request['token'])->first();
 
     if ($data) $response = 200;
     else $response = 201;
@@ -62,8 +54,8 @@ class BidangController extends Controller
 
   public function delete(Request $request)
   {
-    $item = Bidang::where('token', $request['token'])->first();
-    Bidang::destroy($item->id);
+    $item = Jabatan::where('token', $request['token'])->first();
+    Jabatan::destroy($item->id);
     return response()->json([
       'status' => 200,
     ]);
