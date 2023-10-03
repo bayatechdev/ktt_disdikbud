@@ -144,8 +144,12 @@
             <div>Agenda</div>
           </a>
         </li> --}}
-        <li class="menu-item {{ Request::segment(3) == 'desa' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item 
+        {{ Request::segment(3) == 'halaman_statis_index' ? 'active' : '' }}
+        {{ Request::segment(3) == 'halaman_statis_create' ? 'active' : '' }}
+        {{ Request::segment(3) == 'halaman_statis_edit' ? 'active' : '' }}
+        ">
+          <a href="{{ route('halaman_statis_index') }}" class="menu-link">
             <div>Halaman Statis</div>
           </a>
         </li>

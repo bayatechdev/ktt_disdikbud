@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DesaController as AdminDesaController;
 use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
 use App\Http\Controllers\Admin\LinkController as AdminLinkController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
+use App\Http\Controllers\Admin\HalamanStatisController as AdminHalamanStatisController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -28,7 +29,7 @@ Route::prefix('dashboard')
         Route::prefix('berita')
             ->middleware(['auth'])
             ->group(function () {
-                // USER
+                // BERITA
                 Route::get('berita_index', [AdminBeritaController::class, 'index'])->name('berita_index');
                 Route::get('berita_create', [AdminBeritaController::class, 'create'])->name('berita_create');
                 Route::get('berita_edit/{id}', [AdminBeritaController::class, 'edit'])->name('berita_edit');
@@ -93,13 +94,20 @@ Route::prefix('dashboard')
         Route::prefix('pages')
             ->middleware(['auth'])
             ->group(function () {
+                // HALAMAN STATIS
+                Route::get('halaman_statis_index', [AdminHalamanStatisController::class, 'index'])->name('halaman_statis_index');
+                Route::get('halaman_statis_create', [AdminHalamanStatisController::class, 'create'])->name('halaman_statis_create');
+                Route::get('halaman_statis_edit/{id}', [AdminHalamanStatisController::class, 'edit'])->name('halaman_statis_edit');
+                Route::get('halaman_statis_list', [AdminHalamanStatisController::class, 'list'])->name('halaman_statis_list');
+                Route::post('halaman_statis_store', [AdminHalamanStatisController::class, 'store'])->name('halaman_statis_store');
+                Route::put('halaman_statis_update/{token}', [AdminHalamanStatisController::class, 'update'])->name('halaman_statis_update');
+                Route::delete('halaman_statis_delete', [AdminHalamanStatisController::class, 'delete'])->name('halaman_statis_delete');
                 // slide
                 Route::get('slide_index', [AdminSlideUtamaController::class, 'index'])->name('slide_index');
                 Route::get('slide_list', [AdminSlideUtamaController::class, 'list'])->name('slide_list');
                 Route::post('slide_store', [AdminSlideUtamaController::class, 'store'])->name('slide_store');
                 Route::get('slide_edit/{token}', [AdminSlideUtamaController::class, 'edit']);
                 Route::delete('slide_delete', [AdminSlideUtamaController::class, 'delete'])->name('slide_delete');
-
                 // Tag
                 Route::get('tag_index', [AdminTagController::class, 'index'])->name('tag_index');
                 Route::get('tag_list', [AdminTagController::class, 'list'])->name('tag_list');
