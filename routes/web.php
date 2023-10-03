@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\JabatanController as AdminJabatanController;
 use App\Http\Controllers\Admin\BidangController as AdminBidangController;
 use App\Http\Controllers\Admin\GolonganController as AdminGolonganController;
 use App\Http\Controllers\Admin\EselonController as AdminEselonController;
+use App\Http\Controllers\Admin\PegawaiController as AdminPegawaiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -64,6 +65,13 @@ Route::prefix('dashboard')
         Route::prefix('kepegawaian')
             ->middleware(['auth'])
             ->group(function () {
+                // Pegawai
+                Route::get('pegawai_index', [AdminPegawaiController::class, 'index'])->name('pegawai_index');
+                Route::get('pegawai_list', [AdminPegawaiController::class, 'list'])->name('pegawai_list');
+                Route::post('pegawai_store', [AdminPegawaiController::class, 'store'])->name('pegawai_store');
+                Route::get('pegawai_edit/{token}', [AdminPegawaiController::class, 'edit']);
+                Route::delete('pegawai_delete', [AdminPegawaiController::class, 'delete'])->name('pegawai_delete');
+
                 // Jabatan
                 Route::resource('jabatan', AdminJabatanController::class);
                 Route::get('jabatan_list', [AdminJabatanController::class, 'list']);

@@ -62,19 +62,19 @@
         <div>Kepegawaian</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(3) == 'pegawai' ? 'active' : '' }}">
-          <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::segment(3) == 'pegawai_index' ? 'active' : '' }}">
+          <a href="{{ route('pegawai_index') }}" class="menu-link">
             <div>Data Pegawai</div>
-          </a>
-        </li>
-        <li class="menu-item {{ Request::segment(3) == 'jabatan' ? 'active' : '' }}">
-          <a href="{{ route('jabatan.index') }}" class="menu-link">
-            <div>Jabatan</div>
           </a>
         </li>
         <li class="menu-item {{ Request::segment(3) == 'bidang' ? 'active' : '' }}">
           <a href="{{ route('bidang.index') }}" class="menu-link">
             <div>Bidang</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(3) == 'jabatan' ? 'active' : '' }}">
+          <a href="{{ route('jabatan.index') }}" class="menu-link">
+            <div>Jabatan</div>
           </a>
         </li>
         <li class="menu-item {{ Request::segment(3) == 'golongan' ? 'active' : '' }}">

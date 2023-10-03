@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pegawai extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'token',
@@ -28,8 +27,6 @@ class Pegawai extends Model
         'agama',
         'publish',
         'urutan',
-        'pptk',
-        'pemberi_perintah',
     ];
 
     public function bidang()

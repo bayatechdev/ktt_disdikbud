@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Pages')
+@section('title', 'Galleries')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -13,7 +13,7 @@
 @endsection
 
 @section('page-style')
-
+  <link rel="stylesheet" href="{{ url('frontend/glightbox/dist/css/glightbox.css') }}" />
 @endsection
 
 @section('vendor-script')
@@ -25,11 +25,12 @@
   <script src="{{ asset('assets/vendor/libs/datatables-buttons/datatables-buttons.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-  {{-- <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> --}}
+  <script src="{{ asset('assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/cleavejs/cleave.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
+  <script src="{{ url('frontend/glightbox/dist/js/glightbox.js') }}"></script>
 
 @endsection
 
@@ -40,7 +41,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span>Tag</span>
+              <span>Pegawai</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $ttl }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
@@ -48,7 +49,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-purchase-tag-alt bx-sm"></i>
+              <i class="bx bx-user bx-sm"></i>
             </span>
           </div>
         </div>
@@ -62,8 +63,7 @@
         <thead>
           <tr>
             <th width="10px" nowrap>#</th>
-            <th>Judul</th>
-            <th>Publish</th>
+            <th>name</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  @include('_partials._modals.modal-tag-add')
+  @include('_partials._modals.modal-pegawai-add')
 @endsection
 
 @push('addon-style')
@@ -89,14 +89,14 @@
       $("#addForm")[0].reset();
     }
 
-    function tag_simpan() {
+    function pegawai_simpan() {
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
       $('#image').attr('required', true);
     }
 
-    function tag_edit() {
+    function pegawai_edit() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
@@ -106,7 +106,7 @@
     $(document).on('click', '.btn_tambah', function(e) {
       e.preventDefault();
       resetForm();
-      tag_simpan();
+      pegawai_simpan();
       $('#modalAddData').modal('show');
     });
 
@@ -117,7 +117,7 @@
       if (token) {
         $.ajax({
           type: 'GET',
-          url: "/dashboard/pages/tag_edit/" + token,
+          url: "/dashboard/pages/pegawai_edit/" + token,
           dataType: 'json',
           beforeSend: function() {
             $('#loading_spinner').show();
@@ -126,7 +126,7 @@
             $('#loading_spinner').hide();
           },
           success: function(response, textStatus, xhr) {
-            tag_edit();
+            pegawai_edit();
             resetForm();
             $.each(response.data, function(key, value) {
               $("#" + key).val(value).change();
@@ -146,7 +146,7 @@
       e.preventDefault();
       const fd = new FormData(this);
       $.ajax({
-        url: "{{ route('tag_store') }}",
+        url: "{{ route('pegawai_store') }}",
         method: 'POST',
         data: fd,
         cache: false,
@@ -205,7 +205,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('tag_delete') }}",
+            url: "{{ route('pegawai_delete') }}",
             method: 'delete',
             data: {
               token: token,
@@ -228,8 +228,7 @@
               Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Terjadi Kesalahan!',
-                text: "Data ini masih digunakan",
+                title: 'Terjadi Kesalahan',
                 showConfirmButton: true,
               });
             }
@@ -249,17 +248,14 @@
       // Invoice datatable
       if (data_table.length) {
         var dt_invoice = data_table.DataTable({
-          ajax: "{!! route('tag_list') !!}", // JSON file to add data
+          ajax: "{!! route('pegawai_list') !!}", // JSON file to add data
           columns: [
             // columns according to JSON
             {
               data: ''
             },
             {
-              data: 'title'
-            },
-            {
-              data: 'publish'
+              data: 'nama'
             },
             {
               data: ''
@@ -277,21 +273,53 @@
             {
               targets: 1,
               render: function(data, type, full, meta) {
-                return '<span class="d-flex flex-column">' + data + '</span>' +
-                  '<small class="text-muted">Urutan: ' + full['order'] +
-                  '</small>';
+                return '<span class="d-flex flex-column">' + data + '</span>';
               }
             },
-            {
-              targets: 2,
-              render: function(data, type, full, meta) {
-                var publish = '<span class="badge bg-label-danger me-1">Tidak</span>';
-                if (full['publish'] == 1) {
-                  publish = '<span class="badge bg-label-primary me-1">Ya</span>';
-                }
-                return publish;
-              }
-            },
+            // {
+            //   targets: 1,
+            //   render: function(data, type, full, meta) {
+            //     return '<span class="d-flex flex-column">' + data + '</span>' +
+            //       '<small class="text-muted">Urutan: ' + full['order'] +
+            //       '</small>';
+            //   }
+            // },
+            // {
+            //   targets: 2,
+            //   render: function(data, type, full, meta) {
+            //     var publish = '<span class="badge bg-label-danger me-1">Tidak</span>';
+            //     if (full['publish'] == 1) {
+            //       publish = '<span class="badge bg-label-primary me-1">Ya</span>';
+            //     }
+            //     return publish;
+            //   }
+            // },
+            // {
+            //   targets: 3,
+            //   render: function(data, type, full, meta) {
+            //     var note = '-';
+            //     if (data) {
+            //       note = data;
+            //     }
+            //     return '<span class="d-flex flex-column">' + note + '</span>';
+            //   }
+            // },
+            // {
+            //   targets: 4,
+            //   render: function(data, type, full, meta) {
+            //     var img = '<a href="/storage/links/images/' + data + '" class="glightbox"><img src="/storage/links/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+
+            //     return img;
+            //   }
+            // },
+            // {
+            //   targets: 5,
+            //   render: function(data, type, full, meta) {
+            //     var link = '<a href="' + data + '" target="_blank" rel="noopener noreferrer">' + data + '</a>';
+
+            //     return link;
+            //   }
+            // },
             {
               // Actions
               targets: -1,
@@ -301,7 +329,7 @@
               responsivePriority: 3,
               render: function(data, type, full, meta) {
                 var $token = full['token'];
-                var $name = full['title'];
+                var $name = full['nama'];
 
                 var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_edit" data-token="' +
                   $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
@@ -357,7 +385,34 @@
       setTimeout(() => {
         $('.dataTables_filter .form-control').removeClass('form-control-sm');
         $('.dataTables_length .form-select').removeClass('form-select-sm');
+
+        // GlightBox
+        var lightbox = GLightbox();
+        lightbox.on('open', (target) => {
+          console.log('lightbox opened');
+        });
       }, 300);
+    });
+  </script>
+
+  <script>
+    $(function() {
+      // ------------------------------Autosize--------------------------------------
+      const textarea_alamat = document.querySelector('#alamat');
+      if (textarea_alamat) {
+        autosize(textarea_alamat);
+      }
+      // ------------------------Bootstrap Datepicker-Format--------------------------------------------
+      var bsDatepickerFormat = $('#lahir_tanggal');
+      if (bsDatepickerFormat.length) {
+        bsDatepickerFormat.datepicker({
+          todayHighlight: true,
+          format: 'dd/mm/yyyy',
+          orientation: isRtl ? 'auto right' : 'auto left'
+        });
+      }
+
+
     });
   </script>
 @endpush

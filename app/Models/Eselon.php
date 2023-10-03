@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Eselon extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'token',

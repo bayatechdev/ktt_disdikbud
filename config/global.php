@@ -38,6 +38,15 @@ return [
       3 => 'Pegawai',
    ],
 
+   'agama' => [
+      0 => 'Islam',
+      1 => 'Kristen',
+      2 => 'Katholik',
+      3 => 'Budha',
+      4 => 'Hindu',
+      5 => 'Konghucu',
+   ],
+
    'month_romawi' => [
       1 => 'I',
       2 => 'II',
