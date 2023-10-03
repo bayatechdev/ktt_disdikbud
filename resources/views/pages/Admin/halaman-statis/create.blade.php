@@ -60,11 +60,11 @@
             <label class="col-sm-4 col-form-label">Publish</label>
             <div class="col-sm-8 pt-1">
               <div class="form-check form-check-inline">
-                <input type="radio" id="publish1" name="publish" class="form-check-input" value="1" />
+                <input type="radio" id="publish1" name="publish" class="form-check-input" value="1" checked required />
                 <label class="form-check-label" for="publish1"> Ya </label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" id="publish0" name="publish" class="form-check-input" value="0" checked required />
+                <input type="radio" id="publish0" name="publish" class="form-check-input" value="0" />
                 <label class="form-check-label" for="publish0"> Tidak </label>
               </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Berita')
+@section('title', 'Pages')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -37,7 +37,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-page bx-sm"></i>
+              <i class="bx bx-file bx-sm"></i>
             </span>
           </div>
         </div>
@@ -105,7 +105,7 @@
       let name = $(this).attr('data-name');
       let csrf = '{{ csrf_token() }}';
       Swal.fire({
-        title: 'Yakin ingin menghapus Berita?',
+        title: 'Yakin ingin menghapus Data?',
         text: name,
         icon: 'warning',
         showCancelButton: true,
@@ -190,6 +190,16 @@
               }
             },
             {
+              targets: 1,
+              render: function(data, type, full, meta) {
+                return '<span class="d-flex flex-column">' + data + '</span>' +
+                  '<small class="text-muted">Urutan: ' + full['order'] +
+                  '</small> ' +
+                  ' <small class="text-muted">Views: ' + full['hits'] +
+                  '</small>';
+              }
+            },
+            {
               targets: 2,
               render: function(data, type, full, meta) {
                 var img = '<a href="/storage/halaman-statis/images/' + data + '" class="glightbox"><img src="/storage/halaman-statis/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
@@ -215,7 +225,7 @@
               orderable: false,
               responsivePriority: 3,
               render: function(data, type, full, meta) {
-                var $token = full['id'];
+                var $token = full['token'];
                 var $name = full['title'];
 
                 var btn_aksi = '<a href="/dashboard/pages/halaman_statis_edit/' + $token + '" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +

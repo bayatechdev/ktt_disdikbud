@@ -30,9 +30,9 @@ class HalamanStatisController extends Controller
     return view('pages.admin.halaman-statis.create');
   }
 
-  public function edit($id)
+  public function edit($token)
   {
-    $item = HalamanStatis::where('id', $id)->firstOrFail();
+    $item = HalamanStatis::where('token', $token)->firstOrFail();
     return view('pages.admin.halaman-statis.edit', [
       'item' => $item,
     ]);
@@ -101,12 +101,9 @@ class HalamanStatisController extends Controller
     $item = HalamanStatis::where('token', $token)->firstOrFail();
     if ($item) {
       $data = $request->all();
-      $data['user_id'] = Auth::user()->id;
       if ($request->title <> $item->title) {
         $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
       }
-      $data['tags'] = json_encode($request->tags);
-      $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
       if (!$request->content) {
         unset($data['content']);
       }

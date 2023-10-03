@@ -36,7 +36,7 @@
   </div>
   <!-- Basic Layout -->
   <div class="row g-3">
-    <form class="add-new pt-0" id="addForm" action="{{ route('halaman_statis_update', $item->id) }}" method="POST" role="form" enctype="multipart/form-data">
+    <form class="add-new pt-0" id="addForm" action="{{ route('halaman_statis_update', $item->token) }}" method="POST" role="form" enctype="multipart/form-data">
       @method('PUT')
       @csrf
       <div class="card p-4">

@@ -10,6 +10,7 @@ class HalamanStatis extends Model
     use HasFactory;
 
     protected $fillable = [
+        'token',
         'title',
         'slug',
         'image',
