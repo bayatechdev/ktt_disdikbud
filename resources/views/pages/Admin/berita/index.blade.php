@@ -262,10 +262,10 @@
                   tags = JSON.parse(full['tags']);
                 }
                 return '<table class="tbl-detail">' +
-                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Kategori </td><td class="td-2">:</td><td class="td-3">' + kategori + '</td></tr>' +
-                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Bidang </td><td class="td-2">:</td><td class="td-3">' + bidang + '</td></tr>' +
-                  '<tr><td class="td-1 text-nowrap px-0 mx-0">Tags </td><td class="td-2">:</td><td class="td-3">' + tags + '</td></tr>' +
-                  '<tr><td class="td-1 text-nowrap px-0 mx-0">By </td><td class="td-2">:</td><td class="td-3">' + user + '</td></tr>' +
+                  '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Kategori </td><td class="td-2">:</td><td class="td-3">' + kategori + '</td></tr>' +
+                  '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Bidang </td><td class="td-2">:</td><td class="td-3">' + bidang + '</td></tr>' +
+                  '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Tags </td><td class="td-2">:</td><td class="td-3">' + tags + '</td></tr>' +
+                  '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">By </td><td class="td-2">:</td><td class="td-3">' + user + '</td></tr>' +
                   '</table> ';
               }
             },

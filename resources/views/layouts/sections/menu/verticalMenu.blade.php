@@ -178,7 +178,7 @@
       {{-- submenu --}}
       <ul class="menu-sub">
         <li class="menu-item {{ Request::segment(2) == 'user' ? 'active' : '' }}">
-          <a href="dashboard/setting/user" class="menu-link">
+          <a href="{{ route('user.index') }}" class="menu-link">
             <div>User</div>
           </a>
         </li>
