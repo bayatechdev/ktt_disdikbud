@@ -66,8 +66,8 @@
         @csrf
         <input type="text" class="form-control" hidden id="token" placeholder="token" name="token" />
         <div class="mb-3">
-          <label class="form-label" for="title">Nama Bidang</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Nama Bidang">
+          <label class="form-label" for="title">Nama Bidang<sup class="text-danger">*</sup></label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Nama Bidang" required>
         </div>
         {{-- <div class="mb-3">
           <label class="form-label" for="nick">Singkatan</label>
@@ -75,10 +75,10 @@
         </div> --}}
         <div class="mb-3">
           <label class="form-label" for="order">Urutan Tampil</label>
-          <input type="number" class="form-control" id="order" name="order" />
+          <input type="number" class="form-control" id="order" name="order" placeholder="Boleh dikosongkan" />
         </div>
-        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit mt-3">Submit</button>
-        <button type="reset" class="btn btn-label-secondary mt-3" data-bs-dismiss="offcanvas">Cancel</button>
+        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit mt-3">Simpan</button>
+        <button type="reset" class="btn btn-label-secondary mt-3" data-bs-dismiss="offcanvas">Batal</button>
       </form>
     </div>
   </div>

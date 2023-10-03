@@ -29,9 +29,17 @@ class JabatanController extends Controller
   {
     $data = $request->all();
     if ($data['token'] == null) {
-      $data['token'] = md5(microtime() . Str::random(10));
+      $data['token'] = md5(microtime() . Str::random(3));
     }
-    $data['slug'] = Str::slug($data['title']);
+    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+    if (!$request->urutan) {
+      $cek = Jabatan::orderByDesc('urutan')->first();
+      if ($cek) {
+        $data['urutan'] = $cek->urutan + 1;
+      } else {
+        $data['urutan'] = 1;
+      }
+    }
 
     // dd($data);
     Jabatan::updateOrCreate(['token' => $data['token']], $data);

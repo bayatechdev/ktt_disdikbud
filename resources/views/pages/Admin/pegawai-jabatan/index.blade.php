@@ -42,7 +42,6 @@
               <span>Jabatan</span>
               <div class="d-flex align-items-end mt-2">
                 <h4 class="mb-0 me-2">{{ $ttl }}</h4>
-                {{-- <small class="text-success">(+)</small> --}}
               </div>
               <small>Total</small>
             </div>
@@ -57,13 +56,12 @@
   <!-- Invoice List Table -->
   <div class="card">
     <div class="card-datatable table-responsive">
-      <table class="data-table table border-top">
+      <table class="data-table table border-top" style="font-size: 12px;">
         <thead>
           <tr>
-            <th></th>
-            <th>#</th>
+            <th width="10px" class="text-center">#</th>
             <th>Jabatan</th>
-            <th></th>
+            <th width="10px" class="text-center">Aksi</th>
           </tr>
         </thead>
       </table>
@@ -81,19 +79,27 @@
         @csrf
         <input type="text" class="form-control" hidden id="token" placeholder="token" name="token" />
         <div class="mb-3">
-          <label class="form-label" for="title">Nama Jabatan</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Nama Jabatan">
+          <label class="form-label" for="title">Nama Jabatan<sup class="text-danger">*</sup></label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Nama Jabatan" required>
         </div>
         <div class="mb-3">
           <label class="form-label" for="urutan">Urutan Tampil</label>
-          <input type="number" class="form-control" id="urutan" name="urutan" value="20" />
+          <input type="number" class="form-control" id="urutan" name="urutan" placeholder="Boleh dikosongkan" />
         </div>
-        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit mt-3">Submit</button>
-        <button type="reset" class="btn btn-label-secondary mt-3" data-bs-dismiss="offcanvas">Cancel</button>
+        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit mt-3">Simpan</button>
+        <button type="reset" class="btn btn-label-secondary mt-3" data-bs-dismiss="offcanvas">Batal</button>
       </form>
     </div>
   </div>
 @endsection
+
+@push('addon-style')
+  <style>
+    .data-table tr th {
+      font-size: 10px;
+    }
+  </style>
+@endpush
 
 @push('addon-script')
   <script>
@@ -242,35 +248,32 @@
               data: ''
             },
             {
-              data: ''
-            },
-            {
               data: 'title'
             },
             {
               data: ''
             }
           ],
-          columnDefs: [{
-              // For Responsive
-              className: 'control',
-              responsivePriority: 1,
-              searchable: false,
+          columnDefs: [
+            // Columns
+            {
               targets: 0,
               render: function(data, type, full, meta) {
-                return '';
+                row_number = meta.row + 1;
+                return '<div>' + row_number + '</div>';
               }
             },
             {
               targets: 1,
-              responsivePriority: 3,
               render: function(data, type, full, meta) {
-                return meta.row + 1;
+                var order = '-';
+                if (full['urutan']) {
+                  order = full['urutan'];
+                }
+                return '<span class="d-flex flex-column">' + data + '</span>' +
+                  '<small class="text-muted">Urutan: ' + order +
+                  '</small>';
               }
-            },
-            {
-              targets: 2,
-              responsivePriority: 2,
             },
             {
               // Actions
@@ -284,14 +287,14 @@
                 var $name = full['title'];
 
                 var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body edit-record" data-token="' +
-                  $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1"></i></a>' +
+                  $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
                   '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body delete-record" data-token="' +
                   $token + '" data-name="' + $name +
-                  '" data-bs-placement="top" title="Hapus"><i class="bx bx-trash mx-1"></i></a>';
+                  '" data-bs-placement="top" title="Hapus"><i class="bx bx-trash mx-1 text-danger"></i></a>';
 
-                if (role == 2 || role == 3) {
-                  btn_aksi = '';
-                }
+                // if (role == 2 || role == 3) {
+                //   btn_aksi = '';
+                // }
 
                 return (
                   '<div class="d-flex align-items-center">' +
@@ -321,54 +324,15 @@
             attr: {
               // 'data-bs-toggle': 'offcanvas',
               // 'data-bs-target': '#offcanvasAdd',
-              'hidden': function() {
-                if (role == 0 || role == 1) {
-                  return false;
-                } else {
-                  return true;
-                }
-              },
+              // 'hidden': function() {
+              //   if (role == 0 || role == 1) {
+              //     return false;
+              //   } else {
+              //     return true;
+              //   }
+              // },
             }
           }],
-          // For responsive popup
-          responsive: {
-            details: {
-              display: $.fn.dataTable.Responsive.display.modal({
-                header: function(row) {
-                  var data = row.data();
-                  return 'Detail dari ' + data['title'];
-                }
-              }),
-              type: 'column',
-              renderer: function(api, rowIdx, columns) {
-                var data = $.map(columns, function(col, i) {
-                  // console.log(col.columnIndex);
-                  if (col.columnIndex == 1) {
-                    col.title = ''
-                  };
-                  return col.title !==
-                    '' // ? Do not show row in modal popup if title is blank (for check box)
-                    ?
-                    '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>' :
-                    '';
-
-                }).join('');
-                return data ? $('<table class="table"/><tbody />').append(data) : false;
-              }
-            }
-          },
         });
       }
 
