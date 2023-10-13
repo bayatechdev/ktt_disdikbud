@@ -66,6 +66,9 @@ Route::prefix('dashboard')
         Route::prefix('layanan')
             ->group(function () {
                 Route::get('jenis_layanan_list', [AdminLayananController::class, 'list'])->name('jenis_layanan_list');
+                Route::delete('jenis_layanan_delete', [AdminLayananController::class, 'delete'])->name('jenis_layanan_delete');
+                Route::post('jenis_layanan_edit', [AdminLayananController::class, 'edit'])->name('jenis_layanan_edit');
+                Route::post('jenis_layanan_store', [AdminLayananController::class, 'store_jenis'])->name('jenis_layanan_store');
 
                 Route::get('layanan_index', [AdminLayananController::class, 'index'])->name('layanan_index');
                 Route::post('layanan_store', [AdminLayananController::class, 'store'])->name('layanan_store');

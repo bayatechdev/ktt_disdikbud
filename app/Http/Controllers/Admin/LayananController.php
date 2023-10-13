@@ -31,7 +31,7 @@ class LayananController extends Controller
 
     public function list()
     {
-        $items = LayananJenis::orderByDesc('order')->get();
+        $items = LayananJenis::orderBy('order')->get();
         return response()->json(['data' => $items]);
     }
 
@@ -45,19 +45,6 @@ class LayananController extends Controller
             'tab' => $tab,
         ]);
     }
-
-    // public function create()
-    // {
-    //     $categories = Category::orderBy('id')->get();
-    //     $tags = Tag::where('active', true)->orderBy('id')->get();
-
-    //     return view('pages.admin.berita.create', [
-    //         'title' => 'Berita',
-    //         'subtitle' => 'Tambah Berita',
-    //         'categories' => $categories,
-    //         'tags' => $tags
-    //     ]);
-    // }
 
     public function store(Request $request)
     {
@@ -115,6 +102,27 @@ class LayananController extends Controller
         return redirect()->route('layanan_index');
     }
 
+    public function store_jenis(Request $request)
+    {
+        $data = $request->all();
+        if ($data['token'] == null) {
+            $data['token'] = md5(microtime() . Str::random(3));
+        }
+        $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+        if (!$request->order) {
+            $cek = LayananJenis::orderByDesc('order')->first();
+            if ($cek) {
+                $data['order'] = $cek->order + 1;
+            } else {
+                $data['order'] = 1;
+            }
+        }
+
+        // dd($data);
+        LayananJenis::updateOrCreate(['token' => $data['token']], $data);
+        return response()->json(['status'  => 200]);
+    }
+
     public function delete_file(Request $request)
     {
         $item = Layanan::where('token', $request->token)->firstOrFail();
@@ -128,60 +136,25 @@ class LayananController extends Controller
         // return redirect()->back();
     }
 
-    // public function show($id)
-    // {
-    //     //
-    // }
+    public function delete(Request $request)
+    {
+        $item = LayananJenis::where('token', $request['token'])->first();
+        LayananJenis::destroy($item->id);
+        return response()->json([
+            'status' => 200,
+        ]);
+    }
+    public function edit(Request $request)
+    {
+        $request = $request->all();
+        $data = LayananJenis::where('token', $request['token'])->select(['title', 'token', 'description', 'publish', 'order'])->firstOrFail();
 
-    // public function edit($id)
-    // {
-    //     $item = Post::findOrFail($id);
-    //     $categories = Category::orderBy('id')->get();
-    //     $tags = Tag::where('active', true)->orderBy('id')->get();
-    //     $item['tags'] = json_decode($item->tags);
+        if ($data) $response = 200;
+        else $response = 201;
 
-    //     return view('pages.admin.berita.edit', [
-    //         'title' => 'Berita',
-    //         'subtitle' => 'Edit Berita',
-    //         'categories' => $categories,
-    //         'tags' => $tags,
-    //         'item' => $item
-    //     ]);
-    // }
-
-    // public function update(PostRequest $request, $id)
-    // {
-    //     $data = $request->all();
-    //     $data['user_id'] = Auth::user()->id;
-    //     $data['slug'] = Str::slug($request->title);
-    //     $data['tags'] = json_encode($request->tags);
-    //     $item = Post::findOrFail($id);
-
-    //     if ($request->image) {
-    //         File::delete(public_path('storage/') . $item->image);
-    //         $file = $request->file('image');
-    //         $filename = time() . '.' . $file->getClientOriginalExtension();
-    //         $img = Image::make($file);
-
-    //         if (Image::make($file)->width() > 1366) {
-    //             $img->resize(1366, null, function ($constraint) {$constraint->aspectRatio();});
-    //         }
-
-    //         $img->save(public_path('storage/images/') . $filename);
-    //         $data['image'] = ('assets/images/') . $filename;
-    //     }
-
-
-    //     $item->update($data);
-
-    //     return redirect()->route('post.index');
-    // }
-
-    // public function destroy($id)
-    // {
-    //     $item = Post::findOrFail($id);
-    //     $item->delete();
-    //     File::delete(public_path('storage/' . $item->image));
-    //     return redirect()->route('post.index');
-    // }
+        return response()
+            ->json([
+                'data'  => $data,
+            ], $response);
+    }
 }

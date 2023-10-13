@@ -151,15 +151,13 @@
       let token = $(this).attr('data-token');
       if (token) {
         $.ajax({
-          url: "{{ route('bidang_edit') }}",
+          url: "{{ route('jenis_layanan_edit') }}",
           type: 'POST',
           data: {
             token: token,
             _token: '{{ csrf_token() }}',
           },
           success: function(response, textStatus, xhr) {
-            // console.log(response.data);
-            $("#addForm")[0].reset();
             reset_form();
             if (xhr.status == 200) {
               $.each(response.data, function(key, value) {
@@ -179,38 +177,38 @@
     });
 
     // CREATE OR UPDATE JNS LAYANAN
-    // $("#addForm").submit(function(e) {
-    //   e.preventDefault();
-    //   const fd = new FormData(this);
-    //   $.ajax({
-    //     url: "{{ route('bidang.store') }}",
-    //     method: 'POST',
-    //     data: fd,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     dataType: 'json',
-    //     success: function(response) {
-    //       console.log(response);
-    //       if (response.status == 200) {
-    //         Swal.fire({
-    //           position: 'top-end',
-    //           icon: 'success',
-    //           title: 'Data berhasil disimpan',
-    //           showConfirmButton: false,
-    //           timer: 1000
-    //         });
-    //         $('.data-table').DataTable().ajax.reload();
-    //         $("#addForm")[0].reset();
-    //         reset_form();
-    //         $('#offcanvasAdd').offcanvas('hide');
-    //       }
-    //     }
-    //   });
-    // });
+    $("#addForm").submit(function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+      $.ajax({
+        url: "{{ route('jenis_layanan_store') }}",
+        method: 'POST',
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          if (response.status == 200) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Data berhasil disimpan',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $('.data-table').DataTable().ajax.reload();
+            $("#addForm")[0].reset();
+            reset_form();
+            $('#offcanvasAdd').offcanvas('hide');
+          }
+        }
+      });
+    });
 
 
-    // DELETE
+    // DELETE BERKAS
     $(document).on('click', '.btn_remove_file', function(e) {
       e.preventDefault();
       let token = $(this).attr('data-file');
@@ -262,23 +260,27 @@
       })
     });
 
-    // DELETE
+    // DELETE JENIS LAYANAN
     $(document).on('click', '.delete-record', function(e) {
       e.preventDefault();
       let token = $(this).attr('data-token');
       let name = $(this).attr('data-name');
       let csrf = '{{ csrf_token() }}';
       Swal.fire({
-        title: 'Yakin ingin menghapus (' + name + ')?',
+        title: 'Yakin ingin menghapus \n' + name + '?',
         text: "Data ini tidak dapat dikembalikan!",
         icon: 'warning',
         showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-secondary',
+        },
         confirmButtonText: 'Hapus!',
         cancelButtonText: 'Batal',
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('bidang_delete') }}",
+            url: "{{ route('jenis_layanan_delete') }}",
             method: 'delete',
             data: {
               token: token,
@@ -287,30 +289,23 @@
             success: function(response) {
               if (response.status == 200) {
                 Swal.fire({
-                  position: 'top-end',
+                  position: 'center',
                   icon: 'success',
                   title: 'Data berhasil dihapus',
                   showConfirmButton: false,
                   timer: 1000
                 });
                 $('.data-table').DataTable().ajax.reload();
-              } else if (response.status == 202) {
-                Swal.fire({
-                  position: 'top-end',
-                  icon: 'warning',
-                  title: 'Gagal dihapus, Data masih digunakan!',
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-              } else {
-                Swal.fire({
-                  position: 'top-end',
-                  icon: 'error',
-                  title: 'Gagal dihapus!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
               }
+            },
+            error: function(xhr) {
+              console.log(xhr);
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                showConfirmButton: true,
+              });
             }
           });
         }
@@ -377,7 +372,7 @@
                 var btn_show_berkas = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_file" data-id="' + $id + '" data-token="' +
                   $token + '" data-bs-placement="top" title="Files"><i class="bx bx-file-blank mx-1 text-success"></i></a>';
 
-                return '<div class="d-flex align-items-center">' + btn_show_berkas + '</div>';
+                return '<div class="d-flex align-items-center">' + btn_show_berkas + btn_aksi + '</div>';
               }
             }
           ],
@@ -395,10 +390,10 @@
             searchPlaceholder: 'Cari Data'
           },
           // Buttons with Dropdown
-          // buttons: [{
-          //   text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Jenis Layanan</span>',
-          //   className: 'add-new btn btn-primary add-record btn_tambah',
-          // }],
+          buttons: [{
+            text: '<i class="bx bx-plus me-md-2"></i><span class="d-md-inline-block d-none">Jenis Layanan</span>',
+            className: 'add-new btn btn-primary add-record btn_tambah',
+          }],
         });
       }
 
