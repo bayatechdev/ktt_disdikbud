@@ -44,6 +44,12 @@
         <div>Cagar Budaya</div>
       </a>
     </li>
+    <li class="menu-item {{ Request::segment(2) == 'layanan_index' ? 'active' : '' }}">
+      <a href="{{ route('layanan_index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-list-ul"></i>
+        <div>Layanan</div>
+      </a>
+    </li>
     {{-- <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
       <a href="#" class="menu-link">
         <i class="menu-icon tf-icons bx bx-message"></i>

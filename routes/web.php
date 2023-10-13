@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\BidangController as AdminBidangController;
 use App\Http\Controllers\Admin\GolonganController as AdminGolonganController;
 use App\Http\Controllers\Admin\EselonController as AdminEselonController;
 use App\Http\Controllers\Admin\PegawaiController as AdminPegawaiController;
+use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 
@@ -60,6 +61,16 @@ Route::prefix('dashboard')
                 Route::get('cagarbudaya_gallery_edit/{token}', [AdminCagarBudayaController::class, 'gallery_edit']);
                 Route::delete('cagarbudaya_gallery_delete', [AdminCagarBudayaController::class, 'gallery_delete'])->name('cagarbudaya_gallery_delete');
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
+            });
+
+        Route::prefix('layanan')
+            ->group(function () {
+                Route::get('jenis_layanan_list', [AdminLayananController::class, 'list'])->name('jenis_layanan_list');
+
+                Route::get('layanan_index', [AdminLayananController::class, 'index'])->name('layanan_index');
+                Route::post('layanan_store', [AdminLayananController::class, 'store'])->name('layanan_store');
+                Route::get('layanan_tab/{id}/{tab}', [AdminLayananController::class, 'layanan_tab']);
+                Route::delete('delete_file', [AdminLayananController::class, 'delete_file'])->name('delete_file');
             });
 
         Route::prefix('kepegawaian')
