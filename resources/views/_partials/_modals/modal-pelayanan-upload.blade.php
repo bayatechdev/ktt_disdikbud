@@ -80,7 +80,7 @@
           </div>
           <input type="file" class="form-control bg-white border-0" hidden id="file" name="file">
           <span id="berkas_esktensi" class="text-white" style="font-size: 12px"></span>
-          <div class="input-group input-group-lg mb-3">
+          <div class="input-group input-group-lg mb-0">
             {{-- <span class="badge bg-label-secondary form-control" width="30px">
             <i class="bx bx-upload bx-sm fs-4 pb-1"></i>
             <small class="text-capitalize">Pilih File</small>
@@ -89,12 +89,15 @@
               <i class="bx bx-file-find bx-sm fs-4 pb-1"></i>
               <small class="text-capitalize">Pilih File</small>
             </button>
-            <input type="text" class="form-control bg-white border-0" id="title" name="title" placeholder="Nama File (boleh dikosongkan)" aria-describedby="subscribe">
+            <input type="text" class="form-control bg-white border-0" id="title" name="title" placeholder="Nama File (boleh dikosongkan)" required>
             <button class="btn btn-primary" type="submit" id="subscribe">
               <i class="bx bx-upload bx-sm fs-4 pb-1"></i>
               <small class="text-capitalize">Upload</small>
             </button>
           </div>
+          @error('file')
+            <small class="text-danger">Pilih File Terlebih dahulu</small>
+          @enderror
         </div>
       </form>
     </div>

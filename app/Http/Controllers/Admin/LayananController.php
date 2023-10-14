@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
+use App\Http\Requests\LayananRequest;
 use App\Models\Category;
 use App\Models\Layanan;
 use App\Models\LayananJenis;
@@ -46,7 +47,7 @@ class LayananController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(LayananRequest $request)
     {
         $data = $request->all();
         $data['token'] = md5(microtime() . Str::random(10));
