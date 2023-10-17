@@ -1,105 +1,75 @@
-{{-- SIDEBAR --}}
-<div id="sidebar" class="leaflet-sidebar collapsed">
-  <!-- nav tabs -->
-  <div class="leaflet-sidebar-tabs">
-    <!-- top aligned tabs -->
-    <ul role="tablist">
-      <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
-      {{-- <li><a href="#" role="tab"><i class="fa fa-arrows"></i></a></li> --}}
-    </ul>
-    <!-- bottom aligned tabs -->
-    {{-- <ul role="tablist">
-      <li><a href="{{ route('dashboard') }}"><i class="fa fa-user"></i></a></li>
-    </ul> --}}
-  </div>
-  <!-- panel content -->
-  <div class="leaflet-sidebar-content">
-    <div class="leaflet-sidebar-pane" id="home">
-      <h1 class="leaflet-sidebar-header">
-        SiBang<span class="text-warning">Taka</span>
-        {{-- <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span> --}}
-      </h1>
-      {{-- tree --}}
-      <div class="container mb-4 mt-2">
-        <h5>Peta Dasar</h5>
-        <div class="row">
-          <div class="col-6 d-grid">
-            <input type="radio" class="btn-check" name="base-layer" id="layerKecamatan" value="layerKecamatan"
-              autocomplete="off" checked>
-            <label class="btn btn-outline-secondary p-0" for="layerKecamatan">Kecamatan</label>
+<div class="st-height-b0 st-height-lg-b40"></div>
+<div class="st-widget st-sidebar-widget">
+  <h3 class="st-widget-title">Kategori</h3>
+  <ul class="st-widget-list">
+    @foreach (\Helper::berita_kategori() as $data)
+      <li><a href="#">{{ $data->title }}</a></li>
+    @endforeach
+  </ul>
+</div>
+<div class="st-height-b30 st-height-lg-b30"></div>
+<div class="st-widget st-sidebar-widget">
+  <h3 class="st-widget-title">Bidang</h3>
+  <ul class="st-widget-list">
+    @foreach (\Helper::berita_bidang() as $data)
+      <li><a href="#">{{ $data->title }}</a></li>
+    @endforeach
+  </ul>
+</div>
+<div class="st-height-b30 st-height-lg-b30"></div>
+<div class="st-widget st-sidebar-widget">
+  <h3 class="st-widget-title">Arachives</h3>
+  <ul class="st-widget-list">
+    <li><a href="#">March 2020</a></li>
+    <li><a href="#">May 2020</a></li>
+    <li><a href="#">June 2020</a></li>
+    <li><a href="#">August 2020</a></li>
+    <li><a href="#">September 2020</a></li>
+    <li><a href="#">October 2020</a></li>
+  </ul>
+</div>
+<div class="st-height-b30 st-height-lg-b30"></div>
+<div class="st-widget st-sidebar-widget" style="">
+  <h3 class="st-widget-title">Recent Post</h3>
+  <ul class="st-post-widget-list st-mp0">
+    @foreach (\Helper::berita_recent() as $data)
+      <li>
+        <div class="st-post st-style1">
+          <a href="#" class="st-post-thumb st-zoom text-center"><img src="{{ Storage::url("berita/images/thumb_$data->image") }}" alt="post1" style="max-height: 70px;"></a>
+          <div class="st-post-info">
+            <h2 class="st-post-title"><a href="{{ route('berita_detail', $data->slug) }}">{{ $data->title }}</a></h2>
+            <div class="st-post-date">{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</div>
           </div>
-          <div class="col-6 d-grid ps-0">
-            <input type="radio" class="btn-check" name="base-layer" id="layerDesa" value="layerDesa"
-              autocomplete="off">
-            <label class="btn btn-outline-secondary" for="layerDesa">Desa</label>
-          </div>
-
         </div>
-        <div class="row mt-3">
-          <div class="col-12">
-            <div class="peta-dasar">
-              <ul id="list2"></ul>
-            </div>
-          </div>
+      </li>
+    @endforeach
+
+    {{-- <li>
+      <div class="st-post st-style1">
+        <a href="#" class="st-post-thumb st-zoom"><img src="{{ url('assets/img/rs-post2.jpg') }}" alt="post2" class="st-zoom-in"></a>
+        <div class="st-post-info">
+          <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">Overview Malaysia as a medical tourism...</a></h2>
+          <div class="st-post-date">Jan 15, 2020</div>
         </div>
       </div>
-      <hr />
-      <div id="treeview_container" class="hummingbird-treeview">
-        <div class="container">
-          <h1>Peta Pembangunan</h1>
+    </li>
+    <li>
+      <div class="st-post st-style1">
+        <a href="#" class="st-post-thumb st-zoom"><img src="{{ url('assets/img/rs-post3.jpg') }}" alt="post2" class="st-zoom-in"></a>
+        <div class="st-post-info">
+          <h2 class="st-post-title"><a href="blog-details-right-sidebar.html">World Parkinson’s Day 2020 comes...</a></h2>
+          <div class="st-post-date">Jan 05, 2020</div>
         </div>
-        {{-- <ul id="treeview" class="hummingbird-base" style="max-height: 300px; overflow:scroll">
-          @foreach ($categories as $category)
-            <li data-id="0" class="category">
-              <i class="fa fa-plus"></i>&nbsp;
-              <label class="form-check-label p-1" for="">
-                {{ $category->title }}
-              </label> --}}
-        {{-- <ul id="treeview" class="hummingbird-base" style="max-height: 250px; overflow:scroll">
-          @foreach ($sub_categories as $sub_category)
-            <li data-id="1" class="subCategory">
-              <i class="fa fa-plus"></i>&nbsp;
-              <label class="form-check-label p-1" for="">
-                {{ $sub_category->title }}
-              </label>
-              <ul>
-                @foreach ($maps as $map)
-                  @if ($map->sub_category_id === $sub_category->id)
-                    <li class="isi">
-                      <input class="hummingbird-end-node shpCheck" type="checkbox" value="{{ $map->file }}"
-                        id="{{ $loop->iteration }}" data-id="custom-0-1-1" name="shp">&nbsp;
-                      <label class="form-check-label p-1">
-                        {{ $map->title }}
-                      </label>
-                      <input type="text" hidden id="shape_type{{ $loop->iteration }}" value="{{ $map->shape_type }}">
-                      <input type="hidden" id="field{{ $loop->iteration }}" value="{{ $map->field_index }}">
-                      <input type="hidden" id="icons{{ $loop->iteration }}" value="{{ $map->icons }}">
-                      <input type="hidden" id="icons_color{{ $loop->iteration }}" value="{{ $map->icons_color }}">
-                    </li>
-                  @endif
-                @endforeach
-              </ul>
-          @endforeach
-        </ul> --}}
-        {{-- </li> --}}
-        {{-- @endforeach --}}
-        {{-- </ul> --}}
       </div>
-
-      <hr />
-      {{-- tree --}}
-
-      <table>
-        <tr>
-          <td></td>
-        </tr>
-      </table>
-      <div class="flyTo">
-        <ul id="list"></ul>
-      </div>
-
-
-    </div>
+    </li> --}}
+  </ul>
+</div>
+<div class="st-height-b30 st-height-lg-b30"></div>
+<div class="st-widget st-sidebar-widget">
+  <h3 class="st-widget-title">Tags</h3>
+  <div class="st-tagcloud">
+    @foreach (\Helper::berita_tags() as $data)
+      <a href="#" class="st-tag">{{ $data->title }}</a>
+    @endforeach
   </div>
 </div>
-{{-- SIDEBAR --}}

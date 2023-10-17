@@ -22,9 +22,14 @@ use App\Http\Controllers\Admin\PegawaiController as AdminPegawaiController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('cagar-budaya-list');
+
+// Berita
+Route::get('/berita/detail/{slug}', [BeritaController::class, 'detail'])->name('berita_detail');
+
 
 Route::prefix('dashboard')
     ->middleware(['auth'])

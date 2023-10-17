@@ -2,10 +2,14 @@
 
 namespace App\Helpers;
 
+use App\Models\Berita;
+use App\Models\BeritaKategori;
+use App\Models\Bidang;
 use Config;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pegawai;
+use App\Models\Tags;
 
 class Helpers
 {
@@ -184,5 +188,23 @@ class Helpers
         }
       }
     }
+  }
+
+  // PUBLIC
+  public static function berita_kategori()
+  {
+    return (BeritaKategori::where('publish', 1)->orderBy('order')->get());
+  }
+  public static function berita_bidang()
+  {
+    return (Bidang::where('publish', 1)->orderBy('order')->get());
+  }
+  public static function berita_recent()
+  {
+    return (Berita::where('publish', 1)->orderByDesc('tanggal')->get()->take(5));
+  }
+  public static function berita_tags()
+  {
+    return (Tags::where('publish', 1)->orderBy('order')->get());
   }
 }
