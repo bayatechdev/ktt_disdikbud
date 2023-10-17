@@ -251,9 +251,9 @@
                           <div class="st-custom-select-wrap">
                             <select name="slang" id="slang" class="st_select1" data-placeholder="- Pilih Bahasa -">
                               <option></option>
-                              <option value="indonesia">Indonesia</option>
-                              <option value="neurology">Tidung</option>
-                              <option value="crutches">Belusu</option>
+                              <option value="IND">Indonesia</option>
+                              <option value="TDG">Tidung</option>
+                              <option value="BLS">Belusu</option>
                             </select>
                           </div>
                         </div>
@@ -263,9 +263,9 @@
                           <div class="st-custom-select-wrap">
                             <select name="dlang" class="st_select1" id="dlang" data-placeholder="- Pilih Bahasa -">
                               <option></option>
-                              <option value="indonesia">Indonesia</option>
-                              <option value="neurology">Tidung</option>
-                              <option value="crutches">Belusu</option>
+                              <option value="IND">Indonesia</option>
+                              <option value="TDG">Tidung</option>
+                              <option value="BLS">Belusu</option>
                             </select>
                           </div>
                         </div>
