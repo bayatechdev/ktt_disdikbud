@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KamusController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('cagar-budaya-list');
@@ -30,6 +31,7 @@ Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('
 // Berita
 Route::get('/berita/detail/{slug}', [BeritaController::class, 'detail'])->name('berita_detail');
 
+Route::post('/translate', [KamusController::class, 'translate'])->name('translate');
 
 Route::prefix('dashboard')
     ->middleware(['auth'])
