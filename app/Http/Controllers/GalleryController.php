@@ -35,8 +35,7 @@ class GalleryController extends Controller
     {
         $items = GalleryVideo::where('publish', 1)->get();
 
-        dd($items);
-        return view('pages.gallery-foto', [
+        return view('pages.gallery-video', [
             'items'  => $items
         ]);
     }

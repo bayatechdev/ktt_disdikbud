@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Semua Berita')
+@section('title', 'Galeri Berita')
 
 @section('content')
   <section id="gallery">
