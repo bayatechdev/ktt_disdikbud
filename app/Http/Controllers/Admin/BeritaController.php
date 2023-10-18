@@ -12,6 +12,7 @@ use App\Models\Berita;
 use App\Models\BeritaKategori;
 use App\Models\Bidang;
 use App\Models\Tags;
+use App\Http\Requests\BeritaRequest;
 
 class BeritaController extends Controller
 {
@@ -82,7 +83,7 @@ class BeritaController extends Controller
     return response()->json(['data' => $items]);
   }
 
-  public function store(Request $request)
+  public function store(BeritaRequest $request)
   {
     $data = $request->all();
     $data['token'] = md5(microtime() . Str::random(10));

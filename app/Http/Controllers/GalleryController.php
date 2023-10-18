@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\GalleryAlbum;
 use App\Models\GalleryFoto;
 use App\Models\GalleryVideo;
 use Illuminate\Http\Request;
@@ -20,11 +21,13 @@ class GalleryController extends Controller
 
     public function foto()
     {
-        $items = GalleryFoto::where('publish', 1)->get();
+        $albums = GalleryAlbum::where('publish', 1)->get();
+        $items = GalleryFoto::with(['albums'])->whereRelation('albums', 'publish', 1)->where('publish', 1)->get();
 
         // dd($items);
         return view('pages.gallery-foto', [
-            'items'  => $items
+            'albums'  => $albums,
+            'items'  => $items,
         ]);
     }
 

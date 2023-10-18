@@ -18,9 +18,9 @@
               </div>
             </div>
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="image">Pilih Foto<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="image">Pilih Foto</label>
               <div class="col-sm-8">
-                <input type="file" id="image" name="image" class="form-control" accept=".jpg,.jpeg,.png" required />
+                <input type="file" id="image" name="image" class="form-control" accept=".jpg,.jpeg,.png" />
               </div>
             </div>
             <div class="row mb-2 g-1">

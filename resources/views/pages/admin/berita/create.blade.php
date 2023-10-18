@@ -126,7 +126,11 @@
               {{-- <textarea id="content" name="content" class="form-control" rows="8" placeholder="Isi Berita" autocomplete="off" required></textarea> --}}
               <input type="hidden" name="content" value="{{ old('content') }}">
               <div id="full-editor" style="min-height: 160px;">{{ old('content') }}</div>
+              @error('content')
+                <small class="text-danger">Input Isi Berita Terlebih Dahulu</small>
+              @enderror
             </div>
+
           </div>
 
 

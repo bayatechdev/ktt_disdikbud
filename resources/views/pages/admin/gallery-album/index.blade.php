@@ -95,14 +95,14 @@
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
-      $('#image').attr('required', true);
+      // $('#image').attr('required', true);
     }
 
     function album_edit() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
-      $('#image').attr('required', false);
+      // $('#image').attr('required', false);
     }
 
     $(document).on('click', '.btn_tambah', function(e) {
@@ -299,7 +299,10 @@
             {
               targets: 3,
               render: function(data, type, full, meta) {
-                var img = '<a href="/storage/albums/images/' + data + '" class="glightbox"><img src="/storage/albums/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+                var img = '';
+                if (data) {
+                  img = '<a href="/storage/albums/images/' + data + '" class="glightbox"><img src="/storage/albums/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+                }
 
                 return img;
               }
