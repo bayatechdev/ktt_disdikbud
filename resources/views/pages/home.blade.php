@@ -5,8 +5,7 @@
 @section('content')
   <div class="st-content">
     <!-- Start Hero Seciton -->
-    <div class="st-hero-wrap st-gray-bg st-dynamic-bg overflow-hidden st-fixed-bg"
-      data-src="{{ url('assets/img/heros/hero-bg.jpg') }}">
+    <div class="st-hero-wrap st-gray-bg st-dynamic-bg overflow-hidden st-fixed-bg" data-src="{{ url('assets/img/heros/hero-bg.jpg') }}">
       <div class="st-hero st-style1">
         <div class="container">
           <div class="st-hero-text">
@@ -44,8 +43,7 @@
         </div>
       </div>
       <div class="st-slider st-style1 st-hero-slider1" id="home">
-        <div class="slick-container" data-autoplay="1" data-loop="1" data-speed="800" data-autoplay-timeout="1000"
-          data-center="0" data-slides-per-view="1" data-fade-slide="1">
+        <div class="slick-container" data-autoplay="1" data-loop="1" data-speed="800" data-autoplay-timeout="1000" data-center="0" data-slides-per-view="1" data-fade-slide="1">
           <div class="slick-wrapper">
             <div class="slick-slide-in">
               <div class="st-hero-img">
@@ -88,8 +86,7 @@
           <div class="col-lg-4">
             <div class="st-iconbox st-style1">
               <div class="st-iconbox-icon st-purple-box">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                  y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
                   <g>
                     <path
                       d="M482.726,485.783l-22.65-132.603c-2.441-14.287-12.576-25.764-26.453-29.95l-61.092-18.433
@@ -175,8 +172,7 @@
             <div class="st-iconbox st-style1">
               <div class="st-iconbox-icon st-green-box">
 
-                <svg enable-background="new 0 0 511.988 511.988" viewBox="0 0 511.988 511.988"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg enable-background="new 0 0 511.988 511.988" viewBox="0 0 511.988 511.988" xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <path
                       d="m511.988 227.658c0-60.096-23.44-116.593-66.004-159.085-42.559-42.489-99.142-65.888-159.327-65.888-62.806 0-122.954 26.329-165.547 72.348-7.616-2.821-15.75-4.293-24.108-4.293-.001 0 .001 0 0 0-18.539 0-35.977 7.24-49.098 20.385-.274.275-.532.565-.772.87l-15.678 19.868c-14.987 18.993-25.114 41.58-29.285 65.318-4.207 23.943-2.269 48.627 5.605 71.384 5.707 16.494 12.887 29.151 21.342 37.622l193.83 194.143c6.704 6.717 16.109 12.686 27.956 17.74 17.668 7.539 36.431 11.233 55.167 11.232 31.195-.001 62.309-10.246 88.105-30.047l22.298-17.116c.348-.268.679-.558.989-.868 17.59-17.623 23.745-42.431 18.464-65.082 48.367-42.732 76.063-104.032 76.063-168.531zm-108.241 219.036-21.75 16.696c-35.571 27.305-82.795 33.545-123.246 16.285-9.479-4.044-16.763-8.578-21.65-13.474l-193.831-194.144c-6.301-6.313-11.885-16.418-16.596-30.032-13.829-39.97-6.173-83.997 20.48-117.773l15.301-19.391c9.295-9.111 21.541-14.121 34.546-14.121 13.19 0 25.599 5.155 34.941 14.514l32.021 32.081c18.41 18.444 18.41 48.454-.002 66.9l-35.863 35.951c-3.895 3.905-3.894 10.226.003 14.128l126.446 126.631c1.876 1.878 4.421 2.934 7.076 2.934h.003c2.656 0 5.202-1.058 7.077-2.938l35.86-35.948c8.919-8.936 20.767-13.857 33.36-13.857s24.44 4.921 33.36 13.857l32.021 32.081c19.135 19.17 19.282 50.268.443 69.62zm-15.287-112.803-3.021-3.026c-12.698-12.722-29.573-19.728-47.515-19.728-17.943 0-34.817 7.006-47.518 19.73l-28.786 28.857-112.313-112.479 28.812-28.883c25.359-25.407 26.159-66.243 2.401-92.624 27.711-28.735 66.034-45.095 106.137-45.095 81.209 0 147.276 65.95 147.276 147.014 0 40.189-16.496 78.547-45.473 106.234zm29.001 29.055-14.869-14.897c32.721-31.428 51.341-74.875 51.341-120.392 0-92.092-75.04-167.014-167.276-167.014-45.385 0-88.762 18.449-120.206 50.873l-20.353-20.391c-2.191-2.195-4.502-4.225-6.918-6.084 38.582-39.723 91.887-62.356 147.477-62.356 113.22 0 205.331 91.95 205.331 204.972 0 56.381-23.234 110.084-64.048 148.736-2.866-4.796-6.359-9.319-10.479-13.447z" />
@@ -200,24 +196,16 @@
                   <g>
                     <g>
                       <g>
-                        <path
-                          d="m256 38.397c5.522 0 10-4.477 10-10v-18.397c0-5.523-4.478-10-10-10-5.523 0-10 4.477-10 10v18.397c0 5.523 4.477 10 10 10z" />
-                        <path
-                          d="m342.609 62.764c1.556.88 3.246 1.298 4.915 1.298 3.486 0 6.874-1.827 8.713-5.079l9.655-17.069c2.719-4.807 1.026-10.908-3.78-13.628-4.806-2.718-10.909-1.027-13.628 3.781l-9.655 17.069c-2.719 4.807-1.026 10.908 3.78 13.628z" />
-                        <path
-                          d="m409.789 128.753c1.634 0 3.292-.401 4.823-1.247l18.457-10.187c4.835-2.668 6.592-8.752 3.923-13.587-2.669-4.836-8.754-6.592-13.587-3.923l-18.457 10.187c-4.835 2.668-6.592 8.752-3.923 13.587 1.824 3.304 5.241 5.17 8.764 5.17z" />
-                        <path
-                          d="m455.027 199.147h-19.524c-5.522 0-10 4.477-10 10s4.478 10 10 10h19.524c5.522 0 10-4.477 10-10s-4.477-10-10-10z" />
-                        <path
-                          d="m155.763 58.983c1.84 3.252 5.227 5.079 8.713 5.079 1.668 0 3.359-.418 4.915-1.298 4.807-2.719 6.499-8.82 3.78-13.627l-9.655-17.069c-2.721-4.808-8.821-6.499-13.628-3.781-4.807 2.719-6.499 8.82-3.78 13.628z" />
-                        <path
-                          d="m78.931 117.319 18.457 10.187c1.532.846 3.188 1.247 4.823 1.247 3.523 0 6.94-1.867 8.764-5.17 2.669-4.835.912-10.918-3.923-13.587l-18.457-10.187c-4.835-2.668-10.918-.913-13.587 3.923-2.669 4.835-.912 10.918 3.923 13.587z" />
-                        <path
-                          d="m76.497 219.147c5.522 0 10-4.477 10-10s-4.478-10-10-10h-19.524c-5.522 0-10 4.477-10 10s4.478 10 10 10z" />
+                        <path d="m256 38.397c5.522 0 10-4.477 10-10v-18.397c0-5.523-4.478-10-10-10-5.523 0-10 4.477-10 10v18.397c0 5.523 4.477 10 10 10z" />
+                        <path d="m342.609 62.764c1.556.88 3.246 1.298 4.915 1.298 3.486 0 6.874-1.827 8.713-5.079l9.655-17.069c2.719-4.807 1.026-10.908-3.78-13.628-4.806-2.718-10.909-1.027-13.628 3.781l-9.655 17.069c-2.719 4.807-1.026 10.908 3.78 13.628z" />
+                        <path d="m409.789 128.753c1.634 0 3.292-.401 4.823-1.247l18.457-10.187c4.835-2.668 6.592-8.752 3.923-13.587-2.669-4.836-8.754-6.592-13.587-3.923l-18.457 10.187c-4.835 2.668-6.592 8.752-3.923 13.587 1.824 3.304 5.241 5.17 8.764 5.17z" />
+                        <path d="m455.027 199.147h-19.524c-5.522 0-10 4.477-10 10s4.478 10 10 10h19.524c5.522 0 10-4.477 10-10s-4.477-10-10-10z" />
+                        <path d="m155.763 58.983c1.84 3.252 5.227 5.079 8.713 5.079 1.668 0 3.359-.418 4.915-1.298 4.807-2.719 6.499-8.82 3.78-13.627l-9.655-17.069c-2.721-4.808-8.821-6.499-13.628-3.781-4.807 2.719-6.499 8.82-3.78 13.628z" />
+                        <path d="m78.931 117.319 18.457 10.187c1.532.846 3.188 1.247 4.823 1.247 3.523 0 6.94-1.867 8.764-5.17 2.669-4.835.912-10.918-3.923-13.587l-18.457-10.187c-4.835-2.668-10.918-.913-13.587 3.923-2.669 4.835-.912 10.918 3.923 13.587z" />
+                        <path d="m76.497 219.147c5.522 0 10-4.477 10-10s-4.478-10-10-10h-19.524c-5.522 0-10 4.477-10 10s4.478 10 10 10z" />
                         <path
                           d="m448.091 446.815h-24.502v-61.428c0-5.523-4.478-10-10-10h-20.807v-171.08c0-75.405-61.347-136.752-136.813-136.752-75.405 0-136.752 61.347-136.752 136.752v171.081h-20.806c-5.522 0-10 4.477-10 10v61.428h-24.502c-5.522 0-10 4.477-10 10v45.184c0 5.523 4.478 10 10 10h384.182c5.523 0 10-4.477 10-10v-45.185c0-5.522-4.478-10-10-10zm-308.873-242.508c0-64.377 52.375-116.752 116.813-116.752 64.377 0 116.752 52.374 116.752 116.752v171.081h-86.683v-94.379c14.468-9.871 23.231-26.229 23.231-44.02 0-29.396-23.924-53.311-53.331-53.311s-53.331 23.915-53.331 53.311c0 17.79 8.764 34.148 23.232 44.02v94.379h-86.683zm101.326 62.204c-11.025-5.781-17.875-17.093-17.875-29.522 0-18.368 14.952-33.311 33.331-33.311s33.331 14.943 33.331 33.311c0 12.43-6.85 23.742-17.875 29.522-3.293 1.727-5.356 5.138-5.356 8.856v100.02h-20.2v-100.02c0-3.719-2.063-7.13-5.356-8.856zm197.547 225.489h-364.182v-25.185h136.885c5.523 0 10-4.477 10-10s-4.477-10-10-10h-102.383v-51.428h295.178v51.428h-102.383c-5.522 0-10 4.477-10 10s4.478 10 10 10h136.885z" />
-                        <path
-                          d="m265.42 452.99c-1.61-3.865-5.581-6.387-9.771-6.16-4.161.225-7.816 3.098-9.029 7.08-1.212 3.978.243 8.471 3.606 10.938 3.284 2.409 7.764 2.601 11.23.458 4.105-2.538 5.822-7.856 3.964-12.316z" />
+                        <path d="m265.42 452.99c-1.61-3.865-5.581-6.387-9.771-6.16-4.161.225-7.816 3.098-9.029 7.08-1.212 3.978.243 8.471 3.606 10.938 3.284 2.409 7.764 2.601 11.23.458 4.105-2.538 5.822-7.856 3.964-12.316z" />
                       </g>
                     </g>
                   </g>
@@ -262,8 +250,7 @@
                       <div class="col-6">
                         <div class="st-form-field st-style1">
                           <div class="st-custom-select-wrap">
-                            <select name="slang" id="slang" class="st_select1"
-                              data-placeholder="- Pilih Bahasa -">
+                            <select name="slang" id="slang" class="st_select1" data-placeholder="- Pilih Bahasa -">
                               <option></option>
                               <option value="IND" selected>Indonesia</option>
                               <option value="TDG">Tidung</option>
@@ -275,8 +262,7 @@
                       <div class="col-6">
                         <div class="st-form-field st-style1">
                           <div class="st-custom-select-wrap">
-                            <select name="dlang" class="st_select1" id="dlang"
-                              data-placeholder="- Pilih Bahasa -">
+                            <select name="dlang" class="st_select1" id="dlang" data-placeholder="- Pilih Bahasa -">
                               <option></option>
                               <option value="IND">Indonesia</option>
                               <option value="TDG">Tidung</option>
@@ -289,13 +275,11 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="st-form-field st-style1">
-                          <input type="text" id="word" name="word" placeholder="Masukkan teks"
-                            value="jalan">
+                          <input type="text" id="word" name="word" placeholder="Masukkan teks" value="jalan">
                         </div>
                       </div>
                       <div class="col-lg-12 text-center">
-                        <button class="st-btn st-style1 st-color1 st-size-medium" type="submit" id=""
-                          name="submit">Translate</button>
+                        <button class="st-btn st-style1 st-color1 st-size-medium" type="submit" id="" name="submit">Translate</button>
                       </div>
                     </div>
                     <div class="row">
@@ -364,64 +348,50 @@
           <div class="st-isotop st-style1 st-port-col-3 st-has-gutter st-lightgallery">
             <div class="st-grid-sizer"></div>
             <div class="st-isotop-item cardiology urology">
-              <a href="{{ url('frontend/assets/img/project1_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project1.jpg') }}"
-                    alt="project1"></div>
+              <a href="{{ url('frontend/assets/img/project1_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project1.jpg') }}" alt="project1"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item cardiology neurology">
-              <a href="{{ url('frontend/assets/img/project2_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project2.jpg') }}"
-                    alt="project2"></div>
+              <a href="{{ url('frontend/assets/img/project2_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project2.jpg') }}" alt="project2"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item urology pulmonary">
-              <a href="{{ url('frontend/assets/img/project3_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project3.jpg') }}"
-                    alt="project3"></div>
+              <a href="{{ url('frontend/assets/img/project3_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project3.jpg') }}" alt="project3"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item neurology traumatology">
-              <a href="{{ url('frontend/assets/img/project4_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project4.jpg') }}"
-                    alt="project4"></div>
+              <a href="{{ url('frontend/assets/img/project4_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project4.jpg') }}" alt="project4"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item cardiology pulmonary">
-              <a href="{{ url('frontend/assets/img/project5_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project5.jpg') }}"
-                    alt="project5"></div>
+              <a href="{{ url('frontend/assets/img/project5_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project5.jpg') }}" alt="project5"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item neurology traumatology">
-              <a href="{{ url('frontend/assets/img/project6_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project6.jpg') }}"
-                    alt="project6"></div>
+              <a href="{{ url('frontend/assets/img/project6_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project6.jpg') }}" alt="project6"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
 
             <div class="st-isotop-item urology pulmonary traumatology">
-              <a href="{{ url('frontend/assets/img/project7_lg.jpg') }}"
-                class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
-                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project7.jpg') }}"
-                    alt="project6"></div>
+              <a href="{{ url('frontend/assets/img/project7_lg.jpg') }}" class="st-project st-zoom st-lightbox-item st-link-hover-wrap">
+                <div class="st-project-img st-zoom-in"><img src="{{ url('frontend/assets/img/project7.jpg') }}" alt="project6"></div>
                 <span class="st-link-hover"><i class="fas fa-arrows-alt"></i></span>
               </a>
             </div><!-- .st-isotop-item -->
@@ -451,15 +421,12 @@
       </div>
       <div class="container">
         <div class="st-slider st-style2 st-pricing-wrap">
-          <div class="slick-container" data-autoplay="0" data-loop="1" data-speed="600" data-center="0"
-            data-slides-per-view="responsive" data-xs-slides="1" data-sm-slides="2" data-md-slides="3"
-            data-lg-slides="3" data-add-slides="3">
+          <div class="slick-container" data-autoplay="0" data-loop="1" data-speed="600" data-center="0" data-slides-per-view="responsive" data-xs-slides="1" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
             <div class="slick-wrapper">
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1 wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.2s">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar2.png') }}"
-                        alt="avatar1"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar2.png') }}" alt="avatar1"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">Ralph Jones</h4>
                       <div class="st-testimonial-designation">UX Designer</div>
@@ -473,8 +440,7 @@
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar3.png') }}"
-                        alt="avatar2"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar3.png') }}" alt="avatar2"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">Francis Jara</h4>
                       <div class="st-testimonial-designation">Biographer</div>
@@ -488,8 +454,7 @@
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1 wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.2s">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar4.png') }}"
-                        alt="avatar3"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar4.png') }}" alt="avatar3"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">David Baer</h4>
                       <div class="st-testimonial-designation">Executive</div>
@@ -503,8 +468,7 @@
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1 wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.2s">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar2.png') }}"
-                        alt="avatar1"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar2.png') }}" alt="avatar1"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">Ralph Jones</h4>
                       <div class="st-testimonial-designation">UX Designer</div>
@@ -518,8 +482,7 @@
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar3.png') }}"
-                        alt="avatar2"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar3.png') }}" alt="avatar2"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">Francis Jara</h4>
                       <div class="st-testimonial-designation">Biographer</div>
@@ -533,8 +496,7 @@
               <div class="slick-slide-in">
                 <div class="st-testimonial st-style1 wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.2s">
                   <div class="st-testimonial-info">
-                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar4.png') }}"
-                        alt="avatar3"></div>
+                    <div class="st-testimonial-img"><img src="{{ url('frontend/assets/img/avatar4.png') }}" alt="avatar3"></div>
                     <div class="st-testimonial-meta">
                       <h4 class="st-testimonial-name">David Baer</h4>
                       <div class="st-testimonial-designation">Executive</div>
@@ -656,13 +618,11 @@
             <div class="col-lg-4">
               <div class="st-post st-style3">
                 <a href="{{ route('berita_detail', $item->slug) }}" class="st-post-thumb st-link-hover-wrap st-zoom">
-                  <img class="st-zoom-in" src="{{ Storage::url('berita/images/thumb_' . $item->image) }}"
-                    alt="img">
+                  <img class="st-zoom-in" src="{{ Storage::url('berita/images/' . $item->image) }}" alt="img">
                   <span class="st-link-hover"><i class="fas fa-link"></i></span>
                 </a>
                 <div class="st-post-info">
-                  <h2 class="st-post-title"><a
-                      href="{{ route('berita_detail', $item->slug) }}">{{ $item->title }}</a>
+                  <h2 class="st-post-title"><a href="{{ route('berita_detail', $item->slug) }}">{{ $item->title }}</a>
                   </h2>
                   <div class="st-post-meta">
                     <span class="st-post-date">{{ Carbon\Carbon::parse($item['tanggal'])->diffForHumans() }}</span>
@@ -675,8 +635,7 @@
                   <div class="st-post-text text-justify">{!! Str::substr(strip_tags($item->content), 0, 160) !!}..</div>
                 </div>
                 <div class="st-post-footer">
-                  <a href="{{ route('berita_detail', $item->slug) }}"
-                    class="st-btn st-style2 st-color1 st-size-medium">Read
+                  <a href="{{ route('berita_detail', $item->slug) }}" class="st-btn st-style2 st-color1 st-size-medium">Read
                     More</a>
                 </div>
               </div>
@@ -694,9 +653,7 @@
       <div class="st-height-b120 st-height-lg-b80"></div>
       <div class="container">
         <div class="st-slider st-style2 st-pricing-wrap">
-          <div class="slick-container" data-autoplay="0" data-loop="1" data-speed="600" data-center="0"
-            data-slides-per-view="responsive" data-xs-slides="1" data-sm-slides="2" data-md-slides="3"
-            data-lg-slides="4" data-add-slides="5">
+          <div class="slick-container" data-autoplay="0" data-loop="1" data-speed="600" data-center="0" data-slides-per-view="responsive" data-xs-slides="1" data-sm-slides="2" data-md-slides="3" data-lg-slides="4" data-add-slides="5">
             <div class="slick-wrapper">
               <div class="slick-slide-in">
                 <div class="st-logo-carousel st-style1 st-orange-box">
@@ -764,8 +721,7 @@
     <!-- End Logo Carousel -->
 
     <div class="st-google-map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1990.9681872256317!2d116.90745099094234!3d3.60204651621483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3216bdcf4257f42f%3A0x8cd4892d59e7ca16!2sDINAS%20PENDIDIKAN%20KTT!5e0!3m2!1sid!2sid!4v1693787587681!5m2!1sid!2sid"
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1990.9681872256317!2d116.90745099094234!3d3.60204651621483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3216bdcf4257f42f%3A0x8cd4892d59e7ca16!2sDINAS%20PENDIDIKAN%20KTT!5e0!3m2!1sid!2sid!4v1693787587681!5m2!1sid!2sid"
         allowfullscreen></iframe>
     </div>
   </div>
@@ -803,20 +759,16 @@
         <div class="col-12" style="width: 420px">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab"
-                aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
+              <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab" aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="kepemilikan-tab" data-toggle="tab" href="#kepemilikan" role="tab"
-                aria-controls="kepemilikan" aria-selected="false">Kepemilikan</a>
+              <a class="nav-link" id="kepemilikan-tab" data-toggle="tab" href="#kepemilikan" role="tab" aria-controls="kepemilikan" aria-selected="false">Kepemilikan</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="sejarah-tab" data-toggle="tab" href="#sejarah" role="tab"
-                aria-controls="sejarah" aria-selected="false">Sejarah</a>
+              <a class="nav-link" id="sejarah-tab" data-toggle="tab" href="#sejarah" role="tab" aria-controls="sejarah" aria-selected="false">Sejarah</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="lokasi-tab" data-toggle="tab" href="#lokasi" role="tab"
-                aria-controls="lokasi" aria-selected="false">Detail Lokasi</a>
+              <a class="nav-link" id="lokasi-tab" data-toggle="tab" href="#lokasi" role="tab" aria-controls="lokasi" aria-selected="false">Detail Lokasi</a>
             </li>
           </ul>
           <div class="tab-content py-2" id="myTabContent">
@@ -874,26 +826,13 @@
 
     .st-select1 {}
 
-    .translate-box {
-      height: 180px;
-      overflow: scroll;
-      background-color: #fff;
-      border-radius: 6px;
-      padding: 10px 14px;
-    }
-
-    .translate-box p {
-      margin: 10px 0;
-    }
-
-    .translate-box hr {
-      border: none;
-      border-top: #eee dashed thin;
-    }
-
-    .translate-box span {
-      background-color: #def;
-    }
+    /* .translate-box {
+              height: 140px;
+              overflow: scroll;
+              background-color: #fff;
+              border-radius: 6px;
+              padding: 10px 14px;
+            } */
   </style>
 @endpush
 

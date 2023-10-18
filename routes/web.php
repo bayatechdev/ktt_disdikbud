@@ -24,12 +24,18 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KamusController;
+use App\Http\Controllers\GalleryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cagar-budaya/list', [CagarBudayaController::class, 'list'])->name('cagar-budaya-list');
 
 // Berita
 Route::get('/berita/detail/{slug}', [BeritaController::class, 'detail'])->name('berita_detail');
+Route::get('/berita/kategori/{slug}', [BeritaController::class, 'kategori'])->name('berita_kategori');
+// Galleri
+Route::get('/galleri/berita', [GalleryController::class, 'berita'])->name('galley_berita');
+Route::get('/galleri/foto', [GalleryController::class, 'foto'])->name('galley_foto');
+Route::get('/galleri/video', [GalleryController::class, 'video'])->name('galley_video');
 
 Route::post('/translate', [KamusController::class, 'translate'])->name('translate');
 
