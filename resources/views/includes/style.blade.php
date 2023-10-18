@@ -10,5 +10,5 @@
 
 <link rel="stylesheet" href="{{ url('assets/library/leaflet/leaflet.css') }}" />
 
-<link rel="stylesheet" href="{{ url('frontend/assets/css/style.css') }}" />
+<link rel="stylesheet" href="{{ url('frontend/assets/css/style.css?1') }}" />
 
