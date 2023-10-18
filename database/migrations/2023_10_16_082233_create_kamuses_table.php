@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('kamus_bahasa_id');
             $table->string('word', 50);
-            $table->string('translate', 150);
+            $table->string('translate', 255);
         });
     }
 

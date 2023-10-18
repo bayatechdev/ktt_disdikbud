@@ -1,0 +1,57 @@
+#map {
+    height: 580px;
+}
+
+#map :focus,
+#map :hover {
+    outline: none;
+}
+
+#map td {
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+    padding: 4px 2px;
+}
+
+#popup-table {
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.carousel .carousel-item img {
+    height: 220px;
+    object-fit: contain;
+}
+
+.st-post-thumb img {
+    height: 240px;
+    object-fit: cover;
+}
+
+.st-select1 {
+}
+
+.translate-box {
+    height: 180px;
+    overflow: scroll;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px 14px;
+}
+
+.translate-box p {
+    margin: 10px 0;
+}
+
+.translate-box hr {
+    border: none;
+    border-top: #eee dashed thin;
+}
+
+.translate-box span {
+    background-color: rgb(232, 243, 248);
+}
+
+.translate-box p i {
+    font-size: 10px;
+}
