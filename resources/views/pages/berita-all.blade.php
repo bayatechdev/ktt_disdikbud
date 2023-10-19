@@ -38,7 +38,7 @@
                         </span>
                         <span class="st-post-date">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</span>
                       </div>
-                      <div class="st-post-text">{!! Str::limit($item->content, 100, '...') !!}</div>
+                      <div class="st-post-text">{!! Str::substr(strip_tags($item->content), 0, 160) !!}..</div>
                     </div>
                     <div class="st-post-footer">
                       <a href="{{ route('berita_detail', $item->slug) }}" class="st-btn st-style2 st-color3 st-size-medium">Read More</a>
