@@ -234,7 +234,7 @@ function popup_content(data) {
     return $("#popup_format").html();
 }
 
-$('#dots').hide();
+$("#dots").hide();
 
 $("#form_translate").on("submit", function (e) {
     e.preventDefault();
@@ -242,7 +242,7 @@ $("#form_translate").on("submit", function (e) {
     let token = $('input[name="_token"]').val();
 
     $(".translate_box").text("");
-    $('#dots').show();
+    $("#dots").show();
     $.ajax({
         url: "/translate",
         type: "POST",
@@ -258,20 +258,20 @@ $("#form_translate").on("submit", function (e) {
             alert("Error: " + xhr.responseText);
         },
         complete: function () {
-          $('#dots').hide();
+            $("#dots").hide();
         },
     });
 });
 
 function translate(data) {
-    let bahasa = data.bahasa;
-    let translate = data.translate.sort(
+    let bahasa = data.data.bahasa;
+    let translate = data.data.translate.sort(
         (a, b) => a["word"].length - b["word"].length
     );
 
-    console.log(translate);
-
     bahasa = bahasa.split("-");
+
+    $(".translate_box").append('<small><i>' + data.message + '</i></small>');
 
     $.each(translate, function (index, value) {
         let word = value["word"];
@@ -294,10 +294,9 @@ function translate(data) {
 }
 
 function highlight_text(text, highlight) {
-    // console.log(highlight);
     var innerHTML = text;
     var index = text.toLowerCase().indexOf(highlight.toLowerCase());
-    // console.log(index + text.length);
+    
     if (index >= 0) {
         innerHTML =
             innerHTML.substring(0, index) +

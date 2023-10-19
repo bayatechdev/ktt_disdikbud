@@ -88,17 +88,45 @@ class KamusController extends Controller
     {
         $data = $request->all();
         $sbahasa = "$data[slang]-$data[dlang]";
+        $translate = [];
 
-        $bahasa = KamusBahasa::where('alias', $sbahasa)->firstOrFail();
-        
-        $translate = Kamus::where('kamus_bahasa_id', $bahasa->id)
-            ->where('word', 'like', "%{$data['word']}%")
-            ->get();
+        $bahasa = KamusBahasa::where('alias', $sbahasa)->first();
 
-        return response()->json([
-            'bahasa'    => $bahasa->title,
-            'translate' =>  $translate
-            ]
-        );
+        if (!$bahasa) {
+            return response()->json([
+                'status'    => 'error',
+                'message'   => "Database <b>$sbahasa</b> tidak tersedia",
+                'data'      => [
+                    'bahasa'    => '',
+                    'translate' =>  []
+                ]
+            ]);
+        } else {
+            $translate = Kamus::where('kamus_bahasa_id', $bahasa->id)
+                ->where('word', 'like', "%{$data['word']}%")
+                ->get();
+
+            if ($translate->count()) {
+                return response()->json(
+                    [
+                        'status'    => 'success',
+                        'message'   => '',
+                        'data'      => [
+                            'bahasa'    => $bahasa->title,
+                            'translate' =>  $translate
+                        ]
+                    ]
+                );
+            } else {
+                return response()->json([
+                    'status'    => 'success',
+                    'message'   => "Kata \"$data[word]\" tidak ditemukan",
+                    'data'      => [
+                        'bahasa'    => $bahasa->title,
+                        'translate' =>  $translate
+                    ]
+                ]);
+            }
+        }
     }
 }

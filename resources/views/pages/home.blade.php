@@ -839,5 +839,5 @@
 
 @push('addon-style')
   <link rel="stylesheet" href="{{ url('assets/library/leaflet.fullscreen-master/Control.FullScreen.css') }}" />
-  <link rel="stylesheet" href="{{ url('assets/css/custom.css?1') }}" />
+  <link rel="stylesheet" href="{{ url('assets/css/custom.css?2') }}" />
 @endpush

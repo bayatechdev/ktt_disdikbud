@@ -21,4 +21,4 @@
 {{-- main script --}}
 <script src="{{ url('frontend/assets/js/main.js') }}"></script>
 
-<script src="{{ url('assets/js/custom.js') }}"></script>
+<script src="{{ url('assets/js/custom.js?1') }}"></script>
