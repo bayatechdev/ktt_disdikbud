@@ -90,13 +90,23 @@ class KamusController extends Controller
         $sbahasa = "$data[slang]-$data[dlang]";
         $translate = [];
 
-        if (strlen($data['word'])<2)
+        if ($data['slang'] == $data['dlang'])
+            return response()->json([
+                'status'    => 'error',
+                'message'   => "pilih 2 bahasa yang berbeda",
+                'data'      => [
+                    'bahasa'    => '',
+                    'translate' =>  $translate
+                ]
+            ]);
+
+        if (strlen($data['word']) < 2)
             return response()->json([
                 'status'    => 'error',
                 'message'   => "masukkan kata minimal 2 huruf",
                 'data'      => [
                     'bahasa'    => '',
-                    'translate' =>  []
+                    'translate' =>  $translate
                 ]
             ]);
 
@@ -108,7 +118,7 @@ class KamusController extends Controller
                 'message'   => "Database <b>$sbahasa</b> tidak tersedia",
                 'data'      => [
                     'bahasa'    => '',
-                    'translate' =>  []
+                    'translate' =>  $translate
                 ]
             ]);
         } else {
