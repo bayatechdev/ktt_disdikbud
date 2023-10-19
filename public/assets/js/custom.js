@@ -59,7 +59,7 @@ L.control
     .addTo(map);
 
 // Desa Layer
-fetch("{{ Storage::url('assets/geojson/desa.geojson') }}")
+fetch("storage/assets/geojson/desa.geojson")
     .then((res) => res.json())
     .then((data) => {
         L.geoJson(data, {
