@@ -193,7 +193,11 @@ class Helpers
   // PUBLIC
   public static function berita_kategori()
   {
-    return (BeritaKategori::where('publish', 1)->orderBy('order')->get());
+    $kategori = BeritaKategori::where('publish', 1)->orderBy('order')->get();
+    foreach ($kategori as $kat) {
+      $kat['ttl_berita'] = Berita::where('kategori_id', $kat->id)->count();
+    }
+    return ($kategori);
   }
   public static function berita_bidang()
   {

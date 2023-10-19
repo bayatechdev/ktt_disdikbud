@@ -34,31 +34,36 @@
                   <div class="st-post-tages">
                     <h4 class="st-post-tage-title">Tags:</h4>
                     <ul class="st-post-tage-list st-mp0">
-                      <li><a href="#">App</a></li>
-                      <li><a href="#">php</a></li>
-                      <li><a href="#">web</a></li>
-                      <li><a href="#">business</a></li>
-                      <li><a href="#">agency</a></li>
-                      <li><a href="#">development</a></li>
+                      @if ($item->tags)
+                        @php
+                          $tags = json_decode($item->tags);
+                        @endphp
+                        @if ($tags)
+                          @foreach (@$tags as $tag)
+                            <li><a href="{{ route('berita_tag', $tag) }}">{{ $tags_all->firstWhere('id', $tag)->title ?? '' }}</a></li>
+                          @endforeach
+                        @endif
+                      @endif
+                      {{-- <li><a href="#">php</a></li> --}}
                     </ul>
                   </div>
-                  {{-- <div class="st-post-share">
-                  <h4 class="st-post-share-title">Share:</h4>
-                  <div class="st-post-share-btn-list">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-behance"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                  <div class="st-post-share">
+                    <h4 class="st-post-share-title">Share:</h4>
+                    <div class="st-post-share-btn-list">
+                      <a href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#"><i class="fab fa-twitter"></i></a>
+                      <a href="#"><i class="fab fa-behance"></i></a>
+                      <a href="#"><i class="fab fa-instagram"></i></a>
+                      <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
                   </div>
-                </div> --}}
                 </div>
                 <div class="st-height-b60 st-height-lg-b60"></div>
               </div>
-              <div class="st-post-btn-gropu">
+              {{-- <div class="st-post-btn-gropu">
                 <a href="#" class="st-btn st-style2 st-color4 st-size-medium">Previous Post</a>
                 <a href="#" class="st-btn st-style2 st-color4 st-size-medium">Next Post</a>
-              </div>
+              </div> --}}
             </div>
             <div class="st-height-b60 st-height-lg-b60"></div>
             {{-- <div class="comments-area">
