@@ -65,7 +65,7 @@
             <th width="10px" nowrap>#</th>
             <th>Judul</th>
             <th>Publish</th>
-            <th>Thumbnail</th>
+            {{-- <th>Thumbnail</th> --}}
             <th>Link</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
@@ -264,9 +264,6 @@
               data: 'publish'
             },
             {
-              data: 'image'
-            },
-            {
               data: 'link'
             },
             {
@@ -300,16 +297,16 @@
                 return publish;
               }
             },
+            // {
+            //   targets: 3,
+            //   render: function(data, type, full, meta) {
+            //     var img = '<a href="/storage/videos/images/' + data + '" class="glightbox"><img src="/storage/videos/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+
+            //     return img;
+            //   }
+            // },
             {
               targets: 3,
-              render: function(data, type, full, meta) {
-                var img = '<a href="/storage/videos/images/' + data + '" class="glightbox"><img src="/storage/videos/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
-
-                return img;
-              }
-            },
-            {
-              targets: 4,
               render: function(data, type, full, meta) {
                 var link = '<a href="' + data + '" target="_blank" rel="noopener noreferrer">' + data + '</a>';
 

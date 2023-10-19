@@ -20,15 +20,15 @@
             <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="link">Link Video<sup class="text-danger">*</sup></label>
               <div class="col-sm-8">
-                <input type="text" id="link" name="link" class="form-control" autocomplete="off" placeholder="Link Video" required />
+                <input type="text" id="link" name="link" class="form-control" autocomplete="off" placeholder="Link Video Youtube" required />
               </div>
             </div>
-            <div class="row mb-2 g-1">
+            {{-- <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="image">Pilih Thumbnail<sup class="text-danger">*</sup></label>
               <div class="col-sm-8">
                 <input type="file" id="image" name="image" class="form-control" accept=".jpg,.jpeg,.png" required />
               </div>
-            </div>
+            </div> --}}
             <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="order">Urutan</label>
               <div class="col-sm-8">

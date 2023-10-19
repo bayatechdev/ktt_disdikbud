@@ -37,9 +37,9 @@
         <div class="st-main-header-right">
           <div class="st-nav">
             <ul class="st-nav-list st-onepage-nav">
-              <li><a href="#home" class="st-smooth-move">Beranda</a></li>
-              <li><a href="#kamusdaerah" class="st-smooth-move">Kamus Bahasa Daerah</a></li>
-              <li><a href="#cagarbudayamaps" class="st-smooth-move">Peta Cagar Budaya</a></li>
+              <li><a href="{{ route('home') }}#home" class="st-smooth-move">Beranda</a></li>
+              <li><a href="{{ route('home') }}#kamusdaerah" class="st-smooth-move">Kamus Bahasa Daerah</a></li>
+              <li><a href="{{ route('home') }}#cagarbudayamaps" class="st-smooth-move">Peta Cagar Budaya</a></li>
               {{-- <li><a href="#gallery" class="st-smooth-move">Galeri</a></li> --}}
               {{-- <li><a href="#blog" class="st-smooth-move">Berita</a></li> --}}
               <li class="menu-item-has-children"><a href="#blog">Berita</a>
