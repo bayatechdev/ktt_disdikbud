@@ -296,7 +296,7 @@ function translate(data) {
 function highlight_text(text, highlight) {
     var innerHTML = text;
     var index = text.toLowerCase().indexOf(highlight.toLowerCase());
-    
+
     if (index >= 0) {
         innerHTML =
             innerHTML.substring(0, index) +

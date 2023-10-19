@@ -289,8 +289,7 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="st-form-field st-style1">
-                          <input type="text" id="word" name="word" placeholder="Masukkan teks"
-                            value="jalan">
+                          <input type="text" id="word" name="word" placeholder="Masukkan teks">
                         </div>
                       </div>
                       <div class="col-lg-12 text-center">

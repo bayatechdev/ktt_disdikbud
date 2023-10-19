@@ -90,6 +90,16 @@ class KamusController extends Controller
         $sbahasa = "$data[slang]-$data[dlang]";
         $translate = [];
 
+        if (strlen($data['word'])<2)
+            return response()->json([
+                'status'    => 'error',
+                'message'   => "masukkan kata minimal 2 huruf",
+                'data'      => [
+                    'bahasa'    => '',
+                    'translate' =>  []
+                ]
+            ]);
+
         $bahasa = KamusBahasa::where('alias', $sbahasa)->first();
 
         if (!$bahasa) {
