@@ -90,12 +90,14 @@
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
+      $('#word').attr('disabled', false);
     }
 
     function editForm() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
+      $('#word').attr('disabled', true);
       // $('#image').attr('required', false);
     }
 
@@ -156,7 +158,7 @@
             $.each(response.data, function(key, value) {
               $("#" + key).val(value).change();
 
-              console.log('key : ' + key + '\nVal : ' + value);
+              // console.log('key : ' + key + '\nVal : ' + value);
             });
             $('#modalAddData').modal('show');
           },
@@ -172,10 +174,14 @@
       const fd = new FormData(this);
 
       var word = $('#word').val();
+      var id = $('#id').val();
+      if (!id) {
+        id = '-';
+      }
       if (word) {
         $.ajax({
           type: 'GET',
-          url: "/dashboard/kamus/cek_word/" + {{ $bhs_id }} + '/' + word,
+          url: "/dashboard/kamus/cek_word/" + {{ $bhs_id }} + '/' + word + '/' + id,
           beforeSend: function() {
             $('#loading_spinner').show();
           },
@@ -185,6 +191,7 @@
           success: function(data, status) {
             // console.log(data.status);
             if (data.status == 0) {
+              // Kata tidak ada maka simpan
               console.log(0);
               $.ajax({
                 url: "{{ route('kamus_store') }}",
@@ -202,14 +209,14 @@
                   $('#loading_spinner').hide();
                 },
                 success: function(response) {
-                  console.log(response);
+                  // console.log(response);
                   if (response.status == 200) {
                     Swal.fire({
                       position: 'center',
                       icon: 'success',
                       title: 'Data berhasil disimpan',
                       showConfirmButton: false,
-                      timer: 1000
+                      timer: 2000
                     });
                     $('.data-table').DataTable().ajax.reload();
                     resetForm();
@@ -225,8 +232,102 @@
                 }
               });
             } else if (data.status == 1) {
-
               console.log(1);
+              // Kata sudah ada maka muncul pesan
+              Swal.fire({
+                title: 'Kata ini sudah ada \n(' + word + ')',
+                text: "Tetap ingin menyimpan?",
+                icon: 'warning',
+                showCancelButton: true,
+                customClass: {
+                  confirmButton: 'btn btn-warning',
+                  cancelButton: 'btn btn-secondary',
+                },
+                confirmButtonText: 'Simpan',
+                cancelButtonText: 'Batal',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  $.ajax({
+                    url: "{{ route('kamus_store') }}",
+                    method: 'POST',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    beforeSend: function() {
+                      $('#loading_spinner').show();
+                      $('#modalAddData').modal('hide');
+                    },
+                    complete: function() {
+                      $('#loading_spinner').hide();
+                    },
+                    success: function(response) {
+                      // console.log(response);
+                      if (response.status == 200) {
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Data berhasil disimpan',
+                          showConfirmButton: false,
+                          timer: 2000
+                        });
+                        $('.data-table').DataTable().ajax.reload();
+                        resetForm();
+                      }
+                    },
+                    error: function() {
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        showConfirmButton: true,
+                      });
+                    }
+                  });
+                }
+              })
+
+            } else if (data.status == 2) {
+              console.log(2);
+              $.ajax({
+                url: "{{ route('kamus_update') }}",
+                method: 'POST',
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function() {
+                  $('#loading_spinner').show();
+                  $('#modalAddData').modal('hide');
+                },
+                complete: function() {
+                  $('#loading_spinner').hide();
+                },
+                success: function(response) {
+                  // console.log(response);
+                  if (response.status == 200) {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Data berhasil diubah',
+                      showConfirmButton: false,
+                      timer: 2000
+                    });
+                    $('.data-table').DataTable().ajax.reload();
+                    resetForm();
+                  }
+                },
+                error: function() {
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    showConfirmButton: true,
+                  });
+                }
+              });
             } else {
               console.log('terjadi kesalahan');
             }

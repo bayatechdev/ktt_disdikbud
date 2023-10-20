@@ -9,7 +9,8 @@
       <div class="modal-body">
         <form class="add-new pt-0" id="addForm" action="" method="POST" role="form" enctype="multipart/form-data">
           @csrf
-          <input type="text" name="kamus_bahasa_id" value="{{ $bhs_id }}">
+          <input type="text" hidden name="kamus_bahasa_id" value="{{ $bhs_id }}">
+          <input type="text" hidden id="id" name="id" value="">
           <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
               <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="word">Kata <small class="text-lowercase" style="font-size: 10px">(<i>{{ config('global.bahasa')[$bhs_id]['bahasa1'] }}</i>)</small><sup class="text-danger">*</sup></label>
@@ -28,7 +29,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-label-warning" id="btn_cek">Cek</button>
+        {{-- <button type="button" class="btn btn-label-warning" id="btn_cek">Cek</button> --}}
         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Batal</button>
         <button type="submit" class="btn btn-primary" id="btn_submit">Simpan</button>
       </div>

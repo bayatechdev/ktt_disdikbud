@@ -70,7 +70,6 @@ class KamusController extends Controller
   {
     $data = $request->all();
     $item = Kamus::find($request->id);
-    dd($data);
     $item->update($data);
     return response()->json(['status'  => 200]);
   }
@@ -91,13 +90,30 @@ class KamusController extends Controller
     ]);
   }
 
-  public function cek_word($bhs_id, $word)
+  public function cek_word($bhs_id, $word, $id)
   {
-    $data = Kamus::where('kamus_bahasa_id', $bhs_id)->where('word', $word)->first();
-    if ($data) {
-      $status = 1;
+    if ($id == '-') {
+      $data = Kamus::where('word', $word)->first();
+      if ($data) {
+        $status = 1;
+      } else {
+        $status = 0; // Jika id Tidak ada dan word belum digunakan ada buat baru
+      }
     } else {
-      $status = 0;
+      $cek = Kamus::where('id', $id)->firstOrFail(); // Jika Token ada
+      if ($cek) {
+        // dd($cek);
+        if ($cek->word == $word) {
+          $status = 2; // Jika id ada dan word sebelumnya sama maka update
+        } else {
+          $data = Kamus::where('word', $word)->first();
+          if ($data) {
+            $status = 1;
+          } else {
+            $status = 2;
+          }
+        }
+      }
     }
     return response()->json([
       'status'  => $status

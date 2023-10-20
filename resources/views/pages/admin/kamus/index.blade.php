@@ -14,7 +14,7 @@
                 <h4 class="mb-0 me-2">{{ $ttl1 }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
               </div>
-              <small>Total</small>
+              <small>Total Kata</small>
               <div class="mt-2">
                 <a href="{{ route('kamus_page', $bhs1) }}">
                   <button type="button" class="btn btn-primary">Lihat Kamus</button>
@@ -38,7 +38,7 @@
                 <h4 class="mb-0 me-2">{{ $ttl2 }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
               </div>
-              <small>Total</small>
+              <small>Total Kata</small>
               <div class="mt-2">
                 <a href="{{ route('kamus_page', $bhs2) }}">
                   <button type="button" class="btn btn-warning">Lihat Kamus</button>

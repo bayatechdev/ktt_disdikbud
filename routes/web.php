@@ -142,11 +142,11 @@ Route::prefix('dashboard')
                 Route::get('kamus_list/{bhs_id}', [AdminKamusController::class, 'kamus_list'])->name('kamus_list');
 
                 Route::post('kamus_store', [AdminKamusController::class, 'kamus_store'])->name('kamus_store');
-                Route::post('bls_ind_update', [AdminKamusController::class, 'bls_ind_update'])->name('bls_ind_update');
+                Route::post('kamus_update', [AdminKamusController::class, 'kamus_update'])->name('kamus_update');
                 Route::get('kamus_edit/{id}', [AdminKamusController::class, 'kamus_edit']);
                 Route::delete('kamus_delete', [AdminKamusController::class, 'kamus_delete'])->name('kamus_delete');
 
-                Route::get('cek_word/{bhs_id}/{word}', [AdminKamusController::class, 'cek_word']);
+                Route::get('cek_word/{bhs_id}/{word}/{id}', [AdminKamusController::class, 'cek_word']);
             });
 
         Route::prefix('galleries')
