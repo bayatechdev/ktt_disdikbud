@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kamus extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    public $timestamps = false;
+
+    protected $fillable = [
+        'kamus_bahasa_id',
+        'word',
+        'translate',
+    ];
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\GolonganController as AdminGolonganController;
 use App\Http\Controllers\Admin\EselonController as AdminEselonController;
 use App\Http\Controllers\Admin\PegawaiController as AdminPegawaiController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
+use App\Http\Controllers\Admin\KamusController as AdminKamusController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CagarBudayaController;
 use App\Http\Controllers\BeritaController;
@@ -129,6 +130,22 @@ Route::prefix('dashboard')
                 // Kecamatan
                 Route::get('kecamatan_index', [AdminKecamatanController::class, 'index'])->name('kecamatan_index');
                 Route::get('kecamatan_list', [AdminKecamatanController::class, 'list'])->name('kecamatan_list');
+            });
+
+        Route::prefix('kamus')
+            ->middleware(['auth'])
+            ->group(function () {
+                // Belusu
+                Route::get('belusu_index', [AdminKamusController::class, 'index'])->name('belusu_index');
+                Route::get('bls_ind_page', [AdminKamusController::class, 'bls_ind_page'])->name('bls_ind_page');
+                Route::get('bls_ind_list', [AdminKamusController::class, 'bls_ind_list'])->name('bls_ind_list');
+
+                Route::post('bls_ind_store', [AdminKamusController::class, 'bls_ind_store'])->name('bls_ind_store');
+                Route::post('bls_ind_update', [AdminKamusController::class, 'bls_ind_update'])->name('bls_ind_update');
+                Route::get('bls_ind_edit/{id}', [AdminKamusController::class, 'bls_ind_edit']);
+                Route::delete('bls_ind_delete', [AdminKamusController::class, 'bls_ind_delete'])->name('bls_ind_delete');
+
+                Route::get('cek_word/{bhs_id}/{word}', [AdminKamusController::class, 'cek_word']);
             });
 
         Route::prefix('galleries')

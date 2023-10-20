@@ -44,7 +44,7 @@
         <div>Cagar Budaya</div>
       </a>
     </li>
-    <li class="menu-item {{ Request::segment(2) == 'layanan_index' ? 'active' : '' }}">
+    <li class="menu-item {{ Request::segment(3) == 'layanan_index' ? 'active' : '' }}">
       <a href="{{ route('layanan_index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-list-ul"></i>
         <div>Layanan</div>
@@ -62,6 +62,24 @@
         <div>Survey</div>
       </a>
     </li> --}}
+    <li class="menu-item {{ Request::segment(2) == 'kamus' ? 'active open' : '' }}">
+      <a href="" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bxs-book"></i>
+        <div>Kamus</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ Request::segment(3) == 'pegawai_index' ? 'active' : '' }}">
+          <a href="{{ route('pegawai_index') }}" class="menu-link">
+            <div>Tidung</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::segment(3) == 'belusu_index' ? 'active' : '' }} {{ Request::segment(3) == 'bls_ind_page' ? 'active' : '' }}">
+          <a href="{{ route('belusu_index') }}" class="menu-link">
+            <div>Belusu</div>
+          </a>
+        </li>
+      </ul>
+    </li>
     <li class="menu-item {{ Request::segment(2) == 'kepegawaian' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-city"></i>
