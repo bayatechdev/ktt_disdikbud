@@ -1,5 +1,3 @@
-var base_url = window.location.origin;
-
 // kamus
 
 $("#dots").hide();
@@ -12,7 +10,7 @@ $("#form_translate").on("submit", function (e) {
     $(".translate_box").text("");
     $("#dots").show();
     $.ajax({
-        url: base_url + "/translate",
+        url: "/translate",
         type: "POST",
         "X-CSRF-TOKEN": token,
         data: data,
@@ -147,7 +145,7 @@ L.control
     .addTo(map);
 
 // Desa Layer
-fetch(base_url + "/storage/assets/geojson/desa.geojson")
+fetch("/storage/assets/geojson/desa.geojson")
     .then((res) => res.json())
     .then((data) => {
         L.geoJson(data, {
@@ -198,7 +196,7 @@ cagar_budaya_list();
 
 function cagar_budaya_list() {
     $.ajax({
-        url: base_url + "/cagar-budaya/list",
+        url: "/cagar-budaya/list",
         success: function (result) {
             generate_maps(result);
         },
