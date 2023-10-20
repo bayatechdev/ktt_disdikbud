@@ -15,7 +15,7 @@ class KamusController extends Controller
      */
     public function index()
     {
-        // 
+        return view('pages.kamus');
     }
 
     /**

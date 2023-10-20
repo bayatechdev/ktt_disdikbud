@@ -37,6 +37,8 @@ Route::get('/galleri/berita', [GalleryController::class, 'berita'])->name('galle
 Route::get('/galleri/foto', [GalleryController::class, 'foto'])->name('galley_foto');
 Route::get('/galleri/video', [GalleryController::class, 'video'])->name('galley_video');
 
+Route::get('/kamusdaerah', [KamusController::class, 'index'])->name('kamus_derah');
+
 Route::post('/translate', [KamusController::class, 'translate'])->name('translate');
 
 Route::prefix('dashboard')

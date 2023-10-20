@@ -21,7 +21,7 @@
 <body>
   @include('includes.navbar')
   @yield('content')
-  @include('includes.footer')
+  @include('includes.footer-nonsticky')
 
   @stack('prepend-script')
   @include('includes.script')

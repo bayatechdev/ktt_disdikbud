@@ -1,3 +1,91 @@
+var base_url = window.location.origin;
+
+// kamus
+
+$("#dots").hide();
+
+$("#form_translate").on("submit", function (e) {
+    e.preventDefault();
+    let data = $("#form_translate").serialize();
+    let token = $('input[name="_token"]').val();
+
+    $(".translate_box").text("");
+    $("#dots").show();
+    $.ajax({
+        url: base_url + "/translate",
+        type: "POST",
+        "X-CSRF-TOKEN": token,
+        data: data,
+        success: function (result) {
+            translate(result);
+        },
+        error: function (xhr) {
+            $(".translate_box").html(
+                '<i class="text-secondary">tidak ditemukan</i>'
+            );
+            alert("Error: " + xhr.responseText);
+        },
+        complete: function () {
+            $("#dots").hide();
+        },
+    });
+});
+
+function translate(data) {
+    let bahasa = data.data.bahasa;
+    let translate = data.data.translate.sort(
+        (a, b) => a["word"].length - b["word"].length
+    );
+
+    bahasa = bahasa.split("-");
+
+    $(".translate_box").append("<small><i>" + data.message + "</i></small>");
+
+    $.each(translate, function (index, value) {
+        let word = value["word"];
+        let highlight = $("#word").val();
+
+        word =
+            highlight_text(word, highlight) +
+            " <i>(" +
+            bahasa[0].replace(" ", "") +
+            ")</i>";
+        trans =
+            value["translate"] + " <i>(" + bahasa[1].replace(" ", "") + ")</i>";
+
+        const para = document.createElement("p");
+        para.innerHTML = "<div>" + word + "</div><div>" + trans + "</div>";
+        $(".translate_box").append(para);
+
+        if (index < translate.length - 1) $(".translate_box").append("<hr />");
+    });
+}
+
+function highlight_text(text, highlight) {
+    var innerHTML = text;
+    var index = text.toLowerCase().indexOf(highlight.toLowerCase());
+
+    if (index >= 0) {
+        innerHTML =
+            innerHTML.substring(0, index) +
+            "<span>" +
+            innerHTML.substring(index, index + highlight.length) +
+            "</span>" +
+            innerHTML.substring(index + highlight.length);
+
+        return innerHTML;
+    } else {
+        return innerHTML;
+    }
+}
+
+var dots = window.setInterval(function () {
+    var wait = document.getElementById("dots");
+    if (wait.innerHTML.length > 3) wait.innerHTML = "";
+    else wait.innerHTML += ".";
+}, 200);
+// -----
+
 var map = L.map("map", {
     zoomControl: true,
     scrollWheelZoom: false, // disable original zoom function
@@ -59,7 +147,7 @@ L.control
     .addTo(map);
 
 // Desa Layer
-fetch("storage/assets/geojson/desa.geojson")
+fetch(base_url + "/storage/assets/geojson/desa.geojson")
     .then((res) => res.json())
     .then((data) => {
         L.geoJson(data, {
@@ -110,7 +198,7 @@ cagar_budaya_list();
 
 function cagar_budaya_list() {
     $.ajax({
-        url: "cagar-budaya/list",
+        url: base_url + "/cagar-budaya/list",
         success: function (result) {
             generate_maps(result);
         },
@@ -233,86 +321,3 @@ function popup_content(data) {
 
     return $("#popup_format").html();
 }
-
-$("#dots").hide();
-
-$("#form_translate").on("submit", function (e) {
-    e.preventDefault();
-    let data = $("#form_translate").serialize();
-    let token = $('input[name="_token"]').val();
-
-    $(".translate_box").text("");
-    $("#dots").show();
-    $.ajax({
-        url: "/translate",
-        type: "POST",
-        "X-CSRF-TOKEN": token,
-        data: data,
-        success: function (result) {
-            translate(result);
-        },
-        error: function (xhr) {
-            $(".translate_box").html(
-                '<i class="text-secondary">tidak ditemukan</i>'
-            );
-            alert("Error: " + xhr.responseText);
-        },
-        complete: function () {
-            $("#dots").hide();
-        },
-    });
-});
-
-function translate(data) {
-    let bahasa = data.data.bahasa;
-    let translate = data.data.translate.sort(
-        (a, b) => a["word"].length - b["word"].length
-    );
-
-    bahasa = bahasa.split("-");
-
-    $(".translate_box").append('<small><i>' + data.message + '</i></small>');
-
-    $.each(translate, function (index, value) {
-        let word = value["word"];
-        let highlight = $("#word").val();
-
-        word =
-            highlight_text(word, highlight) +
-            " <i>(" +
-            bahasa[0].replace(" ", "") +
-            ")</i>";
-        trans =
-            value["translate"] + " <i>(" + bahasa[1].replace(" ", "") + ")</i>";
-
-        const para = document.createElement("p");
-        para.innerHTML = "<div>" + word + "</div><div>" + trans + "</div>";
-        $(".translate_box").append(para);
-
-        if (index < translate.length - 1) $(".translate_box").append("<hr />");
-    });
-}
-
-function highlight_text(text, highlight) {
-    var innerHTML = text;
-    var index = text.toLowerCase().indexOf(highlight.toLowerCase());
-
-    if (index >= 0) {
-        innerHTML =
-            innerHTML.substring(0, index) +
-            "<span>" +
-            innerHTML.substring(index, index + highlight.length) +
-            "</span>" +
-            innerHTML.substring(index + highlight.length);
-
-        return innerHTML;
-    } else {
-        return innerHTML;
-    }
-}
-
-var dots = window.setInterval(function () {
-    var wait = document.getElementById("dots");
-    if (wait.innerHTML.length > 3) wait.innerHTML = "";
-    else wait.innerHTML += ".";
-}, 200);
