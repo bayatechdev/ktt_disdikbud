@@ -44,12 +44,12 @@
         <div>Cagar Budaya</div>
       </a>
     </li>
-    <li class="menu-item {{ Request::segment(3) == 'layanan_index' ? 'active' : '' }}">
+    {{-- <li class="menu-item {{ Request::segment(3) == 'layanan_index' ? 'active' : '' }}">
       <a href="{{ route('layanan_index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-list-ul"></i>
         <div>Layanan</div>
       </a>
-    </li>
+    </li> --}}
     {{-- <li class="menu-item {{ Request::segment(2) == 'asdf' ? 'active' : '' }}">
       <a href="#" class="menu-link">
         <i class="menu-icon tf-icons bx bx-message"></i>
@@ -80,7 +80,7 @@
         </li>
       </ul>
     </li>
-    <li class="menu-item {{ Request::segment(2) == 'kepegawaian' ? 'active open' : '' }}">
+    {{-- <li class="menu-item {{ Request::segment(2) == 'kepegawaian' ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-city"></i>
         <div>Kepegawaian</div>
@@ -112,7 +112,7 @@
           </a>
         </li>
       </ul>
-    </li>
+    </li> --}}
     <li class="menu-item {{ Request::segment(2) == 'data_master' ? 'active open' : '' }}">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-data"></i>

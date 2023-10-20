@@ -129,11 +129,46 @@
 
             <div class="dropdown-shortcuts-item col-6">
               <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                <i class="bx bx-news fs-4"></i>
+              </span>
+              <a href="{{ route('berita_index') }}" class="stretched-link">Berita</a>
+              <small class="text-muted mb-0">Halaman Berita</small>
+            </div>
+
+            <div class="dropdown-shortcuts-item col-6">
+              <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                <i class="bx bxs-book fs-4"></i>
+              </span>
+              <a href="{{ route('bahasa', 'tidung') }}" class="stretched-link">Kamus</a>
+              <small class="text-muted mb-0">Bahasa Tidung</small>
+            </div>
+
+            <div class="dropdown-shortcuts-item col-6">
+              <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                <i class="bx bxs-book fs-4"></i>
+              </span>
+              <a href="{{ route('bahasa', 'belusu') }}" class="stretched-link">Kamus</a>
+              <small class="text-muted mb-0">Bahasa Belusu</small>
+            </div>
+
+            <div class="dropdown-shortcuts-item col-6">
+              <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                <i class="bx bxs-map fs-4"></i>
+              </span>
+              <a href="{{ route('cagarbudaya_index') }}" class="stretched-link">Maps</a>
+              <small class="text-muted mb-0">Cagar Budaya</small>
+            </div>
+
+            <div class="dropdown-shortcuts-item col-6">
+              <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                 <i class="bx bx-user fs-4"></i>
               </span>
               <a href="{{ route('user.index') }}" class="stretched-link">User</a>
               <small class="text-muted mb-0">Pengaturan</small>
             </div>
+
+
+
           </div>
         </div>
       </div>
