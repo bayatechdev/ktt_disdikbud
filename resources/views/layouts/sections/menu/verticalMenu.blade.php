@@ -68,13 +68,13 @@
         <div>Kamus</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Request::segment(3) == 'pegawai_index' ? 'active' : '' }}">
-          <a href="{{ route('pegawai_index') }}" class="menu-link">
+        <li class="menu-item {{ Request::segment(4) == 'tidung' ? 'active' : '' }} {{ in_array(Request::segment(4), ['IND-TDG', 'TDG-IND']) ? 'active' : '' }}">
+          <a href="{{ route('bahasa', 'tidung') }}" class="menu-link">
             <div>Tidung</div>
           </a>
         </li>
-        <li class="menu-item {{ Request::segment(3) == 'belusu_index' ? 'active' : '' }} {{ Request::segment(3) == 'bls_ind_page' ? 'active' : '' }}">
-          <a href="{{ route('belusu_index') }}" class="menu-link">
+        <li class="menu-item {{ Request::segment(4) == 'belusu' ? 'active' : '' }} {{ in_array(Request::segment(4), ['IND-BLS', 'BLS-IND']) ? 'active' : '' }}">
+          <a href="{{ route('bahasa', 'belusu') }}" class="menu-link">
             <div>Belusu</div>
           </a>
         </li>

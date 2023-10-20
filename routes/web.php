@@ -136,14 +136,15 @@ Route::prefix('dashboard')
             ->middleware(['auth'])
             ->group(function () {
                 // Belusu
-                Route::get('belusu_index', [AdminKamusController::class, 'index'])->name('belusu_index');
-                Route::get('bls_ind_page', [AdminKamusController::class, 'bls_ind_page'])->name('bls_ind_page');
-                Route::get('bls_ind_list', [AdminKamusController::class, 'bls_ind_list'])->name('bls_ind_list');
+                Route::get('bahasa/{bahasa}', [AdminKamusController::class, 'index'])->name('bahasa');
 
-                Route::post('bls_ind_store', [AdminKamusController::class, 'bls_ind_store'])->name('bls_ind_store');
+                Route::get('kamus_page/{bhs_id}', [AdminKamusController::class, 'kamus_page'])->name('kamus_page');
+                Route::get('kamus_list/{bhs_id}', [AdminKamusController::class, 'kamus_list'])->name('kamus_list');
+
+                Route::post('kamus_store', [AdminKamusController::class, 'kamus_store'])->name('kamus_store');
                 Route::post('bls_ind_update', [AdminKamusController::class, 'bls_ind_update'])->name('bls_ind_update');
-                Route::get('bls_ind_edit/{id}', [AdminKamusController::class, 'bls_ind_edit']);
-                Route::delete('bls_ind_delete', [AdminKamusController::class, 'bls_ind_delete'])->name('bls_ind_delete');
+                Route::get('kamus_edit/{id}', [AdminKamusController::class, 'kamus_edit']);
+                Route::delete('kamus_delete', [AdminKamusController::class, 'kamus_delete'])->name('kamus_delete');
 
                 Route::get('cek_word/{bhs_id}/{word}', [AdminKamusController::class, 'cek_word']);
             });

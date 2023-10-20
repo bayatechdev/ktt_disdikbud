@@ -17,6 +17,29 @@ return [
       5 => 'Konghucu',
    ],
 
+   'bahasa' => [
+      1 => [
+         'title' => 'tidung',
+         'bahasa1' => 'Indonesia',
+         'bahasa2' => 'Tidung',
+      ],
+      2 => [
+         'title' => 'tidung',
+         'bahasa1' => 'Tidung',
+         'bahasa2' => 'Indonesia',
+      ],
+      3 => [
+         'title' => 'belusu',
+         'bahasa1' => 'Indonesia',
+         'bahasa2' => 'Belusu',
+      ],
+      4 => [
+         'title' => 'belusu',
+         'bahasa1' => 'Belusu',
+         'bahasa2' => 'Indonesia',
+      ],
+   ],
+
    'month_romawi' => [
       1 => 'I',
       2 => 'II',

@@ -9,15 +9,16 @@
       <div class="modal-body">
         <form class="add-new pt-0" id="addForm" action="" method="POST" role="form" enctype="multipart/form-data">
           @csrf
+          <input type="text" name="kamus_bahasa_id" value="{{ $bhs_id }}">
           <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="word">Kata <small class="text-lowercase" style="font-size: 10px">(<i>Belusu</i>)</small><sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="word">Kata <small class="text-lowercase" style="font-size: 10px">(<i>{{ config('global.bahasa')[$bhs_id]['bahasa1'] }}</i>)</small><sup class="text-danger">*</sup></label>
               <div class="col-sm-8">
                 <input type="text" id="word" name="word" class="form-control" autocomplete="off" placeholder="Kata" required />
               </div>
             </div>
             <div class="row mb-2 g-1 text-nowrap">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="translate">Terjemah <small class="text-lowercase" style="font-size: 10px">(<i>Indonesia</i>)</small><sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="translate">Terjemah <small class="text-lowercase" style="font-size: 10px">(<i>{{ config('global.bahasa')[$bhs_id]['bahasa2'] }}</i>)</small><sup class="text-danger">*</sup></label>
               <div class="col-sm-8">
                 {{-- <input type="text" id="translate" name="translate" class="form-control" autocomplete="off" placeholder="Terjemahan Kata" required /> --}}
                 <textarea id="translate" name="translate" class="form-control" rows="1" placeholder="Terjemahan Kata" autocomplete="off" required></textarea>

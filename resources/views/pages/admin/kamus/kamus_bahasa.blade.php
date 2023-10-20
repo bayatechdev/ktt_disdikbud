@@ -37,10 +37,10 @@
 @section('content')
   <div class="title-with-button d-flex justify-content-between align-items-center">
     <h4 class="fw-bold py-3">
-      <span class="text-muted fw-light">Kamus Belusu / </span> Belusu-Indonesia
+      <span class="text-muted fw-light">Kamus / </span> {{ $kamus_bahasa->title }}
     </h4>
     <div class="text-muted float-end">
-      <a href="{{ route('belusu_index') }}" class="btn"><span class="d-md-inline-block"><i class="bx bx-arrow-back"></i></span></a></span>
+      <a href="{{ route('bahasa', $bahasa) }}" class="btn"><span class="d-md-inline-block"><i class="bx bx-arrow-back"></i></span></a></span>
     </div>
   </div>
 
@@ -52,7 +52,7 @@
           <tr>
             <th width="5px" nowrap></th>
             <th width="5px" nowrap>#</th>
-            <th>Kata</th>
+            <th width="5px" nowrap>Kata</th>
             <th width="90%">Terjemahan</th>
             <th width="5px" class="text-center">Aksi</th>
           </tr>
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  @include('_partials._modals.modal-kamus-bls-ind')
+  @include('_partials._modals.modal-kamus-add')
 @endsection
 
 @push('addon-style')
@@ -90,14 +90,12 @@
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
-      // $('#addForm').attr('action', "{{ route('bls_ind_store') }}");
     }
 
     function editForm() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
-      // $('#addForm').attr('action', "{{ route('bls_ind_update') }}");
       // $('#image').attr('required', false);
     }
 
@@ -114,15 +112,21 @@
         $.ajax({
           type: 'GET',
           url: "/dashboard/kamus/cek_word/" + {{ $bhs_id }} + '/' + word,
+          beforeSend: function() {
+            $('#loading_spinner').show();
+          },
+          complete: function() {
+            $('#loading_spinner').hide();
+          },
           success: function(data, status) {
-            console.log(data.data);
-            // if (data.status == 0) {
-
-            // } else if (data.status == 1) {
-
-            // } else if (data.status == 2) {
-
-            // }
+            // console.log(data.status);
+            if (data.status == 0) {
+              console.log(0);
+            } else if (data.status == 1) {
+              console.log(1);
+            } else {
+              console.log('terjadi kesalahan');
+            }
           },
           error: function() {
             console.log("Error");
@@ -138,7 +142,7 @@
       if (token) {
         $.ajax({
           type: 'GET',
-          url: "/dashboard/kamus/bls_ind_edit/" + token,
+          url: "/dashboard/kamus/kamus_edit/" + token,
           dataType: 'json',
           beforeSend: function() {
             $('#loading_spinner').show();
@@ -163,48 +167,79 @@
       }
     });
 
-    // $("#addForm").submit(function(e) {
-    //   e.preventDefault();
-    //   const fd = new FormData(this);
-    //   $.ajax({
-    //     url: "{{ route('album_store') }}",
-    //     method: 'POST',
-    //     data: fd,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     dataType: 'json',
-    //     beforeSend: function() {
-    //       $('#loading_spinner').show();
-    //       $('#modalAddData').modal('hide');
-    //     },
-    //     complete: function() {
-    //       $('#loading_spinner').hide();
-    //     },
-    //     success: function(response) {
-    //       console.log(response);
-    //       if (response.status == 200) {
-    //         Swal.fire({
-    //           position: 'center',
-    //           icon: 'success',
-    //           title: 'Data berhasil disimpan',
-    //           showConfirmButton: false,
-    //           timer: 1000
-    //         });
-    //         $('.data-table').DataTable().ajax.reload();
-    //         resetForm();
-    //       }
-    //     },
-    //     error: function() {
-    //       Swal.fire({
-    //         position: 'center',
-    //         icon: 'error',
-    //         title: 'Terjadi Kesalahan',
-    //         showConfirmButton: true,
-    //       });
-    //     }
-    //   });
-    // });
+    $("#addForm").submit(function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+
+      var word = $('#word').val();
+      if (word) {
+        $.ajax({
+          type: 'GET',
+          url: "/dashboard/kamus/cek_word/" + {{ $bhs_id }} + '/' + word,
+          beforeSend: function() {
+            $('#loading_spinner').show();
+          },
+          complete: function() {
+            $('#loading_spinner').hide();
+          },
+          success: function(data, status) {
+            // console.log(data.status);
+            if (data.status == 0) {
+              console.log(0);
+              $.ajax({
+                url: "{{ route('kamus_store') }}",
+                method: 'POST',
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function() {
+                  $('#loading_spinner').show();
+                  $('#modalAddData').modal('hide');
+                },
+                complete: function() {
+                  $('#loading_spinner').hide();
+                },
+                success: function(response) {
+                  console.log(response);
+                  if (response.status == 200) {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Data berhasil disimpan',
+                      showConfirmButton: false,
+                      timer: 1000
+                    });
+                    $('.data-table').DataTable().ajax.reload();
+                    resetForm();
+                  }
+                },
+                error: function() {
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    showConfirmButton: true,
+                  });
+                }
+              });
+            } else if (data.status == 1) {
+
+              console.log(1);
+            } else {
+              console.log('terjadi kesalahan');
+            }
+          },
+          error: function() {
+            console.log("Error");
+          }
+        });
+      }
+
+
+
+    });
 
     // DELETE
     $(document).on('click', '.delete-record', function(e) {
@@ -226,7 +261,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('bls_ind_delete') }}",
+            url: "{{ route('kamus_delete') }}",
             method: 'delete',
             data: {
               id: token,
@@ -280,7 +315,7 @@
       // Invoice datatable
       if (data_table.length) {
         var dt_invoice = data_table.DataTable({
-          ajax: "{!! route('bls_ind_list') !!}", // JSON file to add data
+          ajax: "/dashboard/kamus/kamus_list/{{ $bhs_id }}", // JSON file to add data
           columns: [
             // columns according to JSON
             {
@@ -323,7 +358,7 @@
               orderable: false,
               responsivePriority: 1,
               render: function(data, type, full, meta) {
-                return '<span class="d-flex flex-column">' + data + '</span>';
+                return '<span class="d-flex flex-column text-nowrap">' + data + '</span>';
               }
             },
             {

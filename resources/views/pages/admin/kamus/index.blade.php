@@ -9,14 +9,14 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span>Indonesia - Belusu</span>
+              <span>{{ $bahasa1 }}-{{ $bahasa2 }}</span>
               <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $ind_bls }}</h4>
+                <h4 class="mb-0 me-2">{{ $ttl1 }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
               </div>
               <small>Total</small>
               <div class="mt-2">
-                <a href="#">
+                <a href="{{ route('kamus_page', $bhs1) }}">
                   <button type="button" class="btn btn-primary">Lihat Kamus</button>
                 </a>
               </div>
@@ -33,14 +33,14 @@
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between">
             <div class="content-left">
-              <span>Belusu - Indonesia</span>
+              <span>{{ $bahasa2 }}-{{ $bahasa1 }}</span>
               <div class="d-flex align-items-end mt-2">
-                <h4 class="mb-0 me-2">{{ $bls_ind }}</h4>
+                <h4 class="mb-0 me-2">{{ $ttl2 }}</h4>
                 {{-- <small class="text-success">(+)</small> --}}
               </div>
               <small>Total</small>
               <div class="mt-2">
-                <a href="{{ route('bls_ind_page') }}">
+                <a href="{{ route('kamus_page', $bhs2) }}">
                   <button type="button" class="btn btn-warning">Lihat Kamus</button>
                 </a>
               </div>
