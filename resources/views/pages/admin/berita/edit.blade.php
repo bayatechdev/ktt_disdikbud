@@ -34,7 +34,7 @@
         <span class="text-muted fw-light">Berita / </span> Edit Berita
       </h4>
       <div class="text-muted d-block">
-        <a href="{{ route('berita_index') }}" class="btn btn-label-secondary">
+        <a href="{{ route('berita_index') }}" class="btn btn-label-secondary me-2">
           Batal
         </a>
         <button type="submit" class="btn btn-warning me-sm-2 me-1" id="btn_submit">Ubah</button>

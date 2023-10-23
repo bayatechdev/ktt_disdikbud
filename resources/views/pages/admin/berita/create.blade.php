@@ -35,7 +35,7 @@
       <div class="text-muted d-block">
         {{-- <a href="{{ route('berita_index') }}" class="btn"><span class="d-md-inline-block"><i class="bx bx-arrow-back"></i></span></a></span> --}}
         {{-- <div class="text-center"> --}}
-        <a href="{{ route('berita_index') }}" class="btn btn-label-secondary">
+        <a href="{{ route('berita_index') }}" class="btn btn-label-secondary me-2">
           Batal
         </a>
         <button type="submit" class="btn btn-primary me-sm-2 me-1" id="btn_submit">Simpan</button>
@@ -72,7 +72,7 @@
             <div class="card p-4">
               <div class="mb-2">
                 <label class="form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
-                <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ old('tanggal') }}" required />
+                <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ Carbon::now()->format('d/m/Y') }}" required />
               </div>
               <div class="mb-2">
                 <label class="form-label" for="kategori_id">Kategori Berita<sup class="text-danger">*</sup></label>
