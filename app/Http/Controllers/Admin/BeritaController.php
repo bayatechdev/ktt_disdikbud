@@ -65,6 +65,9 @@ class BeritaController extends Controller
     $tags = Tags::select(['id', 'title'])->get();
     // dd($tags);
     foreach ($items as $item) {
+
+      $item['content'] = Str::substr(strip_tags($item->content), 0, 160);
+
       // dd(json_decode($item->tags));
       $tags_array = json_decode($item->tags);
       if (is_array($tags_array)) {

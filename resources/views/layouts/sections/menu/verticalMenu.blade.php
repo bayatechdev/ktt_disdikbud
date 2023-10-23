@@ -26,7 +26,7 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
-    <li class="menu-item {{ Request::segment(1) == null ? 'active' : '' }}">
+    <li class="menu-item {{ Request::segment(2) == null ? 'active' : '' }}">
       <a href="/dashboard" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div>Dashboard</div>

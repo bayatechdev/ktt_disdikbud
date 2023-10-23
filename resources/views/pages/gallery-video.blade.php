@@ -12,7 +12,7 @@
             <h2 class="st-section-heading-title">Galeri Video</h2>
             <div class="st-seperator">
               <div class="st-seperator-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.2s"></div>
-              <div class="st-seperator-center"><img src="{{ url('frontend/assets/img/icons/4') }}.png" alt="icon"></div>
+              <div class="st-seperator-center"><img src="{{ url('assets/img/logo.png') }}" alt="icon"></div>
               <div class="st-seperator-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s"></div>
             </div>
             <div class="st-section-heading-subtitle">
@@ -24,25 +24,24 @@
         <div class="container">
           <div class="st-portfolio-wrapper">
             <div class="row">
-              <ul class="box-container three-cols">
-                @foreach ($items as $item)
-                  <li class="box">
-                    @php
-                      $url = $item->link;
-                      $query_str = parse_url($url, PHP_URL_QUERY);
-                      parse_str($query_str, $query);
-                      $ytID = @$query['v'];
-                      $imgurl = "https://img.youtube.com/vi/$ytID/0.jpg";
-                    @endphp
-                    <div class="inner text-center">
-                      <a href="https://www.youtube.com/watch?v={{ $ytID }}" class="glightbox3 pb-2">
-                        <img src="{{ url($imgurl) }}" alt="image" />
-                      </a>
-                      <span style="font-size: 12px;">{{ $item->title }}</span>
-                    </div>
-                  </li>
-                @endforeach
-              </ul>
+              @foreach ($items as $item)
+                <div class="col-sm-12 col-md-4 col-lg-3 pb-4">
+                  @php
+                    $url = $item->link;
+                    $query_str = parse_url($url, PHP_URL_QUERY);
+                    parse_str($query_str, $query);
+                    $ytID = @$query['v'];
+                    $imgurl = "https://img.youtube.com/vi/$ytID/0.jpg";
+                  @endphp
+                  <div class="inner text-center">
+                    <a href="https://www.youtube.com/watch?v={{ $ytID }}" class="glightbox3 pb-2">
+                      <img src="{{ url($imgurl) }}" alt="image" />
+                    </a>
+                    <span style="font-size: 12px;">{{ $item->title }} Lorem ipsum dolor sit.</span>
+                  </div>
+                </div>
+              @endforeach
+
 
 
               <!-- .col -->
@@ -56,12 +55,12 @@
   </section>
 @endsection
 
-@push('addon-style')
-  <link rel="stylesheet" href="{{ url('frontend/glightbox/demo/css/style.css') }}" />
+@push('prepend-style')
+  {{-- <link rel="stylesheet" href="{{ url('frontend/glightbox/demo/css/style.css') }}" /> --}}
   <link rel="stylesheet" href="{{ url('frontend/glightbox/dist/css/glightbox.css') }}" />
 @endpush
 
-@push('addon-script')
+@push('prepend-script')
   <script src="{{ url('frontend/glightbox/demo/js/valde.min.js') }}"></script>
   <script src="{{ url('frontend/glightbox/dist/js/glightbox.js') }}"></script>
   <script src="{{ url('frontend/glightbox/demo/js/site.js') }}"></script>

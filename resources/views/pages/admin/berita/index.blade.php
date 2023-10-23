@@ -229,8 +229,9 @@
               render: function(data, type, full, meta) {
                 sub_str = '-';
                 if (full['content']) {
-                  var sub_str = full['content'];
-                  if (sub_str.length > 200) sub_str = sub_str.substring(0, 200) + '...';
+                  var sub_str = full['content'] + '...';
+
+                  // if (sub_str.length > 200) sub_str = sub_str.substring(0, 200) + '...';
                 }
                 return '<span class="d-flex flex-column">' + data + '</span>' +
                   '<small>' +
