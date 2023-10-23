@@ -86,7 +86,7 @@
                 <label class="form-label" for="image">Gambar Berita<sup class="text-danger">*</sup></label>
                 <input type="file" id="image" name="image" class="form-control" accept=".png,.jpg,.jpeg">
               </div>
-              <div class="mb-2">
+              <div class="mb-2 d-none">
                 <label class="form-label" for="bidang_id">Bidang</label>
                 <select id="bidang_id" name="bidang_id" class="select2_bidang form-select" data-allow-clear="true">
                   <option value="">-</option>
