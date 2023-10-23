@@ -36,7 +36,9 @@ class GalleryFotoController extends Controller
     if ($request->token == null) {
       $data['token'] = md5(microtime() . Str::random(3));
     }
-    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+    if (!$request->title) {
+      $data['title'] = '-';
+    }
     if (!$request->order) {
       $cek = GalleryFoto::orderByDesc('order')->first();
       if ($cek) {

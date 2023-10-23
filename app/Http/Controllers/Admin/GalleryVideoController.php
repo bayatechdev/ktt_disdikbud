@@ -33,7 +33,12 @@ class GalleryVideoController extends Controller
     if ($request->token == null) {
       $data['token'] = md5(microtime() . Str::random(3));
     }
-    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+    if (!$request->title) {
+      $data['title'] = '-';
+      $data['slug'] = Str::random(5);
+    } else {
+      $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+    }
     if (!$request->order) {
       $cek = GalleryVideo::orderByDesc('order')->first();
       if ($cek) {

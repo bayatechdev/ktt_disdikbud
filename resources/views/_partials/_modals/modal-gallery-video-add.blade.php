@@ -12,9 +12,9 @@
           <input type="text" hidden id="token" name="token" class="form-control" autocomplete="off" placeholder="token" />
           <div class="row mt-2 px-1">
             <div class="row mb-2 g-1">
-              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Judul Video<sup class="text-danger">*</sup></label>
+              <label class="col-sm-4 col-form-label text-md-end pd_r_10" for="title">Judul Video</label>
               <div class="col-sm-8">
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Video" required />
+                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Video" />
               </div>
             </div>
             <div class="row mb-2 g-1">

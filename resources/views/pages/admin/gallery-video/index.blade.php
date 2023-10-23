@@ -96,14 +96,14 @@
       $('#btn_submit').addClass('btn-primary');
       $('#btn_submit').removeClass('btn-warning');
       $('#btn_submit').text('Simpan');
-      $('#image').attr('required', true);
+      // $('#image').attr('required', true);
     }
 
     function video_edit() {
       $('#btn_submit').removeClass('btn-primary');
       $('#btn_submit').addClass('btn-warning');
       $('#btn_submit').text('Ubah');
-      $('#image').attr('required', false);
+      // $('#image').attr('required', false);
     }
 
     $(document).on('click', '.btn_tambah', function(e) {

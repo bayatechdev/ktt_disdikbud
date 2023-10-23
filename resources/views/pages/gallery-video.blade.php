@@ -37,7 +37,7 @@
                     <a href="https://www.youtube.com/watch?v={{ $ytID }}" class="glightbox3 pb-2">
                       <img src="{{ url($imgurl) }}" alt="image" />
                     </a>
-                    <span style="font-size: 12px;">{{ $item->title }} Lorem ipsum dolor sit.</span>
+                    <span style="font-size: 12px;">{{ $item->title == '-' ? '' : $item->title }}</span>
                   </div>
                 </div>
               @endforeach
