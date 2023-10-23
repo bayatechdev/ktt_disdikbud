@@ -58,7 +58,7 @@
             </div>
             <h4 class="ms-1 mb-0">{{ $ttl_berita }}</h4>
           </div>
-          <p class="mb-1">Seluruh Berita Berita</p>
+          <p class="mb-1">Berita</p>
           <p class="mb-0">
             {{-- <span class="fw-medium me-1">+18.2%</span> --}}
             <a href="{{ route('berita_index') }}">
