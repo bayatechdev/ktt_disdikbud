@@ -93,9 +93,9 @@
             formula: true,
             toolbar: {
                 container: fullToolbar,
-                // handlers: {
-                //     image: imageHandler
-                // }
+                handlers: {
+                    image: imageHandler
+                }
             }
         },
         theme: "snow",
@@ -105,7 +105,7 @@
             fullEditor.root.innerHTML;
     });
 
-    function imageHandler() {
+    function imageHandler2() {
         var range = this.quill.getSelection();
         var value = prompt("please copy paste the image url here.");
         if (value) {
@@ -117,4 +117,26 @@
             );
         }
     }
+
+    function imageHandler() {
+        const tooltip = this.quill.theme.tooltip;
+        const originalSave = tooltip.save;
+        const originalHide = tooltip.hide;
+      
+        tooltip.save = function () {
+          const range = this.quill.getSelection(true);
+          const value = this.textbox.value;
+          if (value) {
+            this.quill.insertEmbed(range.index, 'image', value, 'user');
+          }
+        };
+        // Called on hide and save.
+        tooltip.hide = function () {
+          tooltip.save = originalSave;
+          tooltip.hide = originalHide;
+          tooltip.hide();
+        };
+        tooltip.edit('image');
+        tooltip.textbox.placeholder = 'Embed URL';
+      }
 })();
