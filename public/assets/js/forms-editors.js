@@ -2,7 +2,7 @@
  * Form Editors
  */
 
-'use strict';
+"use strict";
 
 (function () {
     // Snow Theme
@@ -28,69 +28,93 @@
     // Full Toolbar
     // --------------------------------------------------------------------
     const fullToolbar = [
-        [{
-                font: []
+        [
+            {
+                font: [],
             },
             {
-                size: []
-            }
+                size: [],
+            },
         ],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{
-                color: []
+        ["bold", "italic", "underline", "strike"],
+        [
+            {
+                color: [],
             },
             {
-                background: []
-            }
-        ],
-        [{
-                script: 'super'
+                background: [],
             },
-            {
-                script: 'sub'
-            }
-        ],
-        [{
-                header: '1'
-            },
-            {
-                header: '2'
-            },
-            'blockquote',
-            'code-block'
-        ],
-        [{
-                list: 'ordered'
-            },
-            {
-                list: 'bullet'
-            },
-            {
-                indent: '-1'
-            },
-            {
-                indent: '+1'
-            }
         ],
         [
-            'direction',
             {
-                align: []
-            }
+                script: "super",
+            },
+            {
+                script: "sub",
+            },
         ],
-        ['link', 'image', 'video', 'formula'],
-        ['clean']
+        [
+            {
+                header: "1",
+            },
+            {
+                header: "2",
+            },
+            "blockquote",
+            "code-block",
+        ],
+        [
+            {
+                list: "ordered",
+            },
+            {
+                list: "bullet",
+            },
+            {
+                indent: "-1",
+            },
+            {
+                indent: "+1",
+            },
+        ],
+        [
+            "direction",
+            {
+                align: [],
+            },
+        ],
+        ["link", "image", "video", "formula"],
+        ["clean"],
     ];
-    const fullEditor = new Quill('#full-editor', {
-        bounds: '#full-editor',
-        placeholder: 'Type Something...',
+    const fullEditor = new Quill("#full-editor", {
+        bounds: "#full-editor",
+        placeholder: "Type Something...",
         modules: {
             formula: true,
-            toolbar: fullToolbar
+            toolbar: {
+                container: fullToolbar,
+                // handlers: {
+                //     image: imageHandler
+                // }
+            }
         },
-        theme: 'snow'
+        theme: "snow",
     });
-    fullEditor.on('text-change', function (delta, oldDelta, source) {
-        document.querySelector("input[name='content']").value = fullEditor.root.innerHTML;
+    fullEditor.on("text-change", function (delta, oldDelta, source) {
+        document.querySelector("input[name='content']").value =
+            fullEditor.root.innerHTML;
     });
+
+    function imageHandler() {
+        var range = this.quill.getSelection();
+        var value = prompt("please copy paste the image url here.");
+        if (value) {
+            this.quill.insertEmbed(
+                range.index,
+                "image",
+                value,
+                Quill.sources.USER
+            );
+        }
+    }
 })();
