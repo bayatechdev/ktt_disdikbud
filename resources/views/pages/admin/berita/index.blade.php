@@ -283,8 +283,10 @@
                 }
                 if (full['publish'] == 1) {
                   publish = '<small><span class="badge bg-label-primary me-1">Publish</span></small>'
-                } else {
+                } else if (full['publish'] == 0) {
                   publish = '<small><span class="badge bg-label-secondary me-1">Draf</span></small>';
+                } else if (full['publish'] == 2) {
+                  publish = '<small><span class="badge bg-label-info me-1">New</span></small>';
                 }
                 return '<span class="text-nowrap">' + headline + publish + '</span>';
               }

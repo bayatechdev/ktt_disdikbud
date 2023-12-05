@@ -39,4 +39,9 @@ class Berita extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->select(['id', 'name']);
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(BeritaGalleries::class, 'berita_id');
+    }
 }

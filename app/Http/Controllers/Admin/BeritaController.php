@@ -13,6 +13,7 @@ use App\Models\BeritaKategori;
 use App\Models\Bidang;
 use App\Models\Tags;
 use App\Http\Requests\BeritaRequest;
+use App\Models\BeritaGalleries;
 
 class BeritaController extends Controller
 {
@@ -35,10 +36,27 @@ class BeritaController extends Controller
     $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
     $tags = Tags::where('publish', true)->orderBy('order')->get();
 
+    $item = Berita::where('publish', 2)->where('user_id', Auth::user()->id)->first();
+    if (!$item) {
+      $data['user_id'] = Auth::user()->id;
+      $data['title'] = 'Judul Berita Temp_' . Str::random(5);
+      $data['slug'] = Str::slug($data['title']);
+      $data['token'] = md5(microtime() . Str::random(10));
+      $data['image'] = 'null_' . Str::random(5);
+      $data['headline'] = false;
+      $data['publish'] = 2;
+      $data['tanggal'] = date('Y-m-d');
+      // dd();
+      $item = Berita::create($data);
+      // dd($data);
+    }
+    // dd($item);
+
     return view('pages.admin.berita.create', [
       'kategoris' => $kategoris,
       'bidangs' => $bidangs,
       'tags' => $tags,
+      'item' => $item,
     ]);
   }
 
@@ -61,6 +79,7 @@ class BeritaController extends Controller
 
   public function list()
   {
+    // ->whereNot('publish', 2)
     $items = Berita::with(['kategori', 'bidang', 'user'])->orderbyDesc('tanggal')->get();
     $tags = Tags::select(['id', 'title'])->get();
     // dd($tags);
@@ -197,6 +216,75 @@ class BeritaController extends Controller
     Berita::destroy($item->id);
     File::delete(public_path('storage/berita/images/' . $item->image));
     File::delete(public_path('storage/berita/images/thumb_' . $item->image));
+    return response()->json([
+      'status' => 200,
+    ]);
+  }
+
+
+  public function gallery_list($token)
+  {
+    $item = Berita::with(['galleries'])->where('token', $token)->firstOrFail();
+
+    return view('_partials._pages.page-berita-gallery', [
+      'item' => $item,
+    ]);
+  }
+
+
+  public function gallery_store(Request $request)
+  {
+    $data = $request->all();
+    $data['gal_token'] = md5(microtime() . Str::random(5));
+    // dd($data);
+    $status = 200;
+
+    if ($request->hasFile('gal_image')) {
+      $file = $request->file('gal_image');
+      $name = md5(microtime() . Str::random(10));
+      $filename = $name . '.' . $file->getClientOriginalExtension();
+      $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+      $img = Image::make($file);
+      if (Image::make($file)->width() < 1024) {
+        $img->resize(800, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else if (Image::make($file)->width() < 3024) {
+        $img->resize(1000, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else if (Image::make($file)->width() < 6024) {
+        $img->resize(1300, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } else {
+        $img->resize(1600, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      }
+      $img->save(public_path('storage/berita/images/') . $filename);
+      $data['gal_image'] = $filename;
+
+      $img->resize(150, null, function ($constraint) {
+        $constraint->aspectRatio();
+      });
+      $img->save(public_path('storage/berita/images/') . $thumbnail);
+    }
+    BeritaGalleries::create($data);
+
+
+    return response()->json([
+      'status'  => $status,
+    ]);
+  }
+
+  public function gallery_delete(Request $request)
+  {
+    $item = BeritaGalleries::where('gal_token', $request['token'])->first();
+    // dd($item);
+    BeritaGalleries::destroy($item->id);
+    File::delete(public_path('storage/berita/images/' . $item->gal_image));
+    File::delete(public_path('storage/berita/images/thumb_' . $item->gal_image));
     return response()->json([
       'status' => 200,
     ]);

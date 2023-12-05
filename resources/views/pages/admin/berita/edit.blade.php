@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/animate-css/animate.css') }}" />
 @endsection
 
 @section('page-style')
@@ -19,6 +23,13 @@
   <script src="{{ asset('assets/vendor/libs/autosize/autosize.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+
+  <script src="{{ asset('assets/vendor/libs/clipboard/clipboard.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/idletimer/idletimer.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/numeral/numeral.js') }}"></script>
 @endsection
 
 @section('page-script')
@@ -56,6 +67,25 @@
                 <label class="form-label" for="title">Judul Berita<sup class="text-danger">*</sup></label>
                 <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Berita" value="{{ $item->title }}" required />
               </div>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="mb-2">
+                    <label class="form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
+                    <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ Carbon::parse($item->tanggal)->format('d/m/Y') }}" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-2">
+                    <label class="form-label" for="kategori_id">Kategori Berita<sup class="text-danger">*</sup></label>
+                    <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true" required>
+                      <option value="">-</option>
+                      @foreach ($kategoris as $kategori)
+                        <option value="{{ $kategori->id }}" {{ $item->kategori_id == $kategori->id ? 'selected' : '' }}>{{ $kategori->title }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
               <div class="mb-3">
                 <label class="form-label" for="title">Isi Berita<sup class="text-danger">*</sup></label>
                 <input type="text" hidden name="content">
@@ -69,24 +99,12 @@
 
           <div class="col-md-4">
             <div class="card p-4">
-              <div class="mb-2">
-                <label class="form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
-                <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ Carbon::parse($item->tanggal)->format('d/m/Y') }}" required />
-              </div>
-              <div class="mb-2">
-                <label class="form-label" for="kategori_id">Kategori Berita<sup class="text-danger">*</sup></label>
-                <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true" required>
-                  <option value="">-</option>
-                  @foreach ($kategoris as $kategori)
-                    <option value="{{ $kategori->id }}" {{ $item->kategori_id == $kategori->id ? 'selected' : '' }}>{{ $kategori->title }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="mb-2">
+
+              {{-- <div class="mb-2">
                 <label class="form-label" for="image">Gambar Berita<sup class="text-danger">*</sup></label>
                 <input type="file" id="image" name="image" class="form-control" accept=".png,.jpg,.jpeg">
-              </div>
-              <div class="mb-2 d-none">
+              </div> --}}
+              {{-- <div class="mb-2 d-none">
                 <label class="form-label" for="bidang_id">Bidang</label>
                 <select id="bidang_id" name="bidang_id" class="select2_bidang form-select" data-allow-clear="true">
                   <option value="">-</option>
@@ -94,7 +112,7 @@
                     <option value="{{ $bidang->id }}" {{ $item->bidang_id == $bidang->id ? 'selected' : '' }}>{{ $bidang->title }}</option>
                   @endforeach
                 </select>
-              </div>
+              </div> --}}
               <div class="mb-2">
                 <label class="form-label" for="tags">Tag</label>
                 <select id="tags" name="tags[]" class="select2_tags form-select" multiple>
@@ -130,6 +148,22 @@
                 </div>
               </div>
             </div>
+
+
+            <div class="card p-4 mt-3" id="form_gallery">
+              <p class="text-center">Pilih Atau Upload Gambar</p>
+              <div id="pageGallery"> <!--Page Berita Gallery-->
+              </div>
+              <div class="row text-center pb-3 cLoading">
+                <small class="text-muted">Loading...</small>
+              </div>
+              <div class="row g-1">
+                <input type="text" id="berita_id" hidden name="berita_id" class="form-control" placeholder="" value="{{ $item->id }}">
+                <div class="col-sm-12">
+                  <input type="file" id="gal_image" name="gal_image" class="form-control" accept=".png,.jpg,.jpeg" multiple>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -142,6 +176,147 @@
 @endpush
 
 @push('addon-script')
+  <script>
+    function copyToClipboard(elementId) {
+      // Create a "hidden" input
+      var aux = document.createElement("input");
+      // Assign it the value of the specified element
+      aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+      // Append it to the body
+      document.body.appendChild(aux);
+      // Highlight its content
+      aux.select();
+      // Copy the highlighted text
+      document.execCommand("copy");
+      // Remove it from the body
+      document.body.removeChild(aux);
+
+    }
+
+    $(document).on('click', '.btn_copy', function(e) {
+      let token = $(this).attr('data-copy');
+      copyToClipboard(token);
+      toastr['success']('', 'Berhasil dicopy');
+    });
+
+    function berkas_terupload() {
+      $.ajax({
+        type: "GET",
+        url: '/dashboard/berita/berita_gallery_list/{{ $item->token }}',
+        datatype: "json",
+        success: function(data, response, textStatus, xhr) {
+          $("#pageGallery").html(data);
+          $(".cLoading").addClass('d-none');
+        },
+        error: function() {
+          console.log('error');
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      berkas_terupload();
+    });
+
+    $(document).on('change', '#gal_image', function(e) {
+      let csrf = '{{ csrf_token() }}';
+      var myFormData = new FormData();
+      myFormData.append('gal_image', gal_image.files[0]);
+      myFormData.append('berita_id', $('#berita_id').val());
+
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': csrf
+        },
+        url: "{{ route('gallery_store') }}",
+        type: 'POST',
+        processData: false, // important
+        contentType: false, // important
+        dataType: 'json',
+        data: myFormData,
+        enctype: 'multipart/form-data',
+        beforeSend: function() {
+          $('#loading_spinner').show();
+        },
+        complete: function() {
+          $('#loading_spinner').hide();
+        },
+        success: function(response) {
+          if (response.status == 200) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Gambar berhasil diupload',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            berkas_terupload();
+          }
+        },
+        error: function(xhr) {
+          console.log(xhr);
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            showConfirmButton: true,
+          });
+        }
+      });
+    });
+
+    // BERKAS UPLOAD HAPUS
+    $(document).on('click', '.btn_hapus_upload', function(e) {
+      e.preventDefault();
+      let id = $(this).attr('data-id');
+      console.log(id);
+      if (id) {
+        let csrf = '{{ csrf_token() }}';
+        Swal.fire({
+          title: 'Yakin ingin menghapus Gambar?',
+          text: "Data ini tidak dapat dikembalikan!",
+          icon: 'warning',
+          showCancelButton: true,
+          customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-secondary',
+          },
+          confirmButtonText: 'Hapus!',
+          cancelButtonText: 'Batal',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "{{ route('berita_gallery_delete') }}",
+              method: 'delete',
+              data: {
+                token: id,
+                _token: csrf
+              },
+              success: function(response) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Data berhasil dihapus',
+                  showConfirmButton: false,
+                  timer: 1000
+                });
+                berkas_terupload();
+              },
+              error: function() {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Gagal dihapus!',
+                  showConfirmButton: true,
+                })
+                berkas_terupload();
+              }
+            });
+          }
+        })
+      }
+    });
+  </script>
   <script>
     $(function() {
       // ------------------------Bootstrap Datepicker-Format--------------------------------------------
