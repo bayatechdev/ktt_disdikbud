@@ -147,6 +147,22 @@
                   </div>
                 </div>
               </div>
+              <div class="mb-2">
+                <label class="form-label">Thumbnail Berita</label>
+                <div class="col-sm-8 pt-1">
+                  <span></span>
+                  <div id="thumb_berita">
+                    @php
+                      $expld = explode('_', $item->image);
+                    @endphp
+                    @if ($expld[0] == 'null')
+                      <span class="text-muted fs-6">Pilih thumbnail pada galeri berita</span>
+                    @else
+                      <img src="/storage/berita/images/thumb_{{ $item->image }}" alt="Gambar" style="object-fit: cover; height: 100px;" />
+                    @endif
+                  </div>
+                </div>
+              </div>
             </div>
 
 
@@ -191,6 +207,44 @@
       // Remove it from the body
       document.body.removeChild(aux);
 
+    }
+
+    function onlyOne(checkbox) {
+      var checkboxes = document.getElementsByName('berkas_pilih');
+      checkboxes.forEach((item) => {
+        if (item !== checkbox) {
+          item.checked = false;
+        }
+      })
+      var checkedValue = $('.berkas_pilih:checked').val();
+      console.log(checkedValue);
+      // $('#berkas_id').val(checkedValue);
+      if (checkedValue) {
+        $('#btn_pilih').removeClass('disabled');
+        $.ajax({
+          type: "GET",
+          url: '/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue,
+          datatype: "json",
+          success: function(data, response, textStatus, xhr) {
+            console.log(data.gambar);
+            var img = '<img src="/storage/berita/images/thumb_' + data.gambar + '" alt="Gambar" style="object-fit: cover; height: 100px;" />'
+            $('#thumb_berita').html(img);
+            toastr['success']('', 'Berhasil mengganti thumbnail berita');
+
+          },
+          error: function() {
+            console.log('error');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Terjadi Kesalahan!, silahkan pilih ulang gambar',
+              showConfirmButton: true,
+            });
+          }
+        });
+      } else {
+        $('#btn_pilih').addClass('disabled');
+      }
     }
 
     $(document).on('click', '.btn_copy', function(e) {

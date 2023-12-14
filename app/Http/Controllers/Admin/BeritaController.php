@@ -79,8 +79,7 @@ class BeritaController extends Controller
 
   public function list()
   {
-    // ->whereNot('publish', 2)
-    $items = Berita::with(['kategori', 'bidang', 'user'])->orderbyDesc('tanggal')->get();
+    $items = Berita::with(['kategori', 'bidang', 'user'])->whereNot('publish', 2)->orderbyDesc('tanggal')->get();
     $tags = Tags::select(['id', 'title'])->get();
     // dd($tags);
     foreach ($items as $item) {
@@ -221,6 +220,16 @@ class BeritaController extends Controller
     ]);
   }
 
+  public function berita_thumbnail($token, $gallery_id)
+  {
+    $item = Berita::where('token', $token)->firstOrFail();
+    $gal = BeritaGalleries::findOrFail($gallery_id);
+    $item->update(['image' => $gal->gal_image]);
+
+    return response()->json([
+      'gambar'  => $gal->gal_image,
+    ]);
+  }
 
   public function gallery_list($token)
   {

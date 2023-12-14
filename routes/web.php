@@ -60,6 +60,7 @@ Route::prefix('dashboard')
                 Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
                 Route::put('berita_update/{token}', [AdminBeritaController::class, 'update'])->name('berita_update');
                 Route::delete('berita_delete', [AdminBeritaController::class, 'delete'])->name('berita_delete');
+                Route::get('berita_thumbnail/{token}/{gallery_id}', [AdminBeritaController::class, 'berita_thumbnail']);
 
                 Route::get('berita_gallery_list/{berita_token}', [AdminBeritaController::class, 'gallery_list']);
                 Route::post('gallery_store', [AdminBeritaController::class, 'gallery_store'])->name('gallery_store');
