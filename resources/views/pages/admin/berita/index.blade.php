@@ -35,7 +35,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
@@ -54,7 +54,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-success rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
@@ -73,7 +73,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-secondary rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
