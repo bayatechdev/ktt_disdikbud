@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\SlideUtama;
 use App\Models\CagarBudaya;
 use Illuminate\Http\Request;
 
@@ -15,15 +16,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Berita::where('publish', 1)
-            ->orderByDesc('tanggal')
-            ->take(3)
-            ->get();
+        $articles = Berita::where('publish', 1)->orderByDesc('tanggal')->take(3)->get();
 
         // dd($articles);
+        $slides = SlideUtama::where('publish', 1)->orderBy('order')->get();
 
         return view('pages.home', [
-            'articles'  => $articles
+            'articles' => $articles,
+            'slides' => $slides,
         ]);
     }
 
