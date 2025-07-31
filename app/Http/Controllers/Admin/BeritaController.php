@@ -81,8 +81,8 @@ class BeritaController extends Controller
 
     public function list()
     {
-        // ->whereNot('publish', 2)
         $items = Berita::with(['kategori', 'bidang', 'user'])
+            ->whereNot('publish', 2)
             ->orderbyDesc('tanggal')
             ->get();
         $tags = Tags::select(['id', 'title'])->get();
@@ -231,7 +231,7 @@ class BeritaController extends Controller
         $item->update(['image' => $gal->gal_image]);
 
         return response()->json([
-            'gambar' => $gal->image,
+            'gambar' => $gal->gal_image,
         ]);
     }
 

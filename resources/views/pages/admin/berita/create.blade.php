@@ -37,7 +37,8 @@
 @endsection
 
 @section('content')
-  <form class="add-new pt-0" id="addForm" action="{{ route('berita_update', $item->token) }}" method="POST" role="form" enctype="multipart/form-data">
+  <form class="add-new pt-0" id="addForm" action="{{ route('berita_update', $item->token) }}" method="POST"
+    role="form" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="title-with-button d-md-flex justify-content-between align-items-center">
@@ -68,19 +69,25 @@
               {{-- <input type="text" id="" name="" class="form-control" autocomplete="off" placeholder="Judul" value="{{ $item->title }}" /> --}}
               <div class="mb-2">
                 <label class="form-label" for="title">Judul Berita<sup class="text-danger">*</sup></label>
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Berita" value="{{ old('title') }}" required />
+                <input type="text" id="title" name="title" class="form-control" autocomplete="off"
+                  placeholder="Judul Berita" value="{{ old('title') }}" required />
+                @error('title')
+                  <small class="text-danger">{{ $message }}</small>
+                @enderror
               </div>
               <div class="row g-2">
                 <div class="col-md-6">
                   <div class="mb-2">
                     <label class="form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
-                    <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ Carbon::now()->format('d/m/Y') }}" required />
+                    <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control"
+                      autocomplete="off" value="{{ Carbon::now()->format('d/m/Y') }}" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-2">
                     <label class="form-label" for="kategori_id">Kategori Berita<sup class="text-danger">*</sup></label>
-                    <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true" required>
+                    <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true"
+                      required>
                       <option value="">-</option>
                       @foreach ($kategoris as $kategori)
                         <option value="{{ $kategori->id }}">{{ $kategori->title }}</option>
@@ -131,7 +138,8 @@
                     <label class="form-check-label" for="headline1"> Ya </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="headline0" name="headline" class="form-check-input" value="0" checked required />
+                    <input type="radio" id="headline0" name="headline" class="form-check-input" value="0"
+                      checked required />
                     <label class="form-check-label" for="headline0"> Tidak </label>
                   </div>
                 </div>
@@ -144,15 +152,34 @@
                     <label class="form-check-label" for="publish1"> Publish </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="publish0" name="publish" class="form-check-input" value="0" checked required />
+                    <input type="radio" id="publish0" name="publish" class="form-check-input" value="0"
+                      required />
                     <label class="form-check-label" for="publish0"> Draf </label>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Thumbnail Berita</label>
+                <div class="col-sm-8 pt-1">
+                  <span></span>
+                  <div id="thumb_berita">
+                    @php
+                      $expld = explode('_', $item->image);
+                    @endphp
+                    @if ($expld[0] == 'null')
+                      <span class="text-muted fs-6">Pilih thumbnail pada galeri berita</span>
+                    @else
+                      <img src="/storage/berita/images/thumb_{{ $item->image }}" alt="Gambar"
+                        style="object-fit: cover; height: 100px;" />
+                    @endif
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="card p-4 mt-3" id="form_gallery">
-              <p class="text-center">Pilih Atau Upload Gambar</p>
+              <h5 class="text-center">Galeri Berita</h5>
+              <p class="text-center">Pilih Thumbnail Atau Upload Gambar</p>
               {{-- <form class="card-body" id="galForm" action="{{ route('gallery_store') }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf --}}
               <div id="pageGallery"> <!--Page Berita Gallery-->
@@ -163,9 +190,11 @@
               </div>
 
               <div class="row g-1">
-                <input type="text" id="berita_id" hidden name="berita_id" class="form-control" placeholder="" value="{{ $item->id }}">
+                <input type="text" id="berita_id" hidden name="berita_id" class="form-control" placeholder=""
+                  value="{{ $item->id }}">
                 <div class="col-sm-12">
-                  <input type="file" id="gal_image" name="gal_image" class="form-control" accept=".png,.jpg,.jpeg" multiple>
+                  <input type="file" id="gal_image" name="gal_image" class="form-control" accept=".png,.jpg,.jpeg"
+                    multiple>
                 </div>
                 {{-- <div class="col-sm-6">
                     <button type="button" class="btn btn-label-secondary items-stretch">Batal</button>
@@ -206,6 +235,44 @@
       // Remove it from the body
       document.body.removeChild(aux);
 
+    }
+
+    function onlyOne(checkbox) {
+      var checkboxes = document.getElementsByName('berkas_pilih');
+      checkboxes.forEach((item) => {
+        if (item !== checkbox) {
+          item.checked = false;
+        }
+      })
+      var checkedValue = $('.berkas_pilih:checked').val();
+      console.log(checkedValue);
+      // $('#berkas_id').val(checkedValue);
+      if (checkedValue) {
+        $('#btn_pilih').removeClass('disabled');
+        $.ajax({
+          type: "GET",
+          url: '/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue,
+          datatype: "json",
+          success: function(data, response, textStatus, xhr) {
+            console.log(data.gambar);
+            var img = '<img src="/storage/berita/images/thumb_' + data.gambar +
+              '" alt="Gambar" style="object-fit: cover; height: 100px;" />'
+            $('#thumb_berita').html(img);
+            toastr['success']('', 'Berhasil mengganti thumbnail berita');
+          },
+          error: function() {
+            console.log('error');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Terjadi Kesalahan!, silahkan pilih ulang gambar',
+              showConfirmButton: true,
+            });
+          }
+        });
+      } else {
+        $('#btn_pilih').addClass('disabled');
+      }
     }
 
     $(document).on('click', '.btn_copy', function(e) {

@@ -68,6 +68,9 @@
                 <label class="form-label" for="title">Judul Berita<sup class="text-danger">*</sup></label>
                 <input type="text" id="title" name="title" class="form-control" autocomplete="off"
                   placeholder="Judul Berita" value="{{ $item->title }}" required />
+                @error('title')
+                  <small class="text-danger">{{ $message }}</small>
+                @enderror
               </div>
               <div class="row g-2">
                 <div class="col-md-6">
@@ -157,6 +160,23 @@
                   </div>
                 </div>
               </div>
+              <div class="mb-2">
+                <label class="form-label">Thumbnail Berita</label>
+                <div class="col-sm-8 pt-1">
+                  <span></span>
+                  <div id="thumb_berita">
+                    @php
+                      $expld = explode('_', $item->image);
+                    @endphp
+                    @if ($expld[0] == 'null')
+                      <span class="text-muted fs-6">Pilih thumbnail pada galeri berita</span>
+                    @else
+                      <img src="/storage/berita/images/thumb_{{ $item->image }}" alt="Gambar"
+                        style="object-fit: cover; height: 100px;" />
+                    @endif
+                  </div>
+                </div>
+              </div>
             </div>
 
 
@@ -217,8 +237,6 @@
       // $('#berkas_id').val(checkedValue);
       if (checkedValue) {
         $('#btn_pilih').removeClass('disabled');
-        console.log('/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue);
-
         $.ajax({
           type: "GET",
           url: '/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue,

@@ -34,7 +34,7 @@
     </li>
     <li class="menu-item {{ Request::segment(2) == 'berita' ? 'active' : '' }}">
       <a href="{{ route('berita_index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-news"></i>
+        <i class="menu-icon tf-icons bx bxs-news"></i>
         <div>Berita</div>
       </a>
     </li>

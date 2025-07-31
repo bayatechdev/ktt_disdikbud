@@ -35,7 +35,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-primary rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
@@ -54,7 +54,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-success rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
@@ -73,7 +73,7 @@
               <small>Total</small>
             </div>
             <span class="badge bg-label-secondary rounded p-2">
-              <i class="bx bx-news bx-sm"></i>
+              <i class="bx bxs-news bx-sm"></i>
             </span>
           </div>
         </div>
@@ -90,6 +90,7 @@
             <th>Judul</th>
             <th>Detail</th>
             <th>Status</th>
+            <th>Dibuat</th>
             <th width="10px" nowrap>Aksi</th>
           </tr>
         </thead>
@@ -213,6 +214,9 @@
               data: 'headline'
             },
             {
+              data: 'created_at'
+            },
+            {
               data: ''
             }
           ],
@@ -227,16 +231,22 @@
             {
               targets: 1,
               render: function(data, type, full, meta) {
-                sub_str = '-';
+                sub_str = '';
                 if (full['content']) {
                   var sub_str = full['content'] + '...';
 
                   // if (sub_str.length > 200) sub_str = sub_str.substring(0, 200) + '...';
                 }
+
+                if (full['user']) {
+                  user = full['user']['name'];
+                }
+
+
                 return '<span class="d-flex flex-column">' + data + '</span>' +
                   '<small>' +
-                  '(' + moment(full['tanggal']).format('DD/MM/YYYY') + ')&nbsp' +
-                  '</small>' +
+                  '(' + moment(full['tanggal']).format('DD/MM/YYYY') + ') By: ' + user +
+                  '</small> -&nbsp ' +
                   '<small class="text-muted">' +
                   sub_str +
                   '</small>';
@@ -269,7 +279,7 @@
                   '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Kategori </td><td class="td-2">:</td><td class="td-3">' + kategori + '</td></tr>' +
                   '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Bidang </td><td class="td-2">:</td><td class="td-3">' + bidang + '</td></tr>' +
                   '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">Tags </td><td class="td-2">:</td><td class="td-3">' + tags + '</td></tr>' +
-                  '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">By </td><td class="td-2">:</td><td class="td-3">' + user + '</td></tr>' +
+                  // '<tr valign="top"><td class="td-1 text-nowrap px-0 mx-0">By </td><td class="td-2">:</td><td class="td-3">' + user + '</td></tr>' +
                   '</table> ';
               }
             },
@@ -289,6 +299,12 @@
                   publish = '<small><span class="badge bg-label-info me-1">New</span></small>';
                 }
                 return '<span class="text-nowrap">' + headline + publish + '</span>';
+              }
+            },
+            {
+              targets: 4,
+              render: function(data, type, full, meta) {
+                return '<span class="d-flex flex-column">' + moment(data).format('DD/MM/YYYY') + '</span>';
               }
             },
             {
