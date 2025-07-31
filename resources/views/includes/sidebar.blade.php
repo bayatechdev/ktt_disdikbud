@@ -4,7 +4,9 @@
   <ul class="st-widget-list">
     @foreach (\Helper::berita_kategori() as $data)
       <li>
-        <a href="{{ route('berita_kategori', $data->slug) }}">{{ $data->title }} <b style="font-size: 12px;"> ({{ $data->ttl_berita }})</b></a>
+        <a href="{{ route('berita_kategori', $data->slug) }}">{{ $data->title }} <b style="font-size: 12px;">
+            ({{ $data->ttl_berita }})
+          </b></a>
       </li>
     @endforeach
   </ul>
@@ -37,7 +39,9 @@
     @foreach (\Helper::berita_recent() as $data)
       <li>
         <div class="st-post st-style1">
-          <a href="{{ route('berita_detail', $data->slug) }}" class="st-post-thumb st-zoom text-center"><img src="{{ Storage::url('berita/images/thumb_' . $data->image) }}" alt="Gambar" style="max-height: 70px;"></a>
+          <a href="{{ route('berita_detail', $data->slug) }}" class="st-post-thumb st-zoom text-center"><img
+              src="{{ Storage::url('berita/images/thumb_' . $data->image) }}" alt="Gambar"
+              style="height: 70px; width:100%; object-fit: cover;" /></a>
           <div class="st-post-info">
             <h2 class="st-post-title"><a href="{{ route('berita_detail', $data->slug) }}">{{ $data->title }}</a></h2>
             <div class="st-post-date">{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</div>
