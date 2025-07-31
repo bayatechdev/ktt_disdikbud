@@ -17,276 +17,289 @@ use App\Models\BeritaGalleries;
 
 class BeritaController extends Controller
 {
-  public function index()
-  {
-    $ttl = Berita::count();
-    $ttl_1 = Berita::where('publish', true)->count();
-    $ttl_0 = Berita::where('publish', false)->count();
-    return view('pages.admin.berita.index', [
-      'ttl' => $ttl,
-      'ttl_1' => $ttl_1,
-      'ttl_0' => $ttl_0,
-      'user_role' => Auth::user()->role,
-    ]);
-  }
-
-  public function create()
-  {
-    $kategoris = BeritaKategori::where('publish', true)->orderBy('order')->get();
-    $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
-    $tags = Tags::where('publish', true)->orderBy('order')->get();
-
-    $item = Berita::where('publish', 2)->where('user_id', Auth::user()->id)->first();
-    if (!$item) {
-      $data['user_id'] = Auth::user()->id;
-      $data['title'] = 'Judul Berita Temp_' . Str::random(5);
-      $data['slug'] = Str::slug($data['title']);
-      $data['token'] = md5(microtime() . Str::random(10));
-      $data['image'] = 'null_' . Str::random(5);
-      $data['headline'] = false;
-      $data['publish'] = 2;
-      $data['tanggal'] = date('Y-m-d');
-      // dd();
-      $item = Berita::create($data);
-      // dd($data);
+    public function index()
+    {
+        $ttl = Berita::count();
+        $ttl_1 = Berita::where('publish', true)->count();
+        $ttl_0 = Berita::where('publish', false)->count();
+        return view('pages.admin.berita.index', [
+            'ttl' => $ttl,
+            'ttl_1' => $ttl_1,
+            'ttl_0' => $ttl_0,
+            'user_role' => Auth::user()->role,
+        ]);
     }
-    // dd($item);
 
-    return view('pages.admin.berita.create', [
-      'kategoris' => $kategoris,
-      'bidangs' => $bidangs,
-      'tags' => $tags,
-      'item' => $item,
-    ]);
-  }
+    public function create()
+    {
+        $kategoris = BeritaKategori::where('publish', true)->orderBy('order')->get();
+        $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
+        $tags = Tags::where('publish', true)->orderBy('order')->get();
 
-  public function edit($id)
-  {
-    $item = Berita::where('token', $id)->firstOrFail();
-    $item['tags'] = json_decode($item->tags);
-    // dd($item);
-    $kategoris = BeritaKategori::where('publish', true)->orderBy('order')->get();
-    $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
-    $tags = Tags::where('publish', true)->orderBy('order')->get();
-
-    return view('pages.admin.berita.edit', [
-      'item' => $item,
-      'kategoris' => $kategoris,
-      'bidangs' => $bidangs,
-      'tags' => $tags,
-    ]);
-  }
-
-  public function list()
-  {
-    // ->whereNot('publish', 2)
-    $items = Berita::with(['kategori', 'bidang', 'user'])->orderbyDesc('tanggal')->get();
-    $tags = Tags::select(['id', 'title'])->get();
-    // dd($tags);
-    foreach ($items as $item) {
-
-      $item['content'] = Str::substr(strip_tags($item->content), 0, 160);
-
-      // dd(json_decode($item->tags));
-      $tags_array = json_decode($item->tags);
-      if (is_array($tags_array)) {
-        // dd($tags_array);
-        $tag = [];
-        $i = 0;
-        foreach ($tags_array as $key => $value) {
-          // dd($tags->where('id', $value)->first()->title);
-          $tag[$i] = $tags->where('id', $value)->first()->title;
-          $i++;
+        $item = Berita::where('publish', 2)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+        if (!$item) {
+            $data['user_id'] = Auth::user()->id;
+            $data['title'] = 'Judul Berita Temp_' . Str::random(5);
+            $data['slug'] = Str::slug($data['title']);
+            $data['token'] = md5(microtime() . Str::random(10));
+            $data['image'] = 'null_' . Str::random(5);
+            $data['headline'] = false;
+            $data['publish'] = 2;
+            $data['tanggal'] = date('Y-m-d');
+            // dd();
+            $item = Berita::create($data);
+            // dd($data);
         }
+        // dd($item);
 
-        $item['tags'] = json_encode($tag);
-      }
-    }
-    return response()->json(['data' => $items]);
-  }
-
-  public function store(BeritaRequest $request)
-  {
-    $data = $request->all();
-    $data['token'] = md5(microtime() . Str::random(10));
-    $data['user_id'] = Auth::user()->id;
-    $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
-    $data['tags'] = json_encode($request->tags);
-    $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
-    // dd($data);
-
-    if ($request->hasFile('image')) {
-      $file = $request->file('image');
-      $name = md5(microtime() . Str::random(10));
-      $filename = $name . '.' . $file->getClientOriginalExtension();
-      $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
-      $img = Image::make($file);
-
-      if (Image::make($file)->width() < 1024) {
-        $img->resize(800, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 3024) {
-        $img->resize(1000, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 6024) {
-        $img->resize(1300, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else {
-        $img->resize(1600, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      }
-
-      $img->save(public_path('storage/berita/images/') . $filename);
-      $img->resize(150, null, function ($constraint) {
-        $constraint->aspectRatio();
-      });
-      $img->save(public_path('storage/berita/images/') . $thumbnail);
-      $data['image'] = $filename;
+        return view('pages.admin.berita.create', [
+            'kategoris' => $kategoris,
+            'bidangs' => $bidangs,
+            'tags' => $tags,
+            'item' => $item,
+        ]);
     }
 
-    Berita::create($data);
-    return redirect()->route('berita_index');
-  }
+    public function edit($id)
+    {
+        $item = Berita::where('token', $id)->firstOrFail();
+        $item['tags'] = json_decode($item->tags);
+        // dd($item);
+        $kategoris = BeritaKategori::where('publish', true)->orderBy('order')->get();
+        $bidangs = Bidang::where('publish', true)->orderBy('order')->get();
+        $tags = Tags::where('publish', true)->orderBy('order')->get();
 
-  public function update(Request $request, $token)
-  {
-    $item = Berita::where('token', $token)->firstOrFail();
-    if ($item) {
-      $data = $request->all();
-      $data['user_id'] = Auth::user()->id;
-      if ($request->title <> $item->title) {
+        return view('pages.admin.berita.edit', [
+            'item' => $item,
+            'kategoris' => $kategoris,
+            'bidangs' => $bidangs,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function list()
+    {
+        // ->whereNot('publish', 2)
+        $items = Berita::with(['kategori', 'bidang', 'user'])
+            ->orderbyDesc('tanggal')
+            ->get();
+        $tags = Tags::select(['id', 'title'])->get();
+        // dd($tags);
+        foreach ($items as $item) {
+            $item['content'] = Str::substr(strip_tags($item->content), 0, 160);
+
+            // dd(json_decode($item->tags));
+            $tags_array = json_decode($item->tags);
+            if (is_array($tags_array)) {
+                // dd($tags_array);
+                $tag = [];
+                $i = 0;
+                foreach ($tags_array as $key => $value) {
+                    // dd($tags->where('id', $value)->first()->title);
+                    $tag[$i] = $tags->where('id', $value)->first()->title;
+                    $i++;
+                }
+
+                $item['tags'] = json_encode($tag);
+            }
+        }
+        return response()->json(['data' => $items]);
+    }
+
+    public function store(BeritaRequest $request)
+    {
+        $data = $request->all();
+        $data['token'] = md5(microtime() . Str::random(10));
+        $data['user_id'] = Auth::user()->id;
         $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
-      }
-      $data['tags'] = json_encode($request->tags);
-      $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
-      if (!$request->content) {
-        unset($data['content']);
-      }
-      // dd($data);
+        $data['tags'] = json_encode($request->tags);
+        $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+        // dd($data);
 
-      if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $name = md5(microtime() . Str::random(10));
-        $filename = $name . '.' . $file->getClientOriginalExtension();
-        $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
-        $img = Image::make($file);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = md5(microtime() . Str::random(10));
+            $filename = $name . '.' . $file->getClientOriginalExtension();
+            $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+            $img = Image::make($file);
 
-        if (Image::make($file)->width() < 1024) {
-          $img->resize(800, null, function ($constraint) {
-            $constraint->aspectRatio();
-          });
-        } else if (Image::make($file)->width() < 3024) {
-          $img->resize(1000, null, function ($constraint) {
-            $constraint->aspectRatio();
-          });
-        } else if (Image::make($file)->width() < 6024) {
-          $img->resize(1300, null, function ($constraint) {
-            $constraint->aspectRatio();
-          });
-        } else {
-          $img->resize(1600, null, function ($constraint) {
-            $constraint->aspectRatio();
-          });
+            if (Image::make($file)->width() < 1024) {
+                $img->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } elseif (Image::make($file)->width() < 3024) {
+                $img->resize(1000, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } elseif (Image::make($file)->width() < 6024) {
+                $img->resize(1300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $img->resize(1600, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            $img->save(public_path('storage/berita/images/') . $filename);
+            $img->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('storage/berita/images/') . $thumbnail);
+            $data['image'] = $filename;
         }
 
-        $img->save(public_path('storage/berita/images/') . $filename);
-        $img->resize(150, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-        $img->save(public_path('storage/berita/images/') . $thumbnail);
-        $data['image'] = $filename;
+        Berita::create($data);
+        return redirect()->route('berita_index');
+    }
 
+    public function update(BeritaRequest $request, $token)
+    {
+        $item = Berita::where('token', $token)->firstOrFail();
+        if ($item) {
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            if ($request->title != $item->title) {
+                $data['slug'] = Str::slug($request->title) . '-' . Str::random(2);
+            }
+            $data['tags'] = json_encode($request->tags);
+            $data['tanggal'] = \Carbon\Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+            if (!$request->content) {
+                unset($data['content']);
+            }
+            // dd($data);
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $name = md5(microtime() . Str::random(10));
+                $filename = $name . '.' . $file->getClientOriginalExtension();
+                $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+                $img = Image::make($file);
+
+                if (Image::make($file)->width() < 1024) {
+                    $img->resize(800, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                } elseif (Image::make($file)->width() < 3024) {
+                    $img->resize(1000, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                } elseif (Image::make($file)->width() < 6024) {
+                    $img->resize(1300, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                } else {
+                    $img->resize(1600, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                $img->save(public_path('storage/berita/images/') . $filename);
+                $img->resize(150, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $img->save(public_path('storage/berita/images/') . $thumbnail);
+                $data['image'] = $filename;
+
+                File::delete(public_path('storage/berita/images/' . $item->image));
+                File::delete(public_path('storage/berita/images/thumb_' . $item->image));
+            }
+
+            $item->update($data);
+        }
+        return redirect()->route('berita_index');
+    }
+
+    public function delete(Request $request)
+    {
+        $item = Berita::where('token', $request['token'])->first();
+        // dd($item);
+        Berita::destroy($item->id);
         File::delete(public_path('storage/berita/images/' . $item->image));
         File::delete(public_path('storage/berita/images/thumb_' . $item->image));
-      }
-
-      $item->update($data);
+        return response()->json([
+            'status' => 200,
+        ]);
     }
-    return redirect()->route('berita_index');
-  }
 
-  public function delete(Request $request)
-  {
-    $item = Berita::where('token', $request['token'])->first();
-    // dd($item);
-    Berita::destroy($item->id);
-    File::delete(public_path('storage/berita/images/' . $item->image));
-    File::delete(public_path('storage/berita/images/thumb_' . $item->image));
-    return response()->json([
-      'status' => 200,
-    ]);
-  }
+    public function berita_thumbnail($token, $gallery_id)
+    {
+        $item = Berita::where('token', $token)->firstOrFail();
+        $gal = BeritaGalleries::findOrFail($gallery_id);
+        $item->update(['image' => $gal->gal_image]);
 
-
-  public function gallery_list($token)
-  {
-    $item = Berita::with(['galleries'])->where('token', $token)->firstOrFail();
-
-    return view('_partials._pages.page-berita-gallery', [
-      'item' => $item,
-    ]);
-  }
-
-
-  public function gallery_store(Request $request)
-  {
-    $data = $request->all();
-    $data['gal_token'] = md5(microtime() . Str::random(5));
-    // dd($data);
-    $status = 200;
-
-    if ($request->hasFile('gal_image')) {
-      $file = $request->file('gal_image');
-      $name = md5(microtime() . Str::random(10));
-      $filename = $name . '.' . $file->getClientOriginalExtension();
-      $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
-      $img = Image::make($file);
-      if (Image::make($file)->width() < 1024) {
-        $img->resize(800, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 3024) {
-        $img->resize(1000, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else if (Image::make($file)->width() < 6024) {
-        $img->resize(1300, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      } else {
-        $img->resize(1600, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-      }
-      $img->save(public_path('storage/berita/images/') . $filename);
-      $data['gal_image'] = $filename;
-
-      $img->resize(150, null, function ($constraint) {
-        $constraint->aspectRatio();
-      });
-      $img->save(public_path('storage/berita/images/') . $thumbnail);
+        return response()->json([
+            'gambar' => $gal->image,
+        ]);
     }
-    BeritaGalleries::create($data);
 
+    public function gallery_list($token)
+    {
+        $item = Berita::with(['galleries'])
+            ->where('token', $token)
+            ->firstOrFail();
 
-    return response()->json([
-      'status'  => $status,
-    ]);
-  }
+        return view('_partials._pages.page-berita-gallery', [
+            'item' => $item,
+        ]);
+    }
 
-  public function gallery_delete(Request $request)
-  {
-    $item = BeritaGalleries::where('gal_token', $request['token'])->first();
-    // dd($item);
-    BeritaGalleries::destroy($item->id);
-    File::delete(public_path('storage/berita/images/' . $item->gal_image));
-    File::delete(public_path('storage/berita/images/thumb_' . $item->gal_image));
-    return response()->json([
-      'status' => 200,
-    ]);
-  }
+    public function gallery_store(Request $request)
+    {
+        $data = $request->all();
+        $data['gal_token'] = md5(microtime() . Str::random(5));
+        // dd($data);
+        $status = 200;
+
+        if ($request->hasFile('gal_image')) {
+            $file = $request->file('gal_image');
+            $name = md5(microtime() . Str::random(10));
+            $filename = $name . '.' . $file->getClientOriginalExtension();
+            $thumbnail = 'thumb_' . $name . '.' . $file->getClientOriginalExtension();
+            $img = Image::make($file);
+            if (Image::make($file)->width() < 1024) {
+                $img->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } elseif (Image::make($file)->width() < 3024) {
+                $img->resize(1000, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } elseif (Image::make($file)->width() < 6024) {
+                $img->resize(1300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $img->resize(1600, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+            $img->save(public_path('storage/berita/images/') . $filename);
+            $data['gal_image'] = $filename;
+
+            $img->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('storage/berita/images/') . $thumbnail);
+        }
+        BeritaGalleries::create($data);
+
+        return response()->json([
+            'status' => $status,
+        ]);
+    }
+
+    public function gallery_delete(Request $request)
+    {
+        $item = BeritaGalleries::where('gal_token', $request['token'])->first();
+        // dd($item);
+        BeritaGalleries::destroy($item->id);
+        File::delete(public_path('storage/berita/images/' . $item->gal_image));
+        File::delete(public_path('storage/berita/images/thumb_' . $item->gal_image));
+        return response()->json([
+            'status' => 200,
+        ]);
+    }
 }

@@ -24,6 +24,7 @@ class BeritaRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required|max:150',
             'content' => 'required',
         ];
     }

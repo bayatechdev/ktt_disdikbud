@@ -37,7 +37,8 @@
 @endsection
 
 @section('content')
-  <form class="add-new pt-0" id="addForm" action="{{ route('berita_update', $item->token) }}" method="POST" role="form" enctype="multipart/form-data">
+  <form class="add-new pt-0" id="addForm" action="{{ route('berita_update', $item->token) }}" method="POST"
+    role="form" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="title-with-button d-md-flex justify-content-between align-items-center">
@@ -65,22 +66,26 @@
             <div class="card p-4">
               <div class="mb-2">
                 <label class="form-label" for="title">Judul Berita<sup class="text-danger">*</sup></label>
-                <input type="text" id="title" name="title" class="form-control" autocomplete="off" placeholder="Judul Berita" value="{{ $item->title }}" required />
+                <input type="text" id="title" name="title" class="form-control" autocomplete="off"
+                  placeholder="Judul Berita" value="{{ $item->title }}" required />
               </div>
               <div class="row g-2">
                 <div class="col-md-6">
                   <div class="mb-2">
                     <label class="form-label" for="tanggal">Tanggal Berita<sup class="text-danger">*</sup></label>
-                    <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control" autocomplete="off" value="{{ Carbon::parse($item->tanggal)->format('d/m/Y') }}" required />
+                    <input type="text" id="tanggal" name="tanggal" placeholder="DD/MM/YYYY" class="form-control"
+                      autocomplete="off" value="{{ Carbon::parse($item->tanggal)->format('d/m/Y') }}" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-2">
                     <label class="form-label" for="kategori_id">Kategori Berita<sup class="text-danger">*</sup></label>
-                    <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true" required>
+                    <select id="kategori_id" name="kategori_id" class="select2 form-select" data-allow-clear="true"
+                      required>
                       <option value="">-</option>
                       @foreach ($kategoris as $kategori)
-                        <option value="{{ $kategori->id }}" {{ $item->kategori_id == $kategori->id ? 'selected' : '' }}>{{ $kategori->title }}</option>
+                        <option value="{{ $kategori->id }}" {{ $item->kategori_id == $kategori->id ? 'selected' : '' }}>
+                          {{ $kategori->title }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -117,7 +122,8 @@
                 <label class="form-label" for="tags">Tag</label>
                 <select id="tags" name="tags[]" class="select2_tags form-select" multiple>
                   @foreach ($tags as $tag)
-                    <option value="{{ $tag->id }}" @if (is_array($item->tags) && in_array($tag->id, $item->tags)) selected="selected" @endif>{{ $tag->title }}</option>
+                    <option value="{{ $tag->id }}" @if (is_array($item->tags) && in_array($tag->id, $item->tags)) selected="selected" @endif>
+                      {{ $tag->title }}</option>
                   @endforeach
                 </select>
               </div>
@@ -125,11 +131,13 @@
                 <label class="form-label">Headline</label>
                 <div class="col-sm-8 pt-1">
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="headline1" name="headline" class="form-check-input" value="1" {{ $item->headline == 1 ? 'checked' : '' }} />
+                    <input type="radio" id="headline1" name="headline" class="form-check-input" value="1"
+                      {{ $item->headline == 1 ? 'checked' : '' }} />
                     <label class="form-check-label" for="headline1"> Ya </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="headline0" name="headline" class="form-check-input" value="0" required {{ $item->headline == 0 ? 'checked' : '' }} />
+                    <input type="radio" id="headline0" name="headline" class="form-check-input" value="0"
+                      required {{ $item->headline == 0 ? 'checked' : '' }} />
                     <label class="form-check-label" for="headline0"> Tidak </label>
                   </div>
                 </div>
@@ -138,11 +146,13 @@
                 <label class="form-label">Status</label>
                 <div class="col-sm-8 pt-1">
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="publish1" name="publish" class="form-check-input" value="1" {{ $item->publish == 1 ? 'checked' : '' }} />
+                    <input type="radio" id="publish1" name="publish" class="form-check-input" value="1"
+                      {{ $item->publish == 1 ? 'checked' : '' }} />
                     <label class="form-check-label" for="publish1"> Publish </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input type="radio" id="publish0" name="publish" class="form-check-input" value="0" required {{ $item->publish == 0 ? 'checked' : '' }} />
+                    <input type="radio" id="publish0" name="publish" class="form-check-input" value="0"
+                      required {{ $item->publish == 0 ? 'checked' : '' }} />
                     <label class="form-check-label" for="publish0"> Draf </label>
                   </div>
                 </div>
@@ -158,9 +168,11 @@
                 <small class="text-muted">Loading...</small>
               </div>
               <div class="row g-1">
-                <input type="text" id="berita_id" hidden name="berita_id" class="form-control" placeholder="" value="{{ $item->id }}">
+                <input type="text" id="berita_id" hidden name="berita_id" class="form-control" placeholder=""
+                  value="{{ $item->id }}">
                 <div class="col-sm-12">
-                  <input type="file" id="gal_image" name="gal_image" class="form-control" accept=".png,.jpg,.jpeg" multiple>
+                  <input type="file" id="gal_image" name="gal_image" class="form-control" accept=".png,.jpg,.jpeg"
+                    multiple>
                 </div>
               </div>
             </div>
@@ -191,6 +203,47 @@
       // Remove it from the body
       document.body.removeChild(aux);
 
+    }
+
+    function onlyOne(checkbox) {
+      var checkboxes = document.getElementsByName('berkas_pilih');
+      checkboxes.forEach((item) => {
+        if (item !== checkbox) {
+          item.checked = false;
+        }
+      })
+      var checkedValue = $('.berkas_pilih:checked').val();
+      console.log(checkedValue);
+      // $('#berkas_id').val(checkedValue);
+      if (checkedValue) {
+        $('#btn_pilih').removeClass('disabled');
+        console.log('/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue);
+
+        $.ajax({
+          type: "GET",
+          url: '/dashboard/berita/berita_thumbnail/{{ $item->token }}/' + checkedValue,
+          datatype: "json",
+          success: function(data, response, textStatus, xhr) {
+            console.log(data.gambar);
+            var img = '<img src="/storage/berita/images/thumb_' + data.gambar +
+              '" alt="Gambar" style="object-fit: cover; height: 100px;" />'
+            $('#thumb_berita').html(img);
+            toastr['success']('', 'Berhasil mengganti thumbnail berita');
+
+          },
+          error: function() {
+            console.log('error');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Terjadi Kesalahan!, silahkan pilih ulang gambar',
+              showConfirmButton: true,
+            });
+          }
+        });
+      } else {
+        $('#btn_pilih').addClass('disabled');
+      }
     }
 
     $(document).on('click', '.btn_copy', function(e) {

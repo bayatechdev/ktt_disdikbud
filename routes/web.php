@@ -46,7 +46,6 @@ Route::post('/translate', [KamusController::class, 'translate'])->name('translat
 Route::prefix('dashboard')
     ->middleware(['auth'])
     ->group(function () {
-
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::prefix('berita')
@@ -60,6 +59,7 @@ Route::prefix('dashboard')
                 Route::post('berita_store', [AdminBeritaController::class, 'store'])->name('berita_store');
                 Route::put('berita_update/{token}', [AdminBeritaController::class, 'update'])->name('berita_update');
                 Route::delete('berita_delete', [AdminBeritaController::class, 'delete'])->name('berita_delete');
+                Route::get('berita_thumbnail/{token}/{gallery_id}', [AdminBeritaController::class, 'berita_thumbnail']);
 
                 Route::get('berita_gallery_list/{berita_token}', [AdminBeritaController::class, 'gallery_list']);
                 Route::post('gallery_store', [AdminBeritaController::class, 'gallery_store'])->name('gallery_store');
@@ -84,18 +84,17 @@ Route::prefix('dashboard')
                 // Route::delete('user_delete', [AdminBeritaController::class, 'delete'])->name('user_delete');
             });
 
-        Route::prefix('layanan')
-            ->group(function () {
-                Route::get('jenis_layanan_list', [AdminLayananController::class, 'list'])->name('jenis_layanan_list');
-                Route::delete('jenis_layanan_delete', [AdminLayananController::class, 'delete'])->name('jenis_layanan_delete');
-                Route::post('jenis_layanan_edit', [AdminLayananController::class, 'edit'])->name('jenis_layanan_edit');
-                Route::post('jenis_layanan_store', [AdminLayananController::class, 'store_jenis'])->name('jenis_layanan_store');
+        Route::prefix('layanan')->group(function () {
+            Route::get('jenis_layanan_list', [AdminLayananController::class, 'list'])->name('jenis_layanan_list');
+            Route::delete('jenis_layanan_delete', [AdminLayananController::class, 'delete'])->name('jenis_layanan_delete');
+            Route::post('jenis_layanan_edit', [AdminLayananController::class, 'edit'])->name('jenis_layanan_edit');
+            Route::post('jenis_layanan_store', [AdminLayananController::class, 'store_jenis'])->name('jenis_layanan_store');
 
-                Route::get('layanan_index', [AdminLayananController::class, 'index'])->name('layanan_index');
-                Route::post('layanan_store', [AdminLayananController::class, 'store'])->name('layanan_store');
-                Route::get('layanan_tab/{id}/{tab}', [AdminLayananController::class, 'layanan_tab']);
-                Route::delete('delete_file', [AdminLayananController::class, 'delete_file'])->name('delete_file');
-            });
+            Route::get('layanan_index', [AdminLayananController::class, 'index'])->name('layanan_index');
+            Route::post('layanan_store', [AdminLayananController::class, 'store'])->name('layanan_store');
+            Route::get('layanan_tab/{id}/{tab}', [AdminLayananController::class, 'layanan_tab']);
+            Route::delete('delete_file', [AdminLayananController::class, 'delete_file'])->name('delete_file');
+        });
 
         Route::prefix('kepegawaian')
             ->middleware(['auth'])
