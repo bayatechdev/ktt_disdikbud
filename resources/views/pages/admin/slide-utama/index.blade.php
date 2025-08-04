@@ -313,7 +313,9 @@
             {
               targets: 4,
               render: function(data, type, full, meta) {
-                var img = '<a href="/storage/slides/images/' + data + '" class="glightbox"><img src="/storage/slides/images/thumb_' + data + '" alt="Avatar" class="rounded-2" width="100px"></a>';
+                var img = '<a href="/storage/slides/images/' + data +
+                  '" class="glightbox"><img src="/storage/slides/images/thumb_' + data +
+                  '" alt="Avatar" class="rounded-2" width="100px"></a>';
 
                 return img;
               }
@@ -328,9 +330,16 @@
               render: function(data, type, full, meta) {
                 var $token = full['token'];
                 var $name = full['title'];
+                var $img = full['image'];
 
-                var btn_aksi = '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_edit" data-token="' +
-                  $token + '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
+                var btn_aksi =
+                  '<a href="/storage/slides/images/' + $img +
+                  '" target="_blank" data-bs-toggle="tooltip" class="text-body" data-token="' +
+                  $token +
+                  '" data-bs-placement="top" title="Download"><i class="bx bx-download mx-1 text-success"></i></a>' +
+                  '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body btn_edit" data-token="' +
+                  $token +
+                  '" data-bs-placement="top" title="Edit"><i class="bx bx-edit mx-1 text-warning"></i></a>' +
                   '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body delete-record" data-token="' +
                   $token + '" data-name="' + $name +
                   '" data-bs-placement="top" title="Hapus"><i class="bx bx-trash mx-1 text-danger"></i></a>';
